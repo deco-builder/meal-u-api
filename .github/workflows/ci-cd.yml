@@ -41,5 +41,5 @@ jobs:
           ssh -o StrictHostKeyChecking=no ubuntu@${{ secrets.AWS_HOST }} << 'EOF'
             docker pull nafisazizir/meal-u-prod:latest
             docker-compose down
-            docker-compose up -d
+            docker-compose docker-compose.yml up -d --build
           EOF
