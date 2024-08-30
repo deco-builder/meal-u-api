@@ -31,7 +31,7 @@ SECRET_KEY = 'django-insecure-)&&8u@xbjdiq^-7xkmzg((%6v!ikwjzl1aaebc)jbwhz#aiu2(
 # SECURITY WARNING: don't run with debug turned on in production!
 DEBUG = True
 
-ALLOWED_HOSTS = []
+ALLOWED_HOSTS = ["*"]
 
 
 # Application definition
