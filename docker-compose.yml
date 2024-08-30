@@ -15,8 +15,6 @@ services:
     image: nafisazizir/meal-u-prod:latest
     restart: unless-stopped
     command: gunicorn --bind 0.0.0.0:$PORT myproject.wsgi:application
-    volumes:
-      - .:/app
     ports:
       - "8000:8000"
     env_file:
