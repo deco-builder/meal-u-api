@@ -12,8 +12,11 @@ WORKDIR /app
 COPY requirements.txt /app/
 RUN pip install --no-cache-dir -r requirements.txt
 
-# Copy project files
-COPY . /app/
+# Collect static files
+RUN python manage.py collectstatic --no-input
+
+# Run migrations
+RUN python manage.py migrate --no-input
 
 # Expose port
 EXPOSE 8000
