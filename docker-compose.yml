@@ -12,7 +12,7 @@ services:
       POSTGRES_PASSWORD: ${DB_PASSWORD}
   
   server:
-    build: .
+    image: nafisazizir/meal-u-prod:latest
     restart: unless-stopped
     command: gunicorn --bind 0.0.0.0:$PORT myproject.wsgi:application
     volumes:
