@@ -39,6 +39,7 @@ jobs:
       - name: SSH and deploy
         run: |
           ssh -o StrictHostKeyChecking=no ubuntu@${{ secrets.AWS_HOST }} << 'EOF'
+            cd /meal-u/
             docker pull nafisazizir/meal-u-prod:latest
             docker-compose down
             docker-compose -f docker-compose.yml up -d --build
