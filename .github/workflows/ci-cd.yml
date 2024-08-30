@@ -65,6 +65,6 @@ jobs:
           ssh -o StrictHostKeyChecking=no ubuntu@${{ secrets.AWS_HOST }} << EOF
             cd meal-u/
             docker pull nafisazizir/meal-u-${IMAGE_TAG}:latest
-            docker-compose -f docker-compose.yml down
+            PORT=${PORT} ENV_FILE=${ENV_FILE}  docker-compose -f docker-compose.yml down
             PORT=${PORT} ENV_FILE=${ENV_FILE} docker-compose -f docker-compose.yml up -d
           EOF
