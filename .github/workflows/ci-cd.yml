@@ -42,5 +42,5 @@ jobs:
             cd meal-u/
             docker pull nafisazizir/meal-u-prod:latest
             docker-compose down
-            docker-compose -f docker-compose.yml up -d --build
+            docker-compose --env-file .env.prod -f docker-compose.yml up -d
           EOF
