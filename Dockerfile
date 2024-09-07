@@ -20,7 +20,7 @@ COPY entrypoint.sh /app/
 RUN chmod +x /app/entrypoint.sh
 
 # Expose port
-EXPOSE 8000
+EXPOSE 8000 8001
 
 # Set entrypoint
 ENTRYPOINT ["/app/entrypoint.sh"]

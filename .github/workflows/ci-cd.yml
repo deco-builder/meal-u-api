@@ -56,15 +56,19 @@ jobs:
             IMAGE_TAG="dev"
             PORT="8001"
             ENV_FILE=".env.dev"
+            COMPOSE_PROJECT_NAME="meal-u-dev"
           else
             IMAGE_TAG="prod"
             PORT="8000"
             ENV_FILE=".env.prod"
+            COMPOSE_PROJECT_NAME="meal-u-prod"
           fi
-
+        
           ssh -o StrictHostKeyChecking=no ubuntu@${{ secrets.AWS_HOST }} << EOF
             cd meal-u/
             docker pull nafisazizir/meal-u-${IMAGE_TAG}:latest
-            IMAGE_TAG=${IMAGE_TAG} PORT=${PORT} ENV_FILE=${ENV_FILE}  docker-compose -f docker-compose.yml down
-            IMAGE_TAG=${IMAGE_TAG} PORT=${PORT} ENV_FILE=${ENV_FILE} docker-compose -f docker-compose.yml up -d
+        
+            # Use different Docker Compose project names for dev and prod to avoid conflict
+            IMAGE_TAG=${IMAGE_TAG} PORT=${PORT} ENV_FILE=${ENV_FILE} COMPOSE_PROJECT_NAME=${COMPOSE_PROJECT_NAME} docker-compose -p ${COMPOSE_PROJECT_NAME} -f docker-compose.yml up -d
           EOF
+        
