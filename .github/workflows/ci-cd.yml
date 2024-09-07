@@ -71,8 +71,12 @@ jobs:
             echo "IMAGE_TAG=${IMAGE_TAG}"
             echo "PORT=${PORT}"
             echo "ENV_FILE=${ENV_FILE}"
-        
-            # Use different Docker Compose project names for dev and prod to avoid conflict
+
+            # Stop and remove existing containers, networks, and volumes
+            docker-compose -p ${COMPOSE_PROJECT_NAME} -f docker-compose.yml down
+
+            # Start new containers
             IMAGE_TAG=${IMAGE_TAG} PORT=${PORT} ENV_FILE=${ENV_FILE} COMPOSE_PROJECT_NAME=${COMPOSE_PROJECT_NAME} docker-compose -p ${COMPOSE_PROJECT_NAME} -f docker-compose.yml up -d
+        
           EOF
         
