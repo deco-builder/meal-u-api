@@ -67,6 +67,10 @@ jobs:
           ssh -o StrictHostKeyChecking=no ubuntu@${{ secrets.AWS_HOST }} << EOF
             cd meal-u/
             docker pull nafisazizir/meal-u-${IMAGE_TAG}:latest
+
+            echo "IMAGE_TAG=${IMAGE_TAG}"
+            echo "PORT=${PORT}"
+            echo "ENV_FILE=${ENV_FILE}"
         
             # Use different Docker Compose project names for dev and prod to avoid conflict
             IMAGE_TAG=${IMAGE_TAG} PORT=${PORT} ENV_FILE=${ENV_FILE} COMPOSE_PROJECT_NAME=${COMPOSE_PROJECT_NAME} docker-compose -p ${COMPOSE_PROJECT_NAME} -f docker-compose.yml up -d
