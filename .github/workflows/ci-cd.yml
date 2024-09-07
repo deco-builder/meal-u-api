@@ -68,9 +68,17 @@ jobs:
             cd meal-u/
             docker pull nafisazizir/meal-u-${IMAGE_TAG}:latest
 
+            # Print debug information
             echo "IMAGE_TAG=${IMAGE_TAG}"
             echo "PORT=${PORT}"
             echo "ENV_FILE=${ENV_FILE}"
+            echo "COMPOSE_PROJECT_NAME=${COMPOSE_PROJECT_NAME}"
+            
+            # Export environment variables
+            export IMAGE_TAG=${IMAGE_TAG}
+            export PORT=${PORT}
+            export ENV_FILE=${ENV_FILE}
+            export COMPOSE_PROJECT_NAME=${COMPOSE_PROJECT_NAME}
 
             # Stop and remove existing containers, networks, and volumes
             docker-compose -p ${COMPOSE_PROJECT_NAME} -f docker-compose.yml down
