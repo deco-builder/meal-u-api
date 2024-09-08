@@ -80,6 +80,7 @@ jobs:
 
             # Start new containers
             IMAGE_TAG=${IMAGE_TAG} PORT=${PORT} ENV_FILE=${ENV_FILE} COMPOSE_PROJECT_NAME=${COMPOSE_PROJECT_NAME} docker-compose -p ${COMPOSE_PROJECT_NAME} -f docker-compose.yml up -d
-        
+
+            docker system prune -f --volumes
           EOF
         
