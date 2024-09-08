@@ -2,19 +2,21 @@ from rest_framework.views import APIView
 from rest_framework.response import Response
 from rest_framework import status
 from applibs.response import prepare_success_response, prepare_error_response
-from ..serializers.register import RegisterSerializer
+from ..services.register import RegisterService
 
 
 class RegisterView(APIView):
+    def __init__(self):
+        self.register_service = RegisterService()
+
     def post(self, request):
-        serializer = RegisterSerializer(data=request.data)
-        if serializer.is_valid():
-            user = serializer.save()
+        try:
+            response = self.register_service.post(request=request)
             return Response(
-                prepare_success_response({"message": "User registered successfully"}),
-                status=status.HTTP_201_CREATED,
+                prepare_success_response(response), status=status.HTTP_200_OK
             )
-        return Response(
-            prepare_error_response(serializer.errors),
-            status=status.HTTP_400_BAD_REQUEST,
-        )
+
+        except Exception as e:
+            return Response(
+                prepare_error_response(str(e)), status=status.HTTP_400_BAD_REQUEST
+            )
