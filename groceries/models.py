@@ -22,10 +22,23 @@ class Ingredient(models.Model):
     name = models.CharField(max_length=255, null=False, blank=False)
     category_id = models.ForeignKey(Category, on_delete=models.PROTECT, null=False, blank=False)
     unit_id = models.ForeignKey(Unit, on_delete=models.PROTECT, null=False, blank=False)
-    unit_size = models.DecimalField(decimal_places=2, max_digits=6, null=False, blank=False)
+    unit_size = models.DecimalField(decimal_places=2, max_digits=6, null=False, blank=False, help_text="Size of the product")
     price_per_unit = models.DecimalField(decimal_places=2, max_digits=6, null=False, blank=False)
+    measurement_size = models.DecimalField(decimal_places=2, max_digits=6, null=True, help_text="Size of the measurement unit (e.g., 100 for 100g)")
+    price_per_measurement = models.DecimalField(decimal_places=2, max_digits=6, blank=True, help_text="Price for the given measurement size")
     description = models.TextField()
     stock = models.PositiveIntegerField(default=0)
+    
+
+    def calculate_price_per_measurement(self):
+        if self.unit_size <= 0 or self.measurement_size <= 0:
+            return None
+        
+        return (self.price_per_unit / self.unit_size) * self.measurement_size
+
+    def save(self, *args, **kwargs):
+        self.price_per_measurement = self.calculate_price_per_measurement()
+        super().save(*args, **kwargs)
 
     def __str__(self):
         return self.name
