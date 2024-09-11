@@ -1,38 +1,13 @@
 from rest_framework import serializers
-from ..models import Recipe, RecipeIngredient, Ingredient, PreparationType
+from ..models import Recipe, RecipeIngredient
+from .recipes import RecipeIngredientSerializer
 
 
-class IngredientSerializer(serializers.ModelSerializer):
-    class Meta:
-        model = Ingredient
-        fields = ["id", "name", "unit_size", "price_per_unit"]
-
-
-class PreparationTypeSerializer(serializers.ModelSerializer):
-    class Meta:
-        model = PreparationType
-        fields = ["id", "name", "additional_price"]
-
-
-class RecipeIngredientSerializer(serializers.ModelSerializer):
-    ingredient = IngredientSerializer(read_only=True)
-    preparation_type = PreparationTypeSerializer(read_only=True)
-    price = serializers.SerializerMethodField()
-
-    class Meta:
-        model = RecipeIngredient
-        fields = ["ingredient", "preparation_type", "price"]
-
-    def get_price(self, obj):
-        ingredient_price = obj.ingredient.price_per_unit
-        preparation_price = obj.preparation_type.additional_price if obj.preparation_type else 0
-        return ingredient_price + preparation_price
-
-
-class RecipesSerializer(serializers.ModelSerializer):
+class RecipeDetailsSerializer(serializers.ModelSerializer):
     creator = serializers.SerializerMethodField()
     meal_type = serializers.CharField(source="meal_type.name", read_only=True)
     dietary_details = serializers.SerializerMethodField()
+    ingredients = serializers.SerializerMethodField()
     total_price = serializers.SerializerMethodField()
 
     class Meta:
@@ -41,12 +16,17 @@ class RecipesSerializer(serializers.ModelSerializer):
             "id",
             "creator",
             "name",
+            "description",
             "serving_size",
             "meal_type",
             "cooking_time",
+            "instructions",
             "created_at",
+            "updated_at",
+            "is_customized",
             "photo",
             "dietary_details",
+            "ingredients",
             "total_price",
         ]
 
