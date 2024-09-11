@@ -18,7 +18,7 @@ class Unit(models.Model):
     def __str__(self):
         return self.name
 
-class Ingredient(models.Model):
+class Product(models.Model):
     name = models.CharField(max_length=255, null=False, blank=False)
     category_id = models.ForeignKey(Category, on_delete=models.PROTECT, null=False, blank=False)
     unit_id = models.ForeignKey(Unit, on_delete=models.PROTECT, null=False, blank=False)
@@ -43,15 +43,15 @@ class Ingredient(models.Model):
     def __str__(self):
         return self.name
 
-class IngredientDietaryDetail(models.Model):
-    ingredient = models.ForeignKey(Ingredient, on_delete=models.CASCADE)
+class ProductDietaryDetail(models.Model):
+    product = models.ForeignKey(Product, on_delete=models.CASCADE)
     dietary_details = models.ForeignKey(DietaryDetail, on_delete=models.CASCADE)
 
     class Meta:
-        unique_together = ('ingredient', 'dietary_details')
+        unique_together = ('product', 'dietary_details')
 
-class Nutrition(models.Model):
-    ingredient_id = models.OneToOneField(Ingredient, primary_key=True, on_delete=models.CASCADE)
+class ProductNutrition(models.Model):
+    product_id = models.OneToOneField(Product, primary_key=True, on_delete=models.CASCADE)
     servings_per_package = models.PositiveIntegerField(null=True)
     serving_size = models.DecimalField(max_digits=6, decimal_places=2, null=True)
 

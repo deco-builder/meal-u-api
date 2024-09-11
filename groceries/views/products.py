@@ -2,12 +2,12 @@ from rest_framework.views import APIView
 from rest_framework.response import Response
 from rest_framework import status
 from applibs.response import prepare_success_response, prepare_error_response
-from ..services.ingredients import IngredientsServices
+from ..services.products import ProductsService
 
 
-class IngredientsView(APIView):
+class ProductsView(APIView):
     def __init__(self):
-        self.ingredients_service = IngredientsServices()
+        self.products_service = ProductsService()
 
     def get(self, request):
         try:
@@ -21,7 +21,7 @@ class IngredientsView(APIView):
             if dietary_details:
                 dietary_details = list(map(str, dietary_details))
 
-            response = self.ingredients_service.get(
+            response = self.products_service.get(
                 categories=categories, dietary_details=dietary_details, search=search
             )
 

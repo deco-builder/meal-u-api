@@ -1,5 +1,5 @@
 from rest_framework import serializers
-from ..models import Ingredient, Category, DietaryDetail, Nutrition
+from ..models import Product, Category, DietaryDetail, ProductNutrition
 
 
 class CategorySerializer(serializers.ModelSerializer):
@@ -14,9 +14,9 @@ class DietaryDetailSerializer(serializers.ModelSerializer):
         fields = ["id", "name"]
 
 
-class NutritionSerializer(serializers.ModelSerializer):
+class ProductNutritionSerializer(serializers.ModelSerializer):
     class Meta:
-        model = Nutrition
+        model = ProductNutrition
         fields = [
             "servings_per_package",
             "serving_size",
@@ -39,14 +39,14 @@ class NutritionSerializer(serializers.ModelSerializer):
         ]
 
 
-class IngredientDetailsSerializer(serializers.ModelSerializer):
+class ProductDetailsSerializer(serializers.ModelSerializer):
     category = CategorySerializer(read_only=True)
     dietary_details = serializers.SerializerMethodField()
-    nutrition = NutritionSerializer(read_only=True)
+    product_nutrition = serializers.SerializerMethodField()
     unit_id = serializers.StringRelatedField()
 
     class Meta:
-        model = Ingredient
+        model = Product
         fields = [
             "id",
             "name",
@@ -59,8 +59,11 @@ class IngredientDetailsSerializer(serializers.ModelSerializer):
             "description",
             "stock",
             "dietary_details",
-            "nutrition",
+            "product_nutrition",
         ]
 
     def get_dietary_details(self, obj):
-        return obj.ingredientdietarydetail_set.values_list("dietary_details__name", flat=True)
+        return obj.productdietarydetail_set.values_list("dietary_details__name", flat=True)
+
+    def get_product_nutrition(self, obj):
+        return ProductNutritionSerializer(obj.productnutrition).data

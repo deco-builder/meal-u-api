@@ -1,21 +1,21 @@
 from django.db.models import Q
-from ..models import Ingredient
-from ..serializers.ingredients import IngredientsSerializer
+from ..models import Product
+from ..serializers.products import ProductsSerializer
 
 
-class IngredientsServices:
+class ProductsService:
     def get(self, categories=None, dietary_details=None, search=None):
         try:
-            queryset = Ingredient.objects.select_related(
+            queryset = Product.objects.select_related(
                 "category_id", "unit_id"
-            ).prefetch_related("ingredientdietarydetail_set__dietary_details")
+            ).prefetch_related("productdietarydetail_set__dietary_details")
 
             if categories:
                 queryset = queryset.filter(category_id__name__in=categories)
 
             if dietary_details:
                 queryset = queryset.filter(
-                    ingredientdietarydetail__dietary_details__name__in=dietary_details
+                    productdietarydetail__dietary_details__name__in=dietary_details
                 ).distinct()
 
             if search:
@@ -25,11 +25,11 @@ class IngredientsServices:
 
             if dietary_details:
                 queryset = queryset.filter(
-                    ingredientdietarydetail__dietary_details__name__in=dietary_details
+                    productdietarydetail__dietary_details__name__in=dietary_details
                 ).distinct()
 
-            ingredients = queryset.all()
-            serializer = IngredientsSerializer(ingredients, many=True)
+            products = queryset.all()
+            serializer = ProductsSerializer(products, many=True)
             return serializer.data
         except Exception as e:
             raise e

@@ -2,16 +2,16 @@ from rest_framework.views import APIView
 from rest_framework.response import Response
 from rest_framework import status
 from applibs.response import prepare_success_response, prepare_error_response
-from ..services.ingredient_details import IngredientDetailsServices
+from ..services.product_details import ProductDetailsService
 
 
-class IngredientDetailsView(APIView):
+class ProductDetailsView(APIView):
     def __init__(self):
-        self.ingredient_details = IngredientDetailsServices()
+        self.product_service = ProductDetailsService()
 
-    def get(self, request, ingredient_id):
+    def get(self, request, product_id):
         try:
-            response = self.ingredient_details.get(ingredient_id=ingredient_id)
+            response = self.product_service.get(product_id=product_id)
 
             return Response(prepare_success_response(response), status=status.HTTP_200_OK)
 
