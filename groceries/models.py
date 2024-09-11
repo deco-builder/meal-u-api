@@ -39,7 +39,23 @@ class IngredientDietaryDetail(models.Model):
 
 class Nutrition(models.Model):
     ingredient_id = models.OneToOneField(Ingredient, primary_key=True, on_delete=models.CASCADE)
-    carb = models.DecimalField(decimal_places=2, max_digits=6, null=False)
-    protein = models.DecimalField(decimal_places=2, max_digits=6, null=False)
-    fat = models.DecimalField(decimal_places=2, max_digits=6, null=False)
-    calories = models.DecimalField(decimal_places=2, max_digits=6, null=False)
+    servings_per_package = models.PositiveIntegerField(null=True)
+    serving_size = models.DecimalField(max_digits=6, decimal_places=2, null=True)
+
+    energy_per_serving = models.DecimalField(max_digits=6, decimal_places=2, null=True, help_text="in kJ")
+    protein_per_serving = models.DecimalField(max_digits=6, decimal_places=2, null=True, help_text="in grams")
+    fat_total_per_serving = models.DecimalField(max_digits=6, decimal_places=2, null=True, help_text="in grams")
+    saturated_fat_per_serving = models.DecimalField(max_digits=6, decimal_places=2, null=True, help_text="in grams")
+    carbohydrate_per_serving = models.DecimalField(max_digits=6, decimal_places=2, null=True, help_text="in grams")
+    sugars_per_serving = models.DecimalField(max_digits=6, decimal_places=2, null=True, help_text="in grams")
+    dietary_fibre_per_serving = models.DecimalField(max_digits=6, decimal_places=2, null=True, help_text="in grams")
+    sodium_per_serving = models.DecimalField(max_digits=6, decimal_places=2, null=True, help_text="in mg")
+    
+    energy_per_100g = models.DecimalField(max_digits=6, decimal_places=2, null=True, help_text="in kJ")
+    protein_per_100g = models.DecimalField(max_digits=6, decimal_places=2, null=True, help_text="in grams")
+    fat_total_per_100g = models.DecimalField(max_digits=6, decimal_places=2, null=True, help_text="in grams")
+    saturated_fat_per_100g = models.DecimalField(max_digits=6, decimal_places=2, null=True, help_text="in grams")
+    carbohydrate_per_100g = models.DecimalField(max_digits=6, decimal_places=2, null=True, help_text="in grams")
+    sugars_per_100g = models.DecimalField(max_digits=6, decimal_places=2, null=True, help_text="in grams")
+    dietary_fibre_per_100g = models.DecimalField(max_digits=6, decimal_places=2, null=True, help_text="in grams")
+    sodium_per_100g = models.DecimalField(max_digits=6, decimal_places=2, null=True, help_text="in mg")

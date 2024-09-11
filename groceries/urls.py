@@ -1,6 +1,8 @@
 from django.urls import path
-from groceries.views.categories import CategoryView
+from .views.categories import CategoryView
+from .views.ingredients import IngredientsView
 
 urlpatterns = [
-    path("category/", CategoryView.as_view(), name="Category"),
+    path("categories/", CategoryView.as_view(), name="Categories"),
+    path("ingredients/", IngredientsView.as_view(), name="Categories"),
 ]
