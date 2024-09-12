@@ -1,107 +1,165 @@
 from django.db import models
 from user_auth.models import User
-from groceries.models import Ingredients, Units
+from groceries.models import Unit, Product, DietaryDetail
+
+
+class Ingredient(models.Model):
+    name = models.CharField(max_length=255, null=False, blank=False)
+    product_id = models.ForeignKey(Product, on_delete=models.PROTECT, null=False, blank=False)
+    unit_id = models.ForeignKey(Unit, on_delete=models.PROTECT, null=False, blank=False)
+    unit_size = models.DecimalField(
+        decimal_places=2, max_digits=6, null=False, blank=False, help_text="Size of the product"
+    )
+    price_per_unit = models.DecimalField(decimal_places=2, max_digits=6, null=False, blank=False)
+    description = models.TextField(null=True, blank=True)
+    stock = models.PositiveIntegerField(default=0)
+
+    def __str__(self):
+        return str(self.unit_size) + str(self.unit_id) + " " + self.name
+
+
+class PreparationType(models.Model):
+    name = models.CharField(max_length=255, null=False, blank=False)
+    ingredient = models.ForeignKey(Ingredient, on_delete=models.CASCADE)
+    additional_price = models.DecimalField(max_digits=6, decimal_places=2, default=0)
+
+    def __str__(self):
+        return self.name + " " + str(self.ingredient)
 
 
 class MealType(models.Model):
     name = models.CharField(max_length=255)
 
-class Recipes(models.Model):
+
+class Recipe(models.Model):
     creator = models.ForeignKey(User, on_delete=models.CASCADE, null=False, blank=False)
     name = models.CharField(max_length=255, null=False, blank=False)
     description = models.TextField()
+    serving_size = models.PositiveIntegerField()
     meal_type = models.ForeignKey(MealType, on_delete=models.PROTECT)
     cooking_time = models.PositiveIntegerField()
     instructions = models.JSONField()
     created_at = models.DateTimeField(auto_now_add=True)
     updated_at = models.DateField(auto_now=True)
-    photo = models.URLField()
+    photo = models.URLField(null=True, blank=True)
     is_customized = models.BooleanField(default=False)
 
-class RecipeIngredients(models.Model):
-    recipe = models.ForeignKey(Recipes, on_delete=models.CASCADE)
-    ingredient = models.ForeignKey(Ingredients, on_delete=models.CASCADE)
+    def __str__(self):
+        return self.name
+
+
+class RecipeIngredient(models.Model):
+    recipe = models.ForeignKey(Recipe, on_delete=models.CASCADE)
+    ingredient = models.ForeignKey(Ingredient, on_delete=models.CASCADE)
+    preparation_type = models.ForeignKey(PreparationType, on_delete=models.SET_NULL, null=True, blank=True)
 
     class Meta:
-        unique_together = ('recipe', 'ingredient')
+        unique_together = ("recipe", "ingredient", "preparation_type")
 
-    quantity = models.DecimalField(max_digits=2, decimal_places=2, null=False, blank=False)
-    unit = models.ForeignKey(Units, null=False, blank=False, on_delete=models.RESTRICT)
+    def __str__(self):
+        if self.preparation_type:
+            return str(self.preparation_type) + " " + str(self.recipe)
+        return str(self.ingredient) + " " + str(self.recipe)
 
-class MealKits(models.Model):
+
+class RecipeDietaryDetail(models.Model):
+    recipe = models.ForeignKey(Recipe, on_delete=models.CASCADE)
+    dietary_details = models.ForeignKey(DietaryDetail, on_delete=models.CASCADE)
+
+    class Meta:
+        unique_together = ("recipe", "dietary_details")
+
+    def __str__(self):
+        return str(self.dietary_details) + " " + str(self.recipe)
+
+
+class MealKit(models.Model):
     creator = models.ForeignKey(User, on_delete=models.CASCADE)
     name = models.CharField(max_length=255, null=False, blank=False)
     photo = models.URLField()
     description = models.TextField()
 
-class MealKitRecipes(models.Model):
-    mealkit = models.ForeignKey(MealKits, on_delete=models.CASCADE)
-    recipe = models.ForeignKey(Recipes, on_delete=models.PROTECT)
+
+class MealKitRecipe(models.Model):
+    mealkit = models.ForeignKey(MealKit, on_delete=models.CASCADE)
+    recipe = models.ForeignKey(Recipe, on_delete=models.PROTECT)
 
     class Meta:
-        unique_together = ('mealkit', 'recipe')
+        unique_together = ("mealkit", "recipe")
 
     quantity = models.PositiveIntegerField(default=0)
 
-class IngredientLikes(models.Model):
-    ingredient = models.ForeignKey(Ingredients, on_delete=models.CASCADE, null=False, blank=False)
+
+class IngredientLike(models.Model):
+    ingredient = models.ForeignKey(Ingredient, on_delete=models.CASCADE, null=False, blank=False)
     user = models.ForeignKey(User, on_delete=models.CASCADE, null=False, blank=False)
     liked_at = models.DateTimeField(auto_now_add=True)
 
-class IngredientComments(models.Model):
-    ingredient = models.ForeignKey(Ingredients, on_delete=models.CASCADE, null=False, blank=False)
+
+class IngredientComment(models.Model):
+    ingredient = models.ForeignKey(Ingredient, on_delete=models.CASCADE, null=False, blank=False)
     user = models.ForeignKey(User, on_delete=models.CASCADE, null=False, blank=False)
     commented_at = models.DateTimeField(auto_now_add=True)
     comment = models.TextField(null=False, blank=False)
 
-class IngredientSaves(models.Model):
-    ingredient = models.ForeignKey(Ingredients, on_delete=models.CASCADE, null=False, blank=False)
+
+class IngredientSave(models.Model):
+    ingredient = models.ForeignKey(Ingredient, on_delete=models.CASCADE, null=False, blank=False)
     user = models.ForeignKey(User, on_delete=models.CASCADE, null=False, blank=False)
     saved_at = models.DateTimeField(auto_now_add=True)
 
-class IngredientPurchases(models.Model):
-    ingredient = models.ForeignKey(Ingredients, on_delete=models.CASCADE, null=False, blank=False)
+
+class IngredientPurchase(models.Model):
+    ingredient = models.ForeignKey(Ingredient, on_delete=models.CASCADE, null=False, blank=False)
     user = models.ForeignKey(User, on_delete=models.CASCADE, null=False, blank=False)
     purchased_at = models.DateTimeField(auto_now_add=True)
 
-class RecipeLikes(models.Model):
-    recipe = models.ForeignKey(Recipes, on_delete=models.CASCADE, null=False, blank=False)
+
+class RecipeLike(models.Model):
+    recipe = models.ForeignKey(Recipe, on_delete=models.CASCADE, null=False, blank=False)
     user = models.ForeignKey(User, on_delete=models.CASCADE, null=False, blank=False)
     liked_at = models.DateTimeField(auto_now_add=True)
 
-class RecipeComments(models.Model):
-    recipe = models.ForeignKey(Recipes, on_delete=models.CASCADE, null=False, blank=False)
+
+class RecipeComment(models.Model):
+    recipe = models.ForeignKey(Recipe, on_delete=models.CASCADE, null=False, blank=False)
     user = models.ForeignKey(User, on_delete=models.CASCADE, null=False, blank=False)
     commented_at = models.DateTimeField(auto_now_add=True)
     comment = models.TextField(null=False, blank=False)
 
-class RecipeSaves(models.Model):
-    recipe = models.ForeignKey(Recipes, on_delete=models.CASCADE, null=False, blank=False)
+
+class RecipeSave(models.Model):
+    recipe = models.ForeignKey(Recipe, on_delete=models.CASCADE, null=False, blank=False)
     user = models.ForeignKey(User, on_delete=models.CASCADE, null=False, blank=False)
     saved_at = models.DateTimeField(auto_now_add=True)
 
-class RecipePurchases(models.Model):
-    recipe = models.ForeignKey(Recipes, on_delete=models.CASCADE, null=False, blank=False)
+
+class RecipePurchase(models.Model):
+    recipe = models.ForeignKey(Recipe, on_delete=models.CASCADE, null=False, blank=False)
     user = models.ForeignKey(User, on_delete=models.CASCADE, null=False, blank=False)
     purchased_at = models.DateTimeField(auto_now_add=True)
 
-class MealKitLikes(models.Model):
-    mealkit = models.ForeignKey(MealKits, on_delete=models.CASCADE, null=False, blank=False)
+
+class MealKitLike(models.Model):
+    mealkit = models.ForeignKey(MealKit, on_delete=models.CASCADE, null=False, blank=False)
     user = models.ForeignKey(User, on_delete=models.CASCADE, null=False, blank=False)
     liked_at = models.DateTimeField(auto_now_add=True)
 
-class MealKitComments(models.Model):
-    mealkit = models.ForeignKey(MealKits, on_delete=models.CASCADE, null=False, blank=False)
+
+class MealKitComment(models.Model):
+    mealkit = models.ForeignKey(MealKit, on_delete=models.CASCADE, null=False, blank=False)
     user = models.ForeignKey(User, on_delete=models.CASCADE, null=False, blank=False)
     commented_at = models.DateTimeField(auto_now_add=True)
     comment = models.TextField(null=False, blank=False)
 
-class MealKitSaves(models.Model):
-    mealkit = models.ForeignKey(MealKits, on_delete=models.CASCADE, null=False, blank=False)
+
+class MealKitSave(models.Model):
+    mealkit = models.ForeignKey(MealKit, on_delete=models.CASCADE, null=False, blank=False)
     user = models.ForeignKey(User, on_delete=models.CASCADE, null=False, blank=False)
     saved_at = models.DateTimeField(auto_now_add=True)
 
-class MealKitPurchases(models.Model):
-    mealkit = models.ForeignKey(MealKits, on_delete=models.CASCADE, null=False, blank=False)
+
+class MealKitPurchase(models.Model):
+    mealkit = models.ForeignKey(MealKit, on_delete=models.CASCADE, null=False, blank=False)
     user = models.ForeignKey(User, on_delete=models.CASCADE, null=False, blank=False)
     purchased_at = models.DateTimeField(auto_now_add=True)
