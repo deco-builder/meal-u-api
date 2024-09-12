@@ -1,15 +1,14 @@
 from rest_framework import serializers
 from .models import UserCart, CartIngredient, CartProduct, CartRecipe
-from community.serializers.recipes import RecipesSerializer, IngredientSerializer
+from community.serializers.recipes import RecipesSerializer, IngredientSerializer, RecipeIngredientSerializer
 from groceries.serializers.products import ProductsSerializer
 
 class CartIngredientSerializer(serializers.ModelSerializer):
-    ingredient = IngredientSerializer(read_only=True)
-    recipe = RecipesSerializer(read_only=True)
+    recipe_ingredient = RecipeIngredientSerializer(read_only=True)
 
     class Meta:
         model = CartIngredient
-        fields = ['id', 'ingredient', 'quantity', 'recipe']
+        fields = ['id', 'recipe_ingredient', 'quantity']
 
 class CartProductSerializer(serializers.ModelSerializer):
     product = ProductsSerializer(read_only=True)
