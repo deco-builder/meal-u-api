@@ -1,130 +1,130 @@
-from django.db import models
-from user_auth.models import User, DeliveryCouriers
-from groceries.models import Ingredients
-from community.models import Recipes, MealKits
+# from django.db import models
+# from user_auth.models import User, DeliveryCouriers
+# from groceries.models import Ingredients
+# from community.models import Recipes, MealKits
 
-class UserCart(models.Model):
-    user_id = models.OneToOneField(User, primary_key=True, on_delete=models.CASCADE)
-    updated_at = models.DateTimeField(auto_now=True)
+# class UserCart(models.Model):
+#     user_id = models.OneToOneField(User, primary_key=True, on_delete=models.CASCADE)
+#     updated_at = models.DateTimeField(auto_now=True)
 
-class UserCartIngredients(models.Model):
-    user_cart = models.ForeignKey(UserCart, on_delete=models.CASCADE)
-    ingredient = models.ForeignKey(Ingredients, on_delete=models.CASCADE)
+# class UserCartIngredients(models.Model):
+#     user_cart = models.ForeignKey(UserCart, on_delete=models.CASCADE)
+#     ingredient = models.ForeignKey(Ingredients, on_delete=models.CASCADE)
 
-    class Meta:
-        unique_together = ('user_cart', 'ingredient')
+#     class Meta:
+#         unique_together = ('user_cart', 'ingredient')
 
-    quantity = models.PositiveIntegerField(default=0)
+#     quantity = models.PositiveIntegerField(default=0)
 
-class UserCartRecipes(models.Model):
-    user_cart = models.ForeignKey(UserCart, on_delete=models.CASCADE)
-    recipe = models.ForeignKey(Recipes, on_delete=models.CASCADE)
+# class UserCartRecipes(models.Model):
+#     user_cart = models.ForeignKey(UserCart, on_delete=models.CASCADE)
+#     recipe = models.ForeignKey(Recipes, on_delete=models.CASCADE)
 
-    class Meta:
-        unique_together = ('user_cart', 'recipe')
+#     class Meta:
+#         unique_together = ('user_cart', 'recipe')
 
-    quantity = models.PositiveIntegerField(default=0)
+#     quantity = models.PositiveIntegerField(default=0)
 
-class UserCartMealKits(models.Model):
-    user_cart = models.ForeignKey(UserCart, on_delete=models.CASCADE)
-    mealkit = models.ForeignKey(MealKits, on_delete=models.CASCADE)
+# class UserCartMealKits(models.Model):
+#     user_cart = models.ForeignKey(UserCart, on_delete=models.CASCADE)
+#     mealkit = models.ForeignKey(MealKits, on_delete=models.CASCADE)
 
-    class Meta:
-        unique_together = ('user_cart', 'mealkit')
+#     class Meta:
+#         unique_together = ('user_cart', 'mealkit')
 
-    quantity = models.PositiveIntegerField(default=0)
+#     quantity = models.PositiveIntegerField(default=0)
 
-class OrderStatuses(models.Model):
-    name = models.CharField(max_length=255, null=False, blank=False)
+# class OrderStatuses(models.Model):
+#     name = models.CharField(max_length=255, null=False, blank=False)
 
-class Orders(models.Model):
-    order_status = models.ForeignKey(OrderStatuses, on_delete=models.PROTECT)
-    created_at = models.DateTimeField(auto_now_add=True)
-    updated_at = models.DateField(auto_now=True)
-    total = models.DecimalField(decimal_places=2, max_digits=3,)
+# class Orders(models.Model):
+#     order_status = models.ForeignKey(OrderStatuses, on_delete=models.PROTECT)
+#     created_at = models.DateTimeField(auto_now_add=True)
+#     updated_at = models.DateField(auto_now=True)
+#     total = models.DecimalField(decimal_places=2, max_digits=3,)
 
-class OrderIngredients(models.Model):
-    order = models.ForeignKey(Orders, on_delete=models.CASCADE)
-    ingredient = models.ForeignKey(Ingredients, on_delete=models.CASCADE)
+# class OrderIngredients(models.Model):
+#     order = models.ForeignKey(Orders, on_delete=models.CASCADE)
+#     ingredient = models.ForeignKey(Ingredients, on_delete=models.CASCADE)
 
-    class Meta:
-        unique_together = ('order', 'ingredient')
+#     class Meta:
+#         unique_together = ('order', 'ingredient')
 
-    quantity = models.PositiveIntegerField(null=False, blank=False)
-    total = models.DecimalField(decimal_places=2, max_digits=3)
+#     quantity = models.PositiveIntegerField(null=False, blank=False)
+#     total = models.DecimalField(decimal_places=2, max_digits=3)
 
-class OrderRecipes(models.Model):
-    order = models.ForeignKey(Orders, on_delete=models.CASCADE)
-    recipe = models.ForeignKey(Recipes, on_delete=models.CASCADE)
+# class OrderRecipes(models.Model):
+#     order = models.ForeignKey(Orders, on_delete=models.CASCADE)
+#     recipe = models.ForeignKey(Recipes, on_delete=models.CASCADE)
 
-    class Meta:
-        unique_together = ('order', 'recipe')
+#     class Meta:
+#         unique_together = ('order', 'recipe')
 
-    quantity = models.PositiveIntegerField(null=False, blank=False)
-    total = models.DecimalField(decimal_places=2, max_digits=3)
+#     quantity = models.PositiveIntegerField(null=False, blank=False)
+#     total = models.DecimalField(decimal_places=2, max_digits=3)
 
-class OrderMealKits(models.Model):
-    order = models.ForeignKey(Orders, on_delete=models.CASCADE)
-    mealkit = models.ForeignKey(MealKits, on_delete=models.CASCADE)
+# class OrderMealKits(models.Model):
+#     order = models.ForeignKey(Orders, on_delete=models.CASCADE)
+#     mealkit = models.ForeignKey(MealKits, on_delete=models.CASCADE)
 
-    class Meta:
-        unique_together = ('order', 'mealkit')
+#     class Meta:
+#         unique_together = ('order', 'mealkit')
 
-    quantity = models.PositiveIntegerField(null=False, blank=False)
-    total = models.DecimalField(decimal_places=2, max_digits=3)
+#     quantity = models.PositiveIntegerField(null=False, blank=False)
+#     total = models.DecimalField(decimal_places=2, max_digits=3)
 
-class DeliveryLocation(models.Model):
-    name = models.CharField(max_length=255, null=False, blank=False)
-    branch = models.CharField(max_length=255)
-    address_line1 = models.CharField(max_length=255, null=False, blank=False)
-    address_line2 = models.CharField(max_length=255)
-    city = models.CharField(max_length=100)
-    postal_code = models.CharField(max_length=20)
-    country = models.CharField(max_length=50)
-    details = models.TextField()
+# class DeliveryLocation(models.Model):
+#     name = models.CharField(max_length=255, null=False, blank=False)
+#     branch = models.CharField(max_length=255)
+#     address_line1 = models.CharField(max_length=255, null=False, blank=False)
+#     address_line2 = models.CharField(max_length=255)
+#     city = models.CharField(max_length=100)
+#     postal_code = models.CharField(max_length=20)
+#     country = models.CharField(max_length=50)
+#     details = models.TextField()
 
-class DeliveryTimeSlot(models.Model):
-    name = models.CharField(max_length=255, null=False, blank=False)
-    start_time = models.TimeField(null=False, blank=False)
-    end_time = models.TimeField(null=False, blank=False)
-    cut_off = models.TimeField(null=False, blank=False)
+# class DeliveryTimeSlot(models.Model):
+#     name = models.CharField(max_length=255, null=False, blank=False)
+#     start_time = models.TimeField(null=False, blank=False)
+#     end_time = models.TimeField(null=False, blank=False)
+#     cut_off = models.TimeField(null=False, blank=False)
 
-class DeliveryStatus(models.Model):
-    name = models.CharField(max_length=100, null=False, blank=False)
+# class DeliveryStatus(models.Model):
+#     name = models.CharField(max_length=100, null=False, blank=False)
 
-class DeliveryDetails(models.Model):
-    order = models.ForeignKey(Orders, on_delete=models.CASCADE, null=False, blank=False)
-    user_delivery_location = models.ForeignKey('users.UserDeliveryLocation', on_delete=models.PROTECT, null=False, blank=False)
-    delivery_time = models.ForeignKey(DeliveryTimeSlot, on_delete=models.PROTECT, null=False, blank=False)
-    delivery_date = models.DateField()
+# class DeliveryDetails(models.Model):
+#     order = models.ForeignKey(Orders, on_delete=models.CASCADE, null=False, blank=False)
+#     user_delivery_location = models.ForeignKey('users.UserDeliveryLocation', on_delete=models.PROTECT, null=False, blank=False)
+#     delivery_time = models.ForeignKey(DeliveryTimeSlot, on_delete=models.PROTECT, null=False, blank=False)
+#     delivery_date = models.DateField()
 
-class Deliveries(models.Model):
-    order = models.ForeignKey(Orders, on_delete=models.CASCADE, null=False, blank=False)
-    delivery_details = models.ForeignKey(DeliveryDetails, on_delete=models.PROTECT, null=False, blank=False)
-    delivery_status = models.ForeignKey(DeliveryStatus, on_delete=models.PROTECT, null=False, blank=False)
-    created_at = models.DateTimeField(auto_now_add=True)
-    updated_at = models.DateTimeField(auto_now=True)
-    courier = models.ForeignKey(DeliveryCouriers, on_delete=models.PROTECT, null=False, blank=False)
+# class Deliveries(models.Model):
+#     order = models.ForeignKey(Orders, on_delete=models.CASCADE, null=False, blank=False)
+#     delivery_details = models.ForeignKey(DeliveryDetails, on_delete=models.PROTECT, null=False, blank=False)
+#     delivery_status = models.ForeignKey(DeliveryStatus, on_delete=models.PROTECT, null=False, blank=False)
+#     created_at = models.DateTimeField(auto_now_add=True)
+#     updated_at = models.DateTimeField(auto_now=True)
+#     courier = models.ForeignKey(DeliveryCouriers, on_delete=models.PROTECT, null=False, blank=False)
 
-class PaymentMethod(models.Model):
-    name = models.CharField(max_length=255, null=False, blank=False)
+# class PaymentMethod(models.Model):
+#     name = models.CharField(max_length=255, null=False, blank=False)
 
-class PaymentStatus(models.Model):
-    name = models.CharField(max_length=50)
-    description = models.TextField()
+# class PaymentStatus(models.Model):
+#     name = models.CharField(max_length=50)
+#     description = models.TextField()
 
-class OrderPayment(models.Model):
-    order = models.ForeignKey(Orders, on_delete=models.CASCADE, null=False, blank=False)
-    payment_method = models.ForeignKey('users.UserPaymentMethod', on_delete=models.PROTECT, null=False, blank=False)
-    payment_status = models.ForeignKey(PaymentStatus, on_delete=models.PROTECT, null=False, blank=False)
-    amount = models.DecimalField(decimal_places=2, max_digits=3)
-    payment_date = models.DateTimeField()
-    transaction_id = models.CharField(max_length=255)
+# class OrderPayment(models.Model):
+#     order = models.ForeignKey(Orders, on_delete=models.CASCADE, null=False, blank=False)
+#     payment_method = models.ForeignKey('users.UserPaymentMethod', on_delete=models.PROTECT, null=False, blank=False)
+#     payment_status = models.ForeignKey(PaymentStatus, on_delete=models.PROTECT, null=False, blank=False)
+#     amount = models.DecimalField(decimal_places=2, max_digits=3)
+#     payment_date = models.DateTimeField()
+#     transaction_id = models.CharField(max_length=255)
 
-class Lockers(models.Model):
-    location = models.ForeignKey(DeliveryLocation, on_delete=models.CASCADE, null=False, blank=False)
-    qr_code = models.TextField()
-    passcode = models.CharField(max_length=10)
-    is_occupied = models.BooleanField(default=False)
-    updated_at = models.DateTimeField(auto_now=True)
-    courier = models.ForeignKey(DeliveryCouriers, on_delete=models.PROTECT)
+# class Lockers(models.Model):
+#     location = models.ForeignKey(DeliveryLocation, on_delete=models.CASCADE, null=False, blank=False)
+#     qr_code = models.TextField()
+#     passcode = models.CharField(max_length=10)
+#     is_occupied = models.BooleanField(default=False)
+#     updated_at = models.DateTimeField(auto_now=True)
+#     courier = models.ForeignKey(DeliveryCouriers, on_delete=models.PROTECT)
