@@ -8,11 +8,13 @@ class OrderListView(APIView):
     """
     API View to retrieve all orders.
     """
+    def __init__(self):
+        self.orders_service = OrdersService
 
     def get(self, request):
         try:
-            orders = OrdersService.get_all_orders()  # Fetch serialized data directly
-            return Response(orders, status=status.HTTP_200_OK)  # Return serialized data
+            response = self.orders_service.get_all_orders()  # Fetch serialized data directly
+            return Response(prepare_success_response(response), status=status.HTTP_200_OK)  # Return serialized data
             
         except Exception as e:
             return Response(
