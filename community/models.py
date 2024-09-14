@@ -30,6 +30,9 @@ class PreparationType(models.Model):
 class MealType(models.Model):
     name = models.CharField(max_length=255)
 
+    def __str__(self):
+        return self.name
+
 
 class Recipe(models.Model):
     creator = models.ForeignKey(User, on_delete=models.CASCADE, null=False, blank=False)
@@ -76,18 +79,36 @@ class RecipeDietaryDetail(models.Model):
 class MealKit(models.Model):
     creator = models.ForeignKey(User, on_delete=models.CASCADE)
     name = models.CharField(max_length=255, null=False, blank=False)
-    photo = models.URLField()
+    photo = models.URLField(null=True, blank=True)
     description = models.TextField()
+    created_at = models.DateTimeField(auto_now_add=True)
+    updated_at = models.DateField(auto_now=True)
+    is_customized = models.BooleanField(default=False)
+
+    def __str__(self):
+        return self.name
 
 
 class MealKitRecipe(models.Model):
     mealkit = models.ForeignKey(MealKit, on_delete=models.CASCADE)
     recipe = models.ForeignKey(Recipe, on_delete=models.PROTECT)
+    quantity = models.PositiveIntegerField(default=0)
 
     class Meta:
         unique_together = ("mealkit", "recipe")
 
-    quantity = models.PositiveIntegerField(default=0)
+    def __str__(self):
+        return str(self.mealkit) + " " + str(self.recipe)
+    
+class MealkitDietaryDetail(models.Model):
+    mealkit = models.ForeignKey(MealKit, on_delete=models.CASCADE)
+    dietary_details = models.ForeignKey(DietaryDetail, on_delete=models.CASCADE)
+
+    class Meta:
+        unique_together = ("mealkit", "dietary_details")
+
+    def __str__(self):
+        return str(self.dietary_details) + " " + str(self.recipe)
 
 
 class IngredientLike(models.Model):
