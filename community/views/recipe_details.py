@@ -1,11 +1,17 @@
 from rest_framework.views import APIView
 from rest_framework.response import Response
 from rest_framework import status
+from rest_framework.permissions import IsAuthenticated
+from rest_framework_simplejwt.authentication import JWTAuthentication
+from user_auth.permission import IsWarehouseUser, IsClientUser
 from applibs.response import prepare_success_response, prepare_error_response
 from ..services.recipe_details import RecipeDetailsService
 
 
 class RecipeDetailsView(APIView):
+    authentication_classes = [JWTAuthentication]
+    permission_classes = [IsAuthenticated, IsWarehouseUser | IsClientUser]
+
     def __init__(self):
         self.recipe_details_service = RecipeDetailsService()
 

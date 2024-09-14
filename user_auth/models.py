@@ -37,7 +37,7 @@ class User(AbstractBaseUser, PermissionsMixin):
         choices=[
             ("client", "Client"),
             ("warehouse", "Warehouse"),
-            ("driver", "Driver"),
+            ("courier", "Courier"),
         ],
         default="client",
     )
