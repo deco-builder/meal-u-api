@@ -24,12 +24,21 @@ class CartService:
         except Exception as e:
             raise e
 
-    def add_item(self, user, item_type, item_id, quantity=1, recipe_id=None):
+    def add_item(self, user, item_type, item_id, quantity=1):
         try:
             user_cart, _ = UserCart.objects.get_or_create(user=user)
 
             if item_type == 'recipe_ingredient':
-                recipe_ingredient = RecipeIngredient.objects.get(id=item_id)
+                recipe_id = item_id['recipe_id']
+                ingredient_id = item_id['ingredient_id']
+                preparation_type_id = item_id['preparation_type_id']
+
+                recipe_ingredient = RecipeIngredient.objects.get(
+                    recipe_id=recipe_id,
+                    ingredient_id=ingredient_id,
+                    preparation_type_id=preparation_type_id
+                )
+                
                 cart_ingredient, created = CartIngredient.objects.get_or_create(
                     user_cart=user_cart,
                     recipe_ingredient=recipe_ingredient,
@@ -38,9 +47,9 @@ class CartService:
                 if not created:
                     cart_ingredient.quantity += quantity
                     cart_ingredient.save()
+
                 serializer = CartIngredientSerializer(cart_ingredient)
                 
-
             elif item_type == 'product':
                 product = Product.objects.get(id=item_id)
                 cart_item, created = CartProduct.objects.get_or_create(
@@ -63,20 +72,6 @@ class CartService:
                 if not created:
                     cart_recipe.quantity += quantity
                     cart_recipe.save()
-
-                # Add recipe ingredients to the cart
-                recipe_ingredients = RecipeIngredient.objects.filter(recipe=recipe)
-                for recipe_ingredient in recipe_ingredients:
-                    cart_ingredient, created = CartIngredient.objects.get_or_create(
-                        user_cart=user_cart,
-                        recipe_ingredient=recipe_ingredient,
-                        defaults={'quantity': quantity}
-                    )
-                    if not created:
-                        cart_ingredient.quantity += quantity
-                        cart_ingredient.save()
-                    serializer = CartIngredientSerializer(cart_ingredient)
-                    
 
                 serializer = CartRecipeSerializer(cart_recipe)
 
