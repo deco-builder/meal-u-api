@@ -11,16 +11,12 @@ class CustomUserManager(BaseUserManager):
         if not email:
             raise ValueError("The Email field must be set")
         email = self.normalize_email(email)
-        user = self.model(
-            email=email, first_name=first_name, last_name=last_name, **extra_fields
-        )
+        user = self.model(email=email, first_name=first_name, last_name=last_name, **extra_fields)
         user.set_password(password)
         user.save(using=self._db)
         return user
 
-    def create_superuser(
-        self, email, first_name, last_name, password=None, **extra_fields
-    ):
+    def create_superuser(self, email, first_name, last_name, password=None, **extra_fields):
         extra_fields.setdefault("is_staff", True)
         extra_fields.setdefault("is_superuser", True)
         return self.create_user(email, first_name, last_name, password, **extra_fields)
@@ -41,6 +37,7 @@ class User(AbstractBaseUser, PermissionsMixin):
         ],
         default="client",
     )
+    image = models.ImageField(upload_to="images/", blank=True, null=True)
 
     objects = CustomUserManager()
 
@@ -49,6 +46,7 @@ class User(AbstractBaseUser, PermissionsMixin):
 
     def __str__(self):
         return self.email
+
 
 # class EmployeeRoles(models.Model):
 #     name = models.CharField(max_length=255, null=False, blank=False)
