@@ -1,6 +1,6 @@
 from django.urls import path
-from .views.payment import AddPaymentMethodView
+from .views.payment import UserPaymentMethodView
 
 urlpatterns = [
-    path('add-payment-method/', AddPaymentMethodView.as_view(), name='add_payment_method'),
+    path('payment-methods/', UserPaymentMethodView.as_view(), name='user_payment_methods'),
 ]

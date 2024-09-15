@@ -32,3 +32,15 @@ class PaymentService:
             return serializer.data
         except Exception as e:
             raise e
+
+    @staticmethod
+    def get_payment_methods(user):
+        """
+        Retrieves all payment methods for the specified user.
+        """
+        try:
+            payment_methods = UserPaymentMethod.objects.filter(user=user)
+            serializer = UserPaymentMethodSerializer(payment_methods, many=True)
+            return serializer.data
+        except Exception as e:
+            raise e
