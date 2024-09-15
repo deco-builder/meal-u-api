@@ -3,13 +3,16 @@ from rest_framework.response import Response
 from rest_framework.views import APIView
 from ..services.payment import PaymentService
 from applibs.response import prepare_success_response, prepare_error_response
+from rest_framework.permissions import IsAuthenticated
 
 class AddPaymentMethodView(APIView):
+    permission_classes = [IsAuthenticated]
+
     def post(self, request):
         """
         Handles the request to add a new payment method for a user.
         """
-        user_id = request.data.get('user')
+        user_id = request.user.id
         method_id = request.data.get('method')
         last_four_digits = request.data.get('last_four_digits')
         expiration_date = request.data.get('expiration_date')
