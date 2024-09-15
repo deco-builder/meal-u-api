@@ -2,6 +2,7 @@ from django.db import models
 
 class Category(models.Model):
     name = models.CharField(max_length=255, null=False, blank=False)
+    image = models.ImageField(upload_to="category/", blank=True, null=True)
 
     def __str__(self):
         return self.name
@@ -28,6 +29,7 @@ class Product(models.Model):
     price_per_measurement = models.DecimalField(decimal_places=2, max_digits=6, blank=True, help_text="Price for the given measurement size")
     description = models.TextField()
     stock = models.PositiveIntegerField(default=0)
+    image = models.ImageField(upload_to="products/", blank=True, null=True)
     
 
     def calculate_price_per_measurement(self):
