@@ -1,13 +1,14 @@
 from ..models import Orders, OrderStatuses
 from ..serializers.orders import OrderSerializer
+from rest_framework.permissions import IsAuthenticated
 
-class OrdersService:
-    def get_all_orders():
+class OrdersService:    
+    def get_all_orders_for_user(user):
         """
         Retrieves all orders from the database.
         """
         try:
-            orders = Orders.objects.all()
+            orders = Orders.objects.filter(user=user)
             serializer = OrderSerializer(orders, many=True)
             return serializer.data
         except Exception as e:

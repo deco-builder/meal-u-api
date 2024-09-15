@@ -38,10 +38,11 @@ class OrderStatuses(models.Model):
     name = models.CharField(max_length=255, null=False, blank=False)
 
 class Orders(models.Model):
+    user_id = models.ForeignKey(User, on_delete=models.CASCADE, related_name="orders" )
     order_status = models.ForeignKey(OrderStatuses, on_delete=models.PROTECT)
     created_at = models.DateTimeField(auto_now_add=True)
     updated_at = models.DateField(auto_now=True)
-    total = models.DecimalField(decimal_places=2, max_digits=3,)
+    total = models.DecimalField(decimal_places=2, max_digits=10)
 
 class OrderProducts(models.Model):
     order = models.ForeignKey(Orders, on_delete=models.CASCADE)
