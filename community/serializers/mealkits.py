@@ -10,7 +10,7 @@ class MealKitsSerializer(serializers.ModelSerializer):
 
     class Meta:
         model = MealKit
-        fields = ["id", "name", "creator", "created_at", "description", "dietary_details", "price"]
+        fields = ["id", "name", "image", "creator", "created_at", "description", "dietary_details", "price"]
 
     def get_creator(self, obj):
         return f"{obj.creator.first_name} {obj.creator.last_name}"

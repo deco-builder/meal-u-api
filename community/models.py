@@ -44,7 +44,7 @@ class Recipe(models.Model):
     instructions = models.JSONField()
     created_at = models.DateTimeField(auto_now_add=True)
     updated_at = models.DateField(auto_now=True)
-    photo = models.URLField(null=True, blank=True)
+    image = models.ImageField(upload_to="recipes/", blank=True, null=True)
     is_customized = models.BooleanField(default=False)
 
     def __str__(self):
@@ -79,7 +79,7 @@ class RecipeDietaryDetail(models.Model):
 class MealKit(models.Model):
     creator = models.ForeignKey(User, on_delete=models.CASCADE)
     name = models.CharField(max_length=255, null=False, blank=False)
-    photo = models.URLField(null=True, blank=True)
+    image = models.ImageField(upload_to="mealkits/", blank=True, null=True)
     description = models.TextField()
     created_at = models.DateTimeField(auto_now_add=True)
     updated_at = models.DateField(auto_now=True)

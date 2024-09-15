@@ -24,7 +24,7 @@ class RecipeDetailsSerializer(serializers.ModelSerializer):
             "created_at",
             "updated_at",
             "is_customized",
-            "photo",
+            "image",
             "dietary_details",
             "ingredients",
             "total_price",
