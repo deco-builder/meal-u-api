@@ -56,7 +56,10 @@ class RecipesSerializer(serializers.ModelSerializer):
         ]
 
     def get_creator(self, obj):
-        return f"{obj.creator.first_name} {obj.creator.last_name}"
+        return {
+            "name": f"{obj.creator.first_name} {obj.creator.last_name}",
+            "profile_picture": obj.creator.image.url if obj.creator.image else None
+        }
 
     def get_dietary_details(self, obj):
         return obj.recipedietarydetail_set.values_list("dietary_details__name", flat=True)
