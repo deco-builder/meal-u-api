@@ -8,7 +8,7 @@ class OrdersService:
         Retrieves all orders from the database.
         """
         try:
-            orders = Orders.objects.filter(user=user)
+            orders = Orders.objects.filter(user_id=user.id)
             serializer = OrderSerializer(orders, many=True)
             return serializer.data
         except Exception as e:
