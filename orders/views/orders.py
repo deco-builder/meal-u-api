@@ -37,3 +37,15 @@ class OrderStatusUpdateView(APIView):
             return Response(
                 prepare_error_response(str(e)), status=status.HTTP_400_BAD_REQUEST
             )
+
+class OrderDetailView(APIView):
+    permission_classes = [IsAuthenticated]
+
+    def get(self, request, order_id):
+        try:
+            response = OrdersService.get_order_details(order_id)
+            return Response(prepare_success_response(response), status=status.HTTP_200_OK)
+        except Exception as e:
+            return Response(
+                prepare_error_response(str(e)), status=status.HTTP_400_BAD_REQUEST
+            )

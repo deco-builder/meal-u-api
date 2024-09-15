@@ -1,6 +1,6 @@
 from ..models import Orders, OrderStatuses
 from ..serializers.orders import OrderSerializer
-from rest_framework.permissions import IsAuthenticated
+from ..serializers.order_details import OrderDetailSerializer
 
 class OrdersService:    
     def get_all_orders_for_user(user):
@@ -35,5 +35,16 @@ class OrdersService:
             raise Exception(f"Order with id {order_id} does not exist")
         except OrderStatuses.DoesNotExist:
             raise Exception("The 'Paid' status does not exist")
+        except Exception as e:
+            raise e
+    
+    @staticmethod
+    def get_order_details(order_id):
+        try:
+            order = Orders.objects.get(id=order_id)
+            serializer = OrderDetailSerializer(order)
+            return serializer.data
+        except Orders.DoesNotExist:
+            raise Exception(f"Order with id {order_id} does not exist")
         except Exception as e:
             raise e
