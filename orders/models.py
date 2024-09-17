@@ -52,7 +52,7 @@ class OrderProducts(models.Model):
         unique_together = ('order', 'product')
 
     quantity = models.PositiveIntegerField(null=False, blank=False)
-    total = models.DecimalField(decimal_places=2, max_digits=3)
+    total = models.DecimalField(decimal_places=2, max_digits=10)
 
 class OrderRecipes(models.Model):
     order = models.ForeignKey(Orders, on_delete=models.CASCADE)
@@ -62,7 +62,7 @@ class OrderRecipes(models.Model):
         unique_together = ('order', 'recipe')
 
     quantity = models.PositiveIntegerField(null=False, blank=False)
-    total = models.DecimalField(decimal_places=2, max_digits=3)
+    total = models.DecimalField(decimal_places=2, max_digits=10)
 
 class OrderMealKits(models.Model):
     order = models.ForeignKey(Orders, on_delete=models.CASCADE)
@@ -72,7 +72,7 @@ class OrderMealKits(models.Model):
         unique_together = ('order', 'mealkit')
 
     quantity = models.PositiveIntegerField(null=False, blank=False)
-    total = models.DecimalField(decimal_places=2, max_digits=3)
+    total = models.DecimalField(decimal_places=2, max_digits=10)
 
 class DeliveryLocation(models.Model):
     name = models.CharField(max_length=255, null=False, blank=False)
