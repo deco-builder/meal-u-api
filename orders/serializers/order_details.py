@@ -2,19 +2,25 @@ from rest_framework import serializers
 from ..models import OrderProducts, OrderRecipes, OrderMealKits, Orders
 
 class OrderProductSerializer(serializers.ModelSerializer):
+    product_name = serializers.CharField(source='product.name', read_only=True)
+
     class Meta:
         model = OrderProducts
-        fields = ['product', 'quantity', 'total']
+        fields = ['product', 'product_name', 'quantity', 'total']
 
 class OrderRecipeSerializer(serializers.ModelSerializer):
+    recipe_name = serializers.CharField(source='recipe.name', read_only=True)
+
     class Meta:
         model = OrderRecipes
-        fields = ['recipe', 'quantity', 'total']
+        fields = ['recipe', 'recipe_name', 'quantity', 'total']
 
 class OrderMealKitSerializer(serializers.ModelSerializer):
+    mealkit_name = serializers.CharField(source='mealkit.name', read_only=True)
+
     class Meta:
         model = OrderMealKits
-        fields = ['mealkit', 'quantity', 'total']
+        fields = ['mealkit', 'mealkit_name', 'quantity', 'total']
 
 class OrderDetailSerializer(serializers.ModelSerializer):
     products = OrderProductSerializer(source='orderproducts_set', many=True)
