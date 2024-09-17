@@ -110,7 +110,7 @@ class CheckoutService:
         # Add DeliveryDetails
         DeliveryDetails.objects.create(
             order=order,
-            user_delivery_location_id=data['user_delivery_location'],
+            delivery_location_id=data['delivery_location'],
             delivery_time_id=data['delivery_time'],
             delivery_date=delivery_date
         )

@@ -95,7 +95,7 @@ class DeliveryStatus(models.Model):
 
 class DeliveryDetails(models.Model):
     order = models.ForeignKey(Orders, on_delete=models.CASCADE, null=False, blank=False)
-    user_delivery_location = models.ForeignKey('users.UserDeliveryLocation', on_delete=models.PROTECT, null=False, blank=False)
+    delivery_location = models.ForeignKey(DeliveryLocation, on_delete=models.PROTECT, null=False, blank=False)
     delivery_time = models.ForeignKey(DeliveryTimeSlot, on_delete=models.PROTECT, null=False, blank=False)
     delivery_date = models.DateField()
 

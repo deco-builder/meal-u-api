@@ -5,7 +5,7 @@ from datetime import date
 class DeliveryDetailsSerializer(serializers.ModelSerializer):
     class Meta:
         model = DeliveryDetails
-        fields = ['order', 'user_delivery_location', 'delivery_time', 'delivery_date']
+        fields = ['order', 'delivery_location', 'delivery_time', 'delivery_date']
 
     def validate_delivery_date(self, value):
         """
