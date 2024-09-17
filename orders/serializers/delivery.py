@@ -1,6 +1,8 @@
 from rest_framework import serializers
 from orders.models import DeliveryDetails
 from datetime import date
+from ..models import DeliveryLocation
+from ..models import DeliveryTimeSlot
 
 class DeliveryDetailsSerializer(serializers.ModelSerializer):
     class Meta:
@@ -20,3 +22,13 @@ class DeliveryDetailsSerializer(serializers.ModelSerializer):
         Custom validation logic if needed.
         """
         return data
+
+class DeliveryLocationSerializer(serializers.ModelSerializer):
+    class Meta:
+        model = DeliveryLocation
+        fields = '__all__'
+
+class DeliveryTimeSlotSerializer(serializers.ModelSerializer):
+    class Meta:
+        model = DeliveryTimeSlot
+        fields = '__all__'

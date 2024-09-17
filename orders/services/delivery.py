@@ -1,5 +1,5 @@
-from orders.models import DeliveryDetails
-from ..serializers.delivery_details import DeliveryDetailsSerializer
+from orders.models import DeliveryDetails, DeliveryLocation, DeliveryTimeSlot
+from ..serializers.delivery import DeliveryDetailsSerializer, DeliveryLocationSerializer, DeliveryTimeSlotSerializer
 
 class DeliveryService:
     @staticmethod
@@ -18,3 +18,14 @@ class DeliveryService:
             return serializer.data
         except Exception as e:
             raise e
+
+    def get_all_delivery_locations():
+        delivery_locations = DeliveryLocation.objects.all()
+        serializer = DeliveryLocationSerializer(delivery_locations, many=True)
+        return serializer.data
+
+    @staticmethod
+    def get_all_delivery_time_slots():
+        delivery_time_slots = DeliveryTimeSlot.objects.all()
+        serializer = DeliveryTimeSlotSerializer(delivery_time_slots, many=True)
+        return serializer.data
