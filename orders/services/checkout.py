@@ -82,8 +82,9 @@ class CheckoutService:
                 recipe_ingredients = RecipeIngredient.objects.filter(recipe=recipe)
                 for recipe_ingredient in recipe_ingredients:
                     ingredient = recipe_ingredient.ingredient
+                    preparation_price = (recipe_ingredient.preparation_type.additional_price if recipe_ingredient.preparation_type else 0)
                     ingredient_total = ingredient.price_per_unit 
-                    recipe_total += ingredient_total
+                    recipe_total += ingredient_total + preparation_price
                 
                 # Add the total price of this recipe to the meal kit's total
                 mealkit_total += recipe_total * meal_kit_recipe.quantity
