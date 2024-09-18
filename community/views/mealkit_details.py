@@ -5,19 +5,19 @@ from rest_framework.permissions import IsAuthenticated
 from rest_framework_simplejwt.authentication import JWTAuthentication
 from user_auth.permission import IsWarehouseUser, IsClientUser
 from applibs.response import prepare_success_response, prepare_error_response
-from ..services.recipe_details import RecipeDetailsService
+from ..services.mealkit_details import MealKitDetailsServices
 
 
-class RecipeDetailsView(APIView):
+class MealkitDetailsView(APIView):
     authentication_classes = [JWTAuthentication]
     permission_classes = [IsAuthenticated, IsWarehouseUser | IsClientUser]
 
     def __init__(self):
-        self.recipe_details_service = RecipeDetailsService()
+        self.mealkit_details_service = MealKitDetailsServices()
 
-    def get(self, request, recipe_id):
+    def get(self, request, mealkit_id):
         try:
-            response = self.recipe_details_service.get(recipe_id=recipe_id)
+            response = self.mealkit_details_service.get(mealkit_id=mealkit_id)
             return Response(prepare_success_response(response), status=status.HTTP_200_OK)
 
         except Exception as e:

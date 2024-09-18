@@ -3,9 +3,14 @@ from ..models import Recipe, RecipeIngredient, Ingredient, PreparationType
 
 
 class IngredientSerializer(serializers.ModelSerializer):
+    image = serializers.SerializerMethodField()
+
     class Meta:
         model = Ingredient
-        fields = ["id", "name", "unit_size", "price_per_unit"]
+        fields = ["name", "image", "unit_id", "unit_size", "price_per_unit"]
+
+    def get_image(self, obj):
+        return obj.product_id.image.url if obj.product_id.image else None
 
 
 class PreparationTypeSerializer(serializers.ModelSerializer):
@@ -45,13 +50,16 @@ class RecipesSerializer(serializers.ModelSerializer):
             "meal_type",
             "cooking_time",
             "created_at",
-            "photo",
+            "image",
             "dietary_details",
             "total_price",
         ]
 
     def get_creator(self, obj):
-        return f"{obj.creator.first_name} {obj.creator.last_name}"
+        return {
+            "name": f"{obj.creator.first_name} {obj.creator.last_name}",
+            "profile_picture": obj.creator.image.url if obj.creator.image else None
+        }
 
     def get_dietary_details(self, obj):
         return obj.recipedietarydetail_set.values_list("dietary_details__name", flat=True)

@@ -14,10 +14,12 @@ class LoginService:
                     user = User.objects.get(email=email)
                     if user.check_password(password):
                         refresh = RefreshToken.for_user(user)
+                        image_url = user.image.url if user.image else None
                         return {
                             "email": user.email,
                             "first_name": user.first_name,
                             "last_name": user.last_name,
+                            "profile_picture": image_url,
                             "refresh": str(refresh),
                             "access": str(refresh.access_token),
                         }

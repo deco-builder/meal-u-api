@@ -56,6 +56,7 @@ class ProductDetailsSerializer(serializers.ModelSerializer):
             "price_per_unit",
             "measurement_size",
             "price_per_measurement",
+            "image",
             "description",
             "stock",
             "dietary_details",
