@@ -3,36 +3,36 @@ from user_auth.models import User
 from groceries.models import Product
 from community.models import Recipe, MealKit
 
-class UserCart(models.Model):
-    user_id = models.OneToOneField(User, primary_key=True, on_delete=models.CASCADE)
-    updated_at = models.DateTimeField(auto_now=True)
+# class UserCart(models.Model):
+#     user_id = models.OneToOneField(User, primary_key=True, on_delete=models.CASCADE)
+#     updated_at = models.DateTimeField(auto_now=True)
 
-class UserCartProducts(models.Model):
-    user_cart = models.ForeignKey(UserCart, on_delete=models.CASCADE)
-    product = models.ForeignKey(Product, on_delete=models.CASCADE)
+# class UserCartProducts(models.Model):
+#     user_cart = models.ForeignKey(UserCart, on_delete=models.CASCADE)
+#     product = models.ForeignKey(Product, on_delete=models.CASCADE)
 
-    class Meta:
-        unique_together = ('user_cart', 'product')
+#     class Meta:
+#         unique_together = ('user_cart', 'product')
 
-    quantity = models.PositiveIntegerField(default=0)
+#     quantity = models.PositiveIntegerField(default=0)
 
-class UserCartRecipes(models.Model):
-    user_cart = models.ForeignKey(UserCart, on_delete=models.CASCADE)
-    recipe = models.ForeignKey(Recipe, on_delete=models.CASCADE)
+# class UserCartRecipes(models.Model):
+#     user_cart = models.ForeignKey(UserCart, on_delete=models.CASCADE)
+#     recipe = models.ForeignKey(Recipe, on_delete=models.CASCADE)
 
-    class Meta:
-        unique_together = ('user_cart', 'recipe')
+#     class Meta:
+#         unique_together = ('user_cart', 'recipe')
 
-    quantity = models.PositiveIntegerField(default=0)
+#     quantity = models.PositiveIntegerField(default=0)
 
-class UserCartMealKits(models.Model):
-    user_cart = models.ForeignKey(UserCart, on_delete=models.CASCADE)
-    mealkit = models.ForeignKey(MealKit, on_delete=models.CASCADE)
+# class UserCartMealKits(models.Model):
+#     user_cart = models.ForeignKey(UserCart, on_delete=models.CASCADE)
+#     mealkit = models.ForeignKey(MealKit, on_delete=models.CASCADE)
 
-    class Meta:
-        unique_together = ('user_cart', 'mealkit')
+#     class Meta:
+#         unique_together = ('user_cart', 'mealkit')
 
-    quantity = models.PositiveIntegerField(default=0)
+#     quantity = models.PositiveIntegerField(default=0)
 
 class OrderStatuses(models.Model):
     name = models.CharField(max_length=255, null=False, blank=False)

@@ -27,6 +27,7 @@ urlpatterns = [
     path("api/v1/auth/", include("user_auth.urls")),
     path("api/v1/groceries/", include("groceries.urls")),
     path("api/v1/community/", include("community.urls")),
+    path("api/v1/cart/", include("cart.urls")),
     path("api/v1/orders/", include("orders.urls")),
     path("api/v1/users/", include("users.urls")),
 ]
