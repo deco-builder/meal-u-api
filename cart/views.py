@@ -1,10 +1,15 @@
 from rest_framework.views import APIView
 from rest_framework.response import Response
 from rest_framework import status
+from rest_framework_simplejwt.authentication import JWTAuthentication
+from user_auth.permission import IsWarehouseUser, IsClientUser
 from applibs.response import prepare_success_response, prepare_error_response
 from .services import CartService
 
 class CartView(APIView):
+    authentication_classes = [JWTAuthentication]
+    permission_classes = [IsAuthenticated, IsWarehouseUser | IsClientUser]
+
     def __init__(self, *args, **kwargs):
         super().__init__(*args, **kwargs)
         self.cart_service = CartService()
@@ -31,6 +36,8 @@ class CartView(APIView):
                 }
             elif item_type == 'product':
                 item_id = request.data.get('product_id')
+            elif item_type == 'mealkit':
+                item_id = request.data.get('mealkit_id')
             else:
                 return Response(prepare_error_response("Invalid item type"), status=status.HTTP_400_BAD_REQUEST)
 
@@ -48,9 +55,11 @@ class CartView(APIView):
             if item_type == 'recipe':
                 item_id = request.data.get('recipe_id')
             elif item_type == 'recipe_ingredient':
-                item_id = request.data.get('cart_ingredient_id')  # Assuming you have this ID
+                item_id = request.data.get('cart_ingredient_id')
             elif item_type == 'product':
-                item_id = request.data.get('cart_product_id')  # Assuming you have this ID
+                item_id = request.data.get('cart_product_id')
+            elif item_type == 'mealkit':
+                item_id = request.data.get('cart_mealkit_id')
             else:
                 return Response(prepare_error_response("Invalid item type"), status=status.HTTP_400_BAD_REQUEST)
 
@@ -67,9 +76,13 @@ class CartView(APIView):
             new_quantity = request.data.get('quantity')
 
             if item_type == 'recipe_ingredient':
-                item_id = request.data.get('cart_ingredient_id')  # Assuming you have this ID
+                item_id = request.data.get('cart_ingredient_id')
             elif item_type == 'product':
-                item_id = request.data.get('cart_product_id')  # Assuming you have this ID
+                item_id = request.data.get('cart_product_id')
+            elif item_type == 'recipe':
+                item_id = request.data.get('cart_recipe_id')
+            elif item_type == 'mealkit':
+                item_id = request.data.get('cart_mealkit_id')
             else:
                 return Response(prepare_error_response("Invalid item type"), status=status.HTTP_400_BAD_REQUEST)
 

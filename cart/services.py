@@ -12,7 +12,8 @@ class CartService:
                 'cart_ingredients__recipe_ingredient__ingredient',
                 'cart_ingredients__recipe_ingredient__recipe',
                 'cart_products__product',
-                'cart_recipes__recipe'
+                'cart_recipes__recipe',
+                'cart_mealkits__mealkit'
             ).first()
 
             if not user_cart:
@@ -75,6 +76,19 @@ class CartService:
 
                 serializer = CartRecipeSerializer(cart_recipe)
 
+            elif item_type == 'mealkit':
+                mealkit = MealKit.objects.get(id=item_id)
+                cart_mealkit, created = CartMealKit.objects.get_or_create(
+                    user_cart=user_cart,
+                    mealkit=mealkit,
+                    defaults={'quantity': quantity}
+                )
+                if not created:
+                    cart_mealkit.quantity += quantity
+                    cart_mealkit.save()
+
+                serializer = CartMealKitSerializer(cart_mealkit)
+
             else:
                 raise ValueError("Invalid item type.")
 
@@ -92,6 +106,8 @@ class CartService:
                 CartProduct.objects.filter(user_cart=user_cart, id=item_id).delete()
             elif item_type == 'recipe':
                 CartRecipe.objects.filter(user_cart=user_cart, id=item_id).delete()
+            elif item_type == 'mealkit':
+                CartMealKit.objects.filter(user_cart=user_cart, id=item_id).delete()
             else:
                 raise ValueError("Invalid item type.")
 
@@ -113,6 +129,10 @@ class CartService:
                 item = CartIngredient.objects.get(user_cart=user_cart, id=item_id)
             elif item_type == 'product':
                 item = CartProduct.objects.get(user_cart=user_cart, id=item_id)
+            elif item_type == 'recipe':
+                item = CartRecipe.objects.get(user_cart=user_cart, id=item_id)
+            elif item_type == 'mealkit':
+                item = CartMealKit.objects.get(user_cart=user_cart, id=item_id)
             else:
                 raise ValueError("Invalid item type.")
 
@@ -122,7 +142,7 @@ class CartService:
             return self.get_cart(user)
         except UserCart.DoesNotExist:
             raise ValueError("Cart does not exist for this user.")
-        except (CartIngredient.DoesNotExist, CartProduct.DoesNotExist):
+        except (CartIngredient.DoesNotExist, CartProduct.DoesNotExist, CartMealKit.DoesNotExist):
             raise ValueError(f"{item_type.capitalize()} not found in the cart.")
         except Exception as e:
             raise e
