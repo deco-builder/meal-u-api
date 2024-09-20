@@ -1,8 +1,8 @@
 from django.db.models import Q
-from .models import UserCart, CartIngredient, CartProduct, CartRecipe
-from community.models import Ingredient, Recipe, RecipeIngredient
+from .models import UserCart, CartIngredient, CartProduct, CartRecipe, CartMealKit
+from community.models import Ingredient, Recipe, RecipeIngredient, MealKit
 from groceries.models import Product
-from .serializers import UserCartSerializer, CartIngredientSerializer, CartProductSerializer, CartRecipeSerializer
+from .serializers import UserCartSerializer, CartIngredientSerializer, CartProductSerializer, CartRecipeSerializer, CartMealKitSerializer
 
 
 class CartService:

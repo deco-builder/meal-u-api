@@ -1,8 +1,9 @@
 from datetime import datetime, date
 from rest_framework.exceptions import ValidationError
 from orders.models import OrderProducts, OrderRecipes, OrderMealKits, DeliveryDetails, Orders
-from ..models import UserCart, UserCartProducts, UserCartRecipes, UserCartMealKits
+# from ..models import UserCart, UserCartProducts, UserCartRecipes, UserCartMealKits
 from community.models import RecipeIngredient, MealKitRecipe
+from cart.models import UserCart, CartIngredient, CartProduct, CartRecipe, CartMealKit
 
 class CheckoutService:
     @staticmethod
@@ -19,9 +20,9 @@ class CheckoutService:
         user_cart = UserCart.objects.get(user_id=user)
 
         # Fetch products, recipes, and meal kits from the cart
-        products_data = UserCartProducts.objects.filter(user_cart=user_cart)
-        recipes_data = UserCartRecipes.objects.filter(user_cart=user_cart)
-        mealkits_data = UserCartMealKits.objects.filter(user_cart=user_cart)
+        products_data = CartProduct.objects.filter(user_cart=user_cart)
+        recipes_data = CartRecipe.objects.filter(user_cart=user_cart)
+        mealkits_data = CartMealKit.objects.filter(user_cart=user_cart)
 
         # Create the Order
         order = Orders.objects.create(
@@ -65,7 +66,7 @@ class CheckoutService:
                 quantity=cart_recipe.quantity,
                 total=recipe_total
             )
-            total_price += recipe_total
+            total_price += recipe_total * cart_recipe.quantity
 
         # Handle meal kits
         for cart_mealkit in mealkits_data:
@@ -82,8 +83,9 @@ class CheckoutService:
                 recipe_ingredients = RecipeIngredient.objects.filter(recipe=recipe)
                 for recipe_ingredient in recipe_ingredients:
                     ingredient = recipe_ingredient.ingredient
+                    preparation_price = (recipe_ingredient.preparation_type.additional_price if recipe_ingredient.preparation_type else 0)
                     ingredient_total = ingredient.price_per_unit 
-                    recipe_total += ingredient_total
+                    recipe_total += ingredient_total + preparation_price
                 
                 # Add the total price of this recipe to the meal kit's total
                 mealkit_total += recipe_total * meal_kit_recipe.quantity
