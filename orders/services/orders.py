@@ -21,7 +21,7 @@ class OrdersService:
         """
         try:
             # Retrieve the 'Paid' status from the OrderStatuses table
-            paid_status = OrderStatuses.objects.get(name='Paid')
+            paid_status = OrderStatuses.objects.get(name='paid')
 
             # Fetch the order by its ID
             order = Orders.objects.get(id=order_id)
