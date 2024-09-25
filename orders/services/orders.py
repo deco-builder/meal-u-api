@@ -5,10 +5,12 @@ from ..serializers.order_details import OrderDetailSerializer
 class OrdersService:    
     def get_all_orders_for_user(user):
         """
-        Retrieves all orders from the database.
+        Retrieves all orders from the database and includes related products, recipes, and meal kits..
         """
         try:
-            orders = Orders.objects.filter(user_id=user.id)
+            orders = Orders.objects.filter(user_id=user.id).prefetch_related(
+                'orderproducts_set', 'orderrecipes_set', 'ordermealkits_set'
+            )
             serializer = OrderSerializer(orders, many=True)
             return serializer.data
         except Exception as e:
