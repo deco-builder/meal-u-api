@@ -1,5 +1,14 @@
 from rest_framework import serializers
 from ..models import OrderProducts, OrderRecipes, OrderMealKits, Orders
+from community.models import RecipeIngredient, Ingredient
+
+class RecipeIngredientSerializer(serializers.ModelSerializer):
+    ingredient_name = serializers.CharField(source='ingredient.name', read_only=True)
+    preparation_type = serializers.CharField(source='preparation_type.name', read_only=True)
+
+    class Meta:
+        model = RecipeIngredient
+        fields = ['ingredient_name', 'preparation_type']
 
 class OrderProductSerializer(serializers.ModelSerializer):
     product_name = serializers.CharField(source='product.name', read_only=True)
@@ -10,10 +19,11 @@ class OrderProductSerializer(serializers.ModelSerializer):
 
 class OrderRecipeSerializer(serializers.ModelSerializer):
     recipe_name = serializers.CharField(source='recipe.name', read_only=True)
+    ingredients = RecipeIngredientSerializer(source='recipe.recipeingredient_set', many=True, read_only=True)
 
     class Meta:
         model = OrderRecipes
-        fields = ['recipe', 'recipe_name', 'quantity', 'total']
+        fields = ['recipe', 'recipe_name', 'quantity', 'total', 'ingredients']
 
 class OrderMealKitSerializer(serializers.ModelSerializer):
     mealkit_name = serializers.CharField(source='mealkit.name', read_only=True)
