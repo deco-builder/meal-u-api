@@ -1,5 +1,8 @@
 from rest_framework import serializers
 from .models import UserCart, CartIngredient, CartProduct, CartRecipe, CartMealKit
+from community.models import MealKitRecipe
+from community.serializers.recipes import RecipesSerializer, IngredientSerializer, RecipeIngredientSerializer
+from community.serializers.mealkits import MealKitsSerializer
 from community.serializers.recipes import RecipesSerializer, RecipeIngredientSerializer
 from community.serializers.mealkit_details import MealKitDetailsSerializer
 from groceries.serializers.products import ProductsSerializer
@@ -18,19 +21,25 @@ class CartProductSerializer(serializers.ModelSerializer):
         model = CartProduct
         fields = ['id', 'product', 'quantity']
 
-class CartRecipeSerializer(serializers.ModelSerializer):
-    recipe = RecipesSerializer(read_only=True)
-
-    class Meta:
-        model = CartRecipe
-        fields = ['id', 'recipe', 'quantity']
-
 class CartMealKitSerializer(serializers.ModelSerializer):
+    recipes = serializers.SerializerMethodField()
     mealkit = MealKitDetailsSerializer(read_only=True)
 
     class Meta:
         model = CartMealKit
-        fields = ['id', 'mealkit', 'quantity']
+        fields = ['id', 'mealkit', 'quantity', 'recipes']
+
+    def get_recipes(self, obj):
+        recipe_mealkits = MealKitRecipe.objects.filter(mealkit=obj.mealkit)
+        return RecipesSerializer([rm.recipe for rm in recipe_mealkits], many=True).data
+
+class CartRecipeSerializer(serializers.ModelSerializer):
+    recipe = RecipesSerializer(read_only=True)
+    cart_ingredients = CartIngredientSerializer(many=True, read_only=True)
+
+    class Meta:
+        model = CartRecipe
+        fields = ['id', 'recipe', 'quantity', 'cart_ingredients']
 
 class UserCartSerializer(serializers.ModelSerializer):
     cart_ingredients = CartIngredientSerializer(many=True, read_only=True)

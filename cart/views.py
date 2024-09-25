@@ -3,6 +3,7 @@ from rest_framework.response import Response
 from rest_framework import status
 from rest_framework.permissions import IsAuthenticated
 from rest_framework_simplejwt.authentication import JWTAuthentication
+from rest_framework.permissions import IsAuthenticated
 from user_auth.permission import IsWarehouseUser, IsClientUser
 from applibs.response import prepare_success_response, prepare_error_response
 from .services import CartService
@@ -28,21 +29,18 @@ class CartView(APIView):
             quantity = request.data.get('quantity', 1)
 
             if item_type == 'recipe':
-                item_id = request.data.get('recipe_id')
-            elif item_type == 'recipe_ingredient':
-                item_id = {
+                item_data = {
                     'recipe_id': request.data.get('recipe_id'),
-                    'ingredient_id': request.data.get('ingredient_id'),
-                    'preparation_type_id': request.data.get('preparation_type_id')
+                    'recipe_ingredients': request.data.get('recipe_ingredients', [])
                 }
             elif item_type == 'product':
-                item_id = request.data.get('product_id')
+                item_data = request.data.get('product_id')
             elif item_type == 'mealkit':
-                item_id = request.data.get('mealkit_id')
+                item_data = request.data.get('item_data', {})
             else:
                 return Response(prepare_error_response("Invalid item type"), status=status.HTTP_400_BAD_REQUEST)
 
-            response = self.cart_service.add_item(request.user, item_type, item_id, quantity)
+            response = self.cart_service.add_item(request.user, item_type, item_data, quantity)
             return Response(prepare_success_response(response), status=status.HTTP_201_CREATED)
         except ValueError as e:
             return Response(prepare_error_response(str(e)), status=status.HTTP_400_BAD_REQUEST)
@@ -54,7 +52,7 @@ class CartView(APIView):
             item_type = request.data.get('item_type')
             
             if item_type == 'recipe':
-                item_id = request.data.get('recipe_id')
+                item_id = request.data.get('cart_recipe_id')
             elif item_type == 'recipe_ingredient':
                 item_id = request.data.get('cart_ingredient_id')
             elif item_type == 'product':
@@ -63,6 +61,11 @@ class CartView(APIView):
                 item_id = request.data.get('cart_mealkit_id')
             else:
                 return Response(prepare_error_response("Invalid item type"), status=status.HTTP_400_BAD_REQUEST)
+
+            # print(f"item_type: {item_type}, item_id being passed to remove_item: {item_id}")
+
+            if item_id is None:
+                return Response(prepare_error_response("Item ID is required"), status=status.HTTP_400_BAD_REQUEST)
 
             response = self.cart_service.remove_item(request.user, item_type, item_id)
             return Response(prepare_success_response(response), status=status.HTTP_200_OK)
@@ -74,17 +77,13 @@ class CartView(APIView):
     def put(self, request):
         try:
             item_type = request.data.get('item_type')
+            item_id = request.data.get('item_id')
             new_quantity = request.data.get('quantity')
 
-            if item_type == 'recipe_ingredient':
-                item_id = request.data.get('cart_ingredient_id')
-            elif item_type == 'product':
-                item_id = request.data.get('cart_product_id')
-            elif item_type == 'recipe':
-                item_id = request.data.get('cart_recipe_id')
-            elif item_type == 'mealkit':
-                item_id = request.data.get('cart_mealkit_id')
-            else:
+            if not item_type or not item_id or new_quantity is None:
+                return Response(prepare_error_response("Item type, item ID, and quantity are required"), status=status.HTTP_400_BAD_REQUEST)
+
+            if item_type not in ['recipe_ingredient', 'product', 'recipe', 'mealkit']:
                 return Response(prepare_error_response("Invalid item type"), status=status.HTTP_400_BAD_REQUEST)
 
             response = self.cart_service.update_item_quantity(request.user, item_type, item_id, new_quantity)
