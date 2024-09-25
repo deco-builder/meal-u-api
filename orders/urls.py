@@ -3,6 +3,7 @@ from .views.orders import OrderListView, OrderStatusUpdateView, OrderDetailView
 from .views.checkout import CheckoutView 
 from .views.delivery_time_slot import DeliveryTimeSlotListView
 from .views.delivery_location import DeliveryLocationListView
+from .views.orders_warehouse import OrderWarehouseView
 
 urlpatterns = [
     path('orders/', OrderListView.as_view(), name='order-list'),
@@ -11,4 +12,5 @@ urlpatterns = [
     path('checkout/', CheckoutView.as_view(), name='checkout'),
     path('delivery-time-slots/', DeliveryTimeSlotListView.as_view(), name='delivery-time-slots'),
     path('delivery-locations/', DeliveryLocationListView.as_view(), name='delivery-locations'),
+    path('warehouse/', OrderWarehouseView.as_view(), name='order-warehouse'),
 ]
