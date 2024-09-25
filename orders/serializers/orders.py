@@ -1,7 +1,26 @@
 from rest_framework import serializers
 from ..models import Orders, DeliveryDetails
-from .delivery_details import DeliveryDetailsSerializer 
-from ..models import Orders, OrderProducts, OrderRecipes, OrderMealKits
+from ..models import Orders
+from ..models import DeliveryDetails, DeliveryLocation, DeliveryTimeSlot
+from rest_framework import serializers
+
+class DeliveryLocationSerializer(serializers.ModelSerializer):
+    class Meta:
+        model = DeliveryLocation
+        fields = ['name', 'branch', 'address_line1', 'address_line2', 'city', 'postal_code', 'country', 'details']
+
+class DeliveryTimeSlotSerializer(serializers.ModelSerializer):
+    class Meta:
+        model = DeliveryTimeSlot
+        fields = ['name', 'start_time', 'end_time', 'cut_off']
+
+class DeliveryDetailsSerializer(serializers.ModelSerializer):
+    delivery_location = DeliveryLocationSerializer()
+    delivery_time = DeliveryTimeSlotSerializer()
+
+    class Meta:
+        model = DeliveryDetails
+        fields = ['delivery_location', 'delivery_time', 'delivery_date']
 
 class OrderSerializer(serializers.ModelSerializer):
 
@@ -19,8 +38,6 @@ class OrderSerializer(serializers.ModelSerializer):
         # Assuming each order has one delivery detail, otherwise modify this
         delivery_detail = DeliveryDetails.objects.filter(order=obj).first()
         if delivery_detail:
-            # Debugging: Print out delivery details fetched
-            print(f"Delivery details for order {obj.id}: {delivery_detail}")
             return DeliveryDetailsSerializer(delivery_detail).data
         else:
             print(f"No delivery details found for order {obj.id}")
