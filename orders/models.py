@@ -2,37 +2,7 @@ from django.db import models
 from user_auth.models import User
 from groceries.models import Product
 from community.models import Recipe, MealKit
-
-# class UserCart(models.Model):
-#     user_id = models.OneToOneField(User, primary_key=True, on_delete=models.CASCADE)
-#     updated_at = models.DateTimeField(auto_now=True)
-
-# class UserCartProducts(models.Model):
-#     user_cart = models.ForeignKey(UserCart, on_delete=models.CASCADE)
-#     product = models.ForeignKey(Product, on_delete=models.CASCADE)
-
-#     class Meta:
-#         unique_together = ('user_cart', 'product')
-
-#     quantity = models.PositiveIntegerField(default=0)
-
-# class UserCartRecipes(models.Model):
-#     user_cart = models.ForeignKey(UserCart, on_delete=models.CASCADE)
-#     recipe = models.ForeignKey(Recipe, on_delete=models.CASCADE)
-
-#     class Meta:
-#         unique_together = ('user_cart', 'recipe')
-
-#     quantity = models.PositiveIntegerField(default=0)
-
-# class UserCartMealKits(models.Model):
-#     user_cart = models.ForeignKey(UserCart, on_delete=models.CASCADE)
-#     mealkit = models.ForeignKey(MealKit, on_delete=models.CASCADE)
-
-#     class Meta:
-#         unique_together = ('user_cart', 'mealkit')
-
-#     quantity = models.PositiveIntegerField(default=0)
+from django.core.validators import RegexValidator
 
 
 class OrderStatuses(models.Model):
@@ -47,6 +17,13 @@ class Orders(models.Model):
     order_status = models.ForeignKey(OrderStatuses, on_delete=models.PROTECT)
     created_at = models.DateTimeField(auto_now_add=True)
     updated_at = models.DateField(auto_now=True)
+    passcode = models.CharField(
+        max_length=4,
+        validators=[RegexValidator(regex=r"^\d{4}$", message="Passcode must be a 4-digit numeric string.")],
+        null=False,
+        blank=False,
+        help_text="A 4-digit numeric passcode for the order.",
+    )
     total = models.DecimalField(decimal_places=2, max_digits=10)
 
 
@@ -111,11 +88,36 @@ class DeliveryStatus(models.Model):
     name = models.CharField(max_length=100, null=False, blank=False)
 
 
+class Lockers(models.Model):
+    location = models.ForeignKey(DeliveryLocation, on_delete=models.CASCADE, null=False, blank=False)
+    locker_number = models.CharField(
+        max_length=10, null=False, blank=False, unique=True, help_text="Unique locker number for this location"
+    )
+    is_occupied = models.BooleanField(default=False)
+    updated_at = models.DateTimeField(auto_now=True)
+
+    def __str__(self):
+        return f"Locker {self.locker_number} at {self.location}"
+
+
 class DeliveryDetails(models.Model):
     order = models.ForeignKey(Orders, on_delete=models.CASCADE, null=False, blank=False)
     delivery_location = models.ForeignKey(DeliveryLocation, on_delete=models.PROTECT, null=False, blank=False)
     delivery_time = models.ForeignKey(DeliveryTimeSlot, on_delete=models.PROTECT, null=False, blank=False)
     delivery_date = models.DateField()
+    locker = models.ForeignKey(Lockers, on_delete=models.SET_NULL, null=True, blank=True)
+    qr_code = models.TextField(
+        null=False,
+        blank=False,
+        help_text="String combination of delivery location, delivery time, delivery date, and order.",
+    )
+
+    def __str__(self):
+        return f"Delivery {self.order} at {self.delivery_location} on {self.delivery_date}"
+
+    def save(self, *args, **kwargs):
+        self.qr_code = f"{self.delivery_location.name}_{self.delivery_time.name}_{self.delivery_date}_{self.order.id}_{self.locker.locker_number}"
+        super(DeliveryDetails, self).save(*args, **kwargs)
 
 
 class Deliveries(models.Model):
@@ -143,12 +145,3 @@ class OrderPayment(models.Model):
     amount = models.DecimalField(decimal_places=2, max_digits=3)
     payment_date = models.DateTimeField()
     transaction_id = models.CharField(max_length=255)
-
-
-class Lockers(models.Model):
-    location = models.ForeignKey(DeliveryLocation, on_delete=models.CASCADE, null=False, blank=False)
-    qr_code = models.TextField()
-    passcode = models.CharField(max_length=10)
-    is_occupied = models.BooleanField(default=False)
-    updated_at = models.DateTimeField(auto_now=True)
-    courier = models.ForeignKey(User, on_delete=models.PROTECT)
