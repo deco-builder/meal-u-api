@@ -74,6 +74,13 @@ class RecipeDietaryDetail(models.Model):
 
     def __str__(self):
         return str(self.dietary_details) + " " + str(self.recipe)
+    
+class RecipeNutrition(models.Model):
+    recipe_id = models.OneToOneField(Recipe, primary_key=True, on_delete=models.CASCADE)
+    energy_per_serving = models.DecimalField(max_digits=6, decimal_places=2, null=True, help_text="in kJ")
+    protein_per_serving = models.DecimalField(max_digits=6, decimal_places=2, null=True, help_text="in grams")
+    fat_total_per_serving = models.DecimalField(max_digits=6, decimal_places=2, null=True, help_text="in grams")
+    carbohydrate_per_serving = models.DecimalField(max_digits=6, decimal_places=2, null=True, help_text="in grams")
 
 
 class MealKit(models.Model):
