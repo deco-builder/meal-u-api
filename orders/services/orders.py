@@ -41,6 +41,52 @@ class OrdersService:
             raise e
     
     @staticmethod
+    def update_order_status_to_delivering(order_id):
+        """
+        Updates the status of the order to 'delivering'
+        """
+        try:
+            delivering_status = OrderStatuses.objects.get(name='delivering')
+
+            order = Orders.objects.get(id=order_id)
+
+            order.order_status = delivering_status
+            order.save()
+
+            return order
+        except Orders.DoesNotExist:
+            raise Exception(f"Order with id {order_id} does not exist")
+        except OrderStatuses.DoesNotExist:
+            raise Exception("The 'delivering' status does not exist")
+        except Exception as e:
+            raise e
+    
+    @staticmethod
+    def update_order_status_to_delivered(order_id, photo_proof):
+        """
+        Updates the status of the order to 'delivered' and checks for the presence of photo proof.
+        """
+        try:
+            delivered_status = OrderStatuses.objects.get(name='delivered')
+            order = Orders.objects.get(id=order_id)
+
+            # Check if a photo proof is provided
+            if not photo_proof:
+                raise Exception("Photo proof is required to mark the order as 'delivered'.")
+
+            # Update order status to 'delivered'
+            order.order_status = delivered_status
+            order.save()
+
+            return order
+        except Orders.DoesNotExist:
+            raise Exception(f"Order with id {order_id} does not exist")
+        except OrderStatuses.DoesNotExist:
+            raise Exception("The 'delivered' status does not exist")
+        except Exception as e:
+            raise e
+        
+    @staticmethod
     def get_order_details(order_id):
         try:
             order = Orders.objects.get(id=order_id)
