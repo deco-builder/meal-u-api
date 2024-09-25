@@ -1,8 +1,13 @@
 from rest_framework import serializers
 from .models import UserCart, CartIngredient, CartProduct, CartRecipe, CartMealKit
+<<<<<<< HEAD
 from community.models import MealKitRecipe
 from community.serializers.recipes import RecipesSerializer, IngredientSerializer, RecipeIngredientSerializer
 from community.serializers.mealkits import MealKitsSerializer
+=======
+from community.serializers.recipes import RecipesSerializer, RecipeIngredientSerializer
+from community.serializers.mealkit_details import MealKitDetailsSerializer
+>>>>>>> origin/dev
 from groceries.serializers.products import ProductsSerializer
 
 class CartIngredientSerializer(serializers.ModelSerializer):
@@ -20,8 +25,12 @@ class CartProductSerializer(serializers.ModelSerializer):
         fields = ['id', 'product', 'quantity']
 
 class CartMealKitSerializer(serializers.ModelSerializer):
+<<<<<<< HEAD
     mealkit = MealKitsSerializer(read_only=True)
     recipes = serializers.SerializerMethodField()
+=======
+    mealkit = MealKitDetailsSerializer(read_only=True)
+>>>>>>> origin/dev
 
     class Meta:
         model = CartMealKit
