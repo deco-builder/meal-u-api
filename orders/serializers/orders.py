@@ -37,7 +37,7 @@ class OrderSerializer(serializers.ModelSerializer):
 
     class Meta:
         model = Orders
-        fields = ['id', 'order_status', 'delivery_details', 'item_names', 'created_at', 'updated_at', 'passcode', 'total', 'delivery_proof_photo', 'user_id']  
+        fields = ['id', 'order_status', 'delivery_details', 'item_names', 'created_at', 'updated_at', 'total', 'delivery_proof_photo', 'user_id']  
 
     def get_order_status(self, obj):
         return obj.order_status.name 
