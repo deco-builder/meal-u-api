@@ -3,21 +3,24 @@ import random
 from django.db.models import Q
 from .orders import OrdersService
 
-PAID_STATUS = OrderStatuses.objects.get(name="paid")
-PREPARING_STATUS = OrderStatuses.objects.get(name="preparing")
-READY_TO_DELIVER_STATUS = OrderStatuses.objects.get(name="ready to deliver")
-DELIVERING_STATUS = OrderStatuses.objects.get(name="delivering")
-DELIVERED_STATUS = OrderStatuses.objects.get(name="delivered")
-COMPLETED_STATUS = OrderStatuses.objects.get(name="delivered")
-
 
 class OrderStatusPreparingService:
     def post(self, order_id):
         try:
+            try:
+                PAID_STATUS = OrderStatuses.objects.get(name="paid")
+            except Exception as e:
+                raise e
+            
             order = Orders.objects.get(id=order_id)
             if order.order_status != PAID_STATUS:
                 raise Exception(f"Order with id {order_id} as invalid current status to update into preparing")
-
+            
+            try:
+                PREPARING_STATUS = OrderStatuses.objects.get(name="preparing")
+            except Exception as e:
+                raise e
+            
             order.order_status = PREPARING_STATUS
             passcode = self.generate_unique_passcode()
             order.passcode = passcode
@@ -69,10 +72,20 @@ class OrderStatusPreparingService:
 class OrderStatusReadyToDeliverService:
     def post(self, order_id):
         try:
+            try:
+                PREPARING_STATUS = OrderStatuses.objects.get(name="preparing")
+            except Exception as e:
+                raise e
+            
             order = Orders.objects.get(id=order_id)
             if order.order_status != PREPARING_STATUS:
                 raise Exception(f"Order with id {order_id} has invalid current status to update into ready to deliver")
 
+            try:
+                READY_TO_DELIVER_STATUS = OrderStatuses.objects.get(name="ready to deliver")
+            except Exception as e:
+                raise e
+            
             order.order_status = READY_TO_DELIVER_STATUS
             order.save()
             return OrdersService.get_order_details(order_id)
