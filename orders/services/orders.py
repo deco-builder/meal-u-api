@@ -64,7 +64,7 @@ class OrdersService:
     @staticmethod
     def update_order_status_to_delivered(order_id, photo_proof):
         """
-        Updates the status of the order to 'delivered' and checks for the presence of photo proof.
+        Updates the status of the order to 'delivered' and saves the photo proof.
         """
         try:
             delivered_status = OrderStatuses.objects.get(name='delivered')
@@ -74,7 +74,8 @@ class OrdersService:
             if not photo_proof:
                 raise Exception("Photo proof is required to mark the order as 'delivered'.")
 
-            # Update order status to 'delivered'
+            # Save the photo proof and update order status
+            order.delivery_proof_photo = photo_proof
             order.order_status = delivered_status
             order.save()
 

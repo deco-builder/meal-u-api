@@ -55,7 +55,7 @@ class OrderStatusDeliveringUpdateView(APIView):
 
 class OrderStatusDeliveredUpdateView(APIView):
     """
-    API View to update an order status to 'delivered' and check for photo proof.
+    API View to update an order status to 'delivered' and with photo proof.
     """
     parser_classes = (MultiPartParser, FormParser)  # For handling file uploads
 
