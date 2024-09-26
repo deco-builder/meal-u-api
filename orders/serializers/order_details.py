@@ -1,6 +1,7 @@
 from rest_framework import serializers
 from ..models import OrderProducts, OrderRecipes, OrderMealKits, Orders
 from community.models import RecipeIngredient, Ingredient
+from user_auth.models import User
 
 class RecipeIngredientSerializer(serializers.ModelSerializer):
     ingredient_name = serializers.CharField(source='ingredient.name', read_only=True)
@@ -32,10 +33,16 @@ class OrderMealKitSerializer(serializers.ModelSerializer):
         model = OrderMealKits
         fields = ['mealkit', 'mealkit_name', 'quantity', 'total']
 
+class UserSerializer(serializers.ModelSerializer):
+    class Meta:
+        model = User
+        fields = ['id', 'first_name', 'last_name', 'email', 'image'] 
+
 class OrderDetailSerializer(serializers.ModelSerializer):
     products = OrderProductSerializer(source='orderproducts_set', many=True)
     recipes = OrderRecipeSerializer(source='orderrecipes_set', many=True)
     meal_kits = OrderMealKitSerializer(source='ordermealkits_set', many=True)
+    user_id = UserSerializer(read_only=True)
 
     class Meta:
         model = Orders
