@@ -2054,6 +2054,188 @@
     }
   },
   {
+    "model": "admin.logentry",
+    "pk": 159,
+    "fields": {
+      "action_time": "2024-09-26T09:44:51.650Z",
+      "user": 1,
+      "content_type": 41,
+      "object_id": "1",
+      "object_repr": "Locker 1 at uq union uq",
+      "action_flag": 2,
+      "change_message": "[]"
+    }
+  },
+  {
+    "model": "admin.logentry",
+    "pk": 160,
+    "fields": {
+      "action_time": "2024-09-26T09:44:55.188Z",
+      "user": 1,
+      "content_type": 41,
+      "object_id": "2",
+      "object_repr": "Locker 2 at uq union uq",
+      "action_flag": 1,
+      "change_message": "[{\"added\": {}}]"
+    }
+  },
+  {
+    "model": "admin.logentry",
+    "pk": 161,
+    "fields": {
+      "action_time": "2024-09-26T09:44:58.544Z",
+      "user": 1,
+      "content_type": 41,
+      "object_id": "3",
+      "object_repr": "Locker 3 at uq union uq",
+      "action_flag": 1,
+      "change_message": "[{\"added\": {}}]"
+    }
+  },
+  {
+    "model": "admin.logentry",
+    "pk": 162,
+    "fields": {
+      "action_time": "2024-09-26T09:45:01.332Z",
+      "user": 1,
+      "content_type": 41,
+      "object_id": "4",
+      "object_repr": "Locker 4 at uq union uq",
+      "action_flag": 1,
+      "change_message": "[{\"added\": {}}]"
+    }
+  },
+  {
+    "model": "admin.logentry",
+    "pk": 163,
+    "fields": {
+      "action_time": "2024-09-26T09:45:04.104Z",
+      "user": 1,
+      "content_type": 41,
+      "object_id": "5",
+      "object_repr": "Locker 5 at uq union uq",
+      "action_flag": 1,
+      "change_message": "[{\"added\": {}}]"
+    }
+  },
+  {
+    "model": "admin.logentry",
+    "pk": 164,
+    "fields": {
+      "action_time": "2024-09-26T09:45:08.392Z",
+      "user": 1,
+      "content_type": 41,
+      "object_id": "6",
+      "object_repr": "Locker 6 at uq union uq",
+      "action_flag": 1,
+      "change_message": "[{\"added\": {}}]"
+    }
+  },
+  {
+    "model": "admin.logentry",
+    "pk": 165,
+    "fields": {
+      "action_time": "2024-09-26T09:45:11.581Z",
+      "user": 1,
+      "content_type": 41,
+      "object_id": "7",
+      "object_repr": "Locker 7 at uq union uq",
+      "action_flag": 1,
+      "change_message": "[{\"added\": {}}]"
+    }
+  },
+  {
+    "model": "admin.logentry",
+    "pk": 166,
+    "fields": {
+      "action_time": "2024-09-26T09:45:15.636Z",
+      "user": 1,
+      "content_type": 41,
+      "object_id": "8",
+      "object_repr": "Locker 8 at uq union uq",
+      "action_flag": 1,
+      "change_message": "[{\"added\": {}}]"
+    }
+  },
+  {
+    "model": "admin.logentry",
+    "pk": 167,
+    "fields": {
+      "action_time": "2024-09-26T09:45:20.340Z",
+      "user": 1,
+      "content_type": 41,
+      "object_id": "9",
+      "object_repr": "Locker 9 at uq union uq",
+      "action_flag": 1,
+      "change_message": "[{\"added\": {}}]"
+    }
+  },
+  {
+    "model": "admin.logentry",
+    "pk": 168,
+    "fields": {
+      "action_time": "2024-09-26T10:02:50.172Z",
+      "user": 1,
+      "content_type": 46,
+      "object_id": "4",
+      "object_repr": "Orders object (4)",
+      "action_flag": 2,
+      "change_message": "[{\"changed\": {\"fields\": [\"Order status\"]}}]"
+    }
+  },
+  {
+    "model": "admin.logentry",
+    "pk": 169,
+    "fields": {
+      "action_time": "2024-09-26T10:03:09.615Z",
+      "user": 1,
+      "content_type": 46,
+      "object_id": "4",
+      "object_repr": "Orders object (4)",
+      "action_flag": 2,
+      "change_message": "[{\"changed\": {\"fields\": [\"Order status\"]}}]"
+    }
+  },
+  {
+    "model": "admin.logentry",
+    "pk": 170,
+    "fields": {
+      "action_time": "2024-09-26T10:03:42.030Z",
+      "user": 1,
+      "content_type": 37,
+      "object_id": "3",
+      "object_repr": "Delivery Orders object (4) at uq union uq on 2024-10-01",
+      "action_flag": 2,
+      "change_message": "[{\"changed\": {\"fields\": [\"Locker\"]}}]"
+    }
+  },
+  {
+    "model": "admin.logentry",
+    "pk": 171,
+    "fields": {
+      "action_time": "2024-09-26T10:03:51.790Z",
+      "user": 1,
+      "content_type": 46,
+      "object_id": "4",
+      "object_repr": "Orders object (4)",
+      "action_flag": 2,
+      "change_message": "[{\"changed\": {\"fields\": [\"Order status\"]}}]"
+    }
+  },
+  {
+    "model": "admin.logentry",
+    "pk": 172,
+    "fields": {
+      "action_time": "2024-09-26T10:04:10.708Z",
+      "user": 1,
+      "content_type": 37,
+      "object_id": "3",
+      "object_repr": "Delivery Orders object (4) at uq union uq on 2024-10-01",
+      "action_flag": 2,
+      "change_message": "[]"
+    }
+  },
+  {
     "model": "sessions.session",
     "pk": "8iv0tpmv0cs9au1zl40j9mmxlbwk6wmk",
     "fields": {
@@ -3027,10 +3209,10 @@
     "pk": 4,
     "fields": {
       "user_id": 4,
-      "order_status": 1,
+      "order_status": 4,
       "created_at": "2024-09-18T09:46:10.770Z",
-      "updated_at": "2024-09-25",
-      "passcode": "1234",
+      "updated_at": "2024-09-26",
+      "passcode": "3333",
       "total": "85.21"
     }
   },
@@ -3090,7 +3272,87 @@
       "location": 1,
       "locker_number": "1",
       "is_occupied": false,
-      "updated_at": "2024-09-25T11:18:51.443Z"
+      "updated_at": "2024-09-26T09:44:51.647Z"
+    }
+  },
+  {
+    "model": "orders.lockers",
+    "pk": 2,
+    "fields": {
+      "location": 1,
+      "locker_number": "2",
+      "is_occupied": false,
+      "updated_at": "2024-09-26T09:44:55.187Z"
+    }
+  },
+  {
+    "model": "orders.lockers",
+    "pk": 3,
+    "fields": {
+      "location": 1,
+      "locker_number": "3",
+      "is_occupied": false,
+      "updated_at": "2024-09-26T09:44:58.544Z"
+    }
+  },
+  {
+    "model": "orders.lockers",
+    "pk": 4,
+    "fields": {
+      "location": 1,
+      "locker_number": "4",
+      "is_occupied": false,
+      "updated_at": "2024-09-26T09:45:01.330Z"
+    }
+  },
+  {
+    "model": "orders.lockers",
+    "pk": 5,
+    "fields": {
+      "location": 1,
+      "locker_number": "5",
+      "is_occupied": false,
+      "updated_at": "2024-09-26T09:45:04.103Z"
+    }
+  },
+  {
+    "model": "orders.lockers",
+    "pk": 6,
+    "fields": {
+      "location": 1,
+      "locker_number": "6",
+      "is_occupied": false,
+      "updated_at": "2024-09-26T09:45:08.391Z"
+    }
+  },
+  {
+    "model": "orders.lockers",
+    "pk": 7,
+    "fields": {
+      "location": 1,
+      "locker_number": "7",
+      "is_occupied": false,
+      "updated_at": "2024-09-26T09:45:11.580Z"
+    }
+  },
+  {
+    "model": "orders.lockers",
+    "pk": 8,
+    "fields": {
+      "location": 1,
+      "locker_number": "8",
+      "is_occupied": false,
+      "updated_at": "2024-09-26T09:45:15.635Z"
+    }
+  },
+  {
+    "model": "orders.lockers",
+    "pk": 9,
+    "fields": {
+      "location": 1,
+      "locker_number": "9",
+      "is_occupied": false,
+      "updated_at": "2024-09-26T09:45:20.338Z"
     }
   },
   {
