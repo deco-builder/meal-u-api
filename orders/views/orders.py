@@ -33,7 +33,7 @@ class OrderStatusPaidUpdateView(APIView):
         try:
             # Call the service layer to update the status to 'Paid'
             order = OrdersService.update_order_status_to_paid(order_id)
-            return Response(prepare_success_response(f"Order {order_id} status updated to 'Paid'"), status=status.HTTP_200_OK)
+            return Response(prepare_success_response(f"Order {order_id} status updated to 'paid'"), status=status.HTTP_200_OK)
         except Exception as e:
             return Response(
                 prepare_error_response(str(e)), status=status.HTTP_400_BAD_REQUEST
