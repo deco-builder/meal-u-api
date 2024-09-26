@@ -1,6 +1,17 @@
 from rest_framework import serializers
-from ..models import Recipe, RecipeIngredient
+from ..models import Recipe, RecipeIngredient, RecipeNutrition
 from .recipes import RecipeIngredientSerializer
+
+
+class RecipeNutritionSerializer(serializers.ModelSerializer):
+    class Meta:
+        model = RecipeNutrition
+        fields = [
+            "energy_per_serving",
+            "protein_per_serving",
+            "fat_total_per_serving",
+            "carbohydrate_per_serving",
+        ]
 
 
 class RecipeDetailsSerializer(serializers.ModelSerializer):
@@ -9,6 +20,7 @@ class RecipeDetailsSerializer(serializers.ModelSerializer):
     dietary_details = serializers.SerializerMethodField()
     ingredients = serializers.SerializerMethodField()
     total_price = serializers.SerializerMethodField()
+    nutrition_details = serializers.SerializerMethodField()
 
     class Meta:
         model = Recipe
@@ -28,12 +40,13 @@ class RecipeDetailsSerializer(serializers.ModelSerializer):
             "dietary_details",
             "ingredients",
             "total_price",
+            "nutrition_details",
         ]
 
     def get_creator(self, obj):
         return {
             "name": f"{obj.creator.first_name} {obj.creator.last_name}",
-            "profile_picture": obj.creator.image.url if obj.creator.image else None
+            "profile_picture": obj.creator.image.url if obj.creator.image else None,
         }
 
     def get_dietary_details(self, obj):
@@ -53,3 +66,10 @@ class RecipeDetailsSerializer(serializers.ModelSerializer):
             )
             total_price += ingredient_price + preparation_price
         return total_price
+
+    def get_nutrition_details(self, obj):
+        try:
+            nutrition = RecipeNutrition.objects.get(recipe_id=obj)
+            return RecipeNutritionSerializer(nutrition).data
+        except RecipeNutrition.DoesNotExist:
+            return None
