@@ -86,6 +86,34 @@ class OrdersService:
             raise Exception("The 'delivered' status does not exist")
         except Exception as e:
             raise e
+    
+    @staticmethod
+    def update_order_status_to_completed(order_id, user_passcode):
+        """
+        Updates the order status to 'completed' after verifying the provided passcode.
+        """
+        try:
+            # Retrieve the 'completed' status from the OrderStatuses table
+            completed_status = OrderStatuses.objects.get(name='completed')
+
+            # Fetch the order by its ID
+            order = Orders.objects.get(id=order_id)
+
+            # Verify if the provided passcode matches the stored one
+            if order.passcode != user_passcode:
+                raise Exception("Invalid passcode")
+
+            # Update the order's status to 'completed'
+            order.order_status = completed_status
+            order.save()
+
+            return order
+        except Orders.DoesNotExist:
+            raise Exception(f"Order with id {order_id} does not exist")
+        except OrderStatuses.DoesNotExist:
+            raise Exception("The 'completed' status does not exist")
+        except Exception as e:
+            raise e
         
     @staticmethod
     def get_order_details(order_id):

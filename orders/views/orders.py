@@ -84,3 +84,26 @@ class OrderDetailView(APIView):
             return Response(
                 prepare_error_response(str(e)), status=status.HTTP_400_BAD_REQUEST
             )
+
+class OrderStatusCompletedUpdateView(APIView):
+    """
+    API View to update an order status to 'completed' after verifying the passcode.
+    """
+    permission_classes = [IsAuthenticated]
+    
+    def post(self, request, order_id):
+        try:
+            # Extract passcode from the request
+            user_passcode = request.data.get('passcode')
+
+            if not user_passcode:
+                return Response(prepare_error_response("Passcode is required"), status=status.HTTP_400_BAD_REQUEST)
+
+            # Call the service layer to verify the passcode and update the order status
+            order = OrdersService.update_order_status_to_completed(order_id, user_passcode)
+            
+            return Response(prepare_success_response(f"Order {order_id} status updated to 'completed'"), status=status.HTTP_200_OK)
+        except Exception as e:
+            return Response(
+                prepare_error_response(str(e)), status=status.HTTP_400_BAD_REQUEST
+            )
