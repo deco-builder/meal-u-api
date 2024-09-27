@@ -26,3 +26,12 @@ class OrdersService:
             raise Exception(f"Order with id {order_id} does not exist")
         except Exception as e:
             raise e
+    
+    @staticmethod
+    def get_orders_by_status(status):
+        try:
+            orders = Orders.objects.filter( order_status__name=status)
+            serializer = OrderSerializer(orders, many=True)
+            return serializer.data
+        except Exception as e:
+            raise e
