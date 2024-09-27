@@ -28,6 +28,7 @@ class OrderListView(APIView):
 class OrderStatusPaidUpdateView(APIView):
     """
     API View to update an order status to 'Paid'.
+    TODO: auth is needed here
     """
     def post(self, request, order_id):
         try:

@@ -20,8 +20,8 @@ class Orders(models.Model):
     passcode = models.CharField(
         max_length=4,
         validators=[RegexValidator(regex=r"^\d{4}$", message="Passcode must be a 4-digit numeric string.")],
-        null=False,
-        blank=False,
+        null=True,
+        blank=True,
         help_text="A 4-digit numeric passcode for the order.",
     )
     total = models.DecimalField(decimal_places=2, max_digits=10)
@@ -108,8 +108,8 @@ class DeliveryDetails(models.Model):
     delivery_date = models.DateField()
     locker = models.ForeignKey(Lockers, on_delete=models.SET_NULL, null=True, blank=True)
     qr_code = models.TextField(
-        null=False,
-        blank=False,
+        null=True,
+        blank=True,
         help_text="String combination of delivery location, delivery time, delivery date, and order.",
     )
 
@@ -117,7 +117,10 @@ class DeliveryDetails(models.Model):
         return f"Delivery {self.order} at {self.delivery_location} on {self.delivery_date}"
 
     def save(self, *args, **kwargs):
-        self.qr_code = f"{self.delivery_location.name}_{self.delivery_time.name}_{self.delivery_date}_{self.order.id}_{self.locker.locker_number}"
+        if self.locker:
+            self.qr_code = f"{self.delivery_location.name}_{self.delivery_time.name}_{self.delivery_date}_{self.order.id}_{self.locker.locker_number}"
+        else:
+            self.qr_code = None
         super(DeliveryDetails, self).save(*args, **kwargs)
 
 
