@@ -2,6 +2,7 @@ from rest_framework import serializers
 from ..models import Orders, DeliveryDetails
 from ..models import Orders
 from ..models import DeliveryDetails, DeliveryLocation, DeliveryTimeSlot
+from user_auth.models import User
 from rest_framework import serializers
 
 class DeliveryLocationSerializer(serializers.ModelSerializer):
@@ -22,14 +23,21 @@ class DeliveryDetailsSerializer(serializers.ModelSerializer):
         model = DeliveryDetails
         fields = ['delivery_location', 'delivery_time', 'delivery_date']
 
+class UserSerializer(serializers.ModelSerializer):
+    class Meta:
+        model = User
+        fields = ['id', 'first_name', 'last_name', 'email', 'image'] 
+
 class OrderSerializer(serializers.ModelSerializer):
 
     order_status = serializers.SerializerMethodField()
     delivery_details = serializers.SerializerMethodField()  # Add this to include delivery details
     item_names = serializers.SerializerMethodField()  # Custom field to combine names of products, recipes, and meal kits
+    user_id = UserSerializer(read_only=True)
+
     class Meta:
         model = Orders
-        fields = '__all__'  
+        fields = ['id', 'order_status', 'delivery_details', 'item_names', 'created_at', 'updated_at', 'total', 'delivery_proof_photo', 'user_id']  
 
     def get_order_status(self, obj):
         return obj.order_status.name 

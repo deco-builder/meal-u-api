@@ -25,6 +25,7 @@ class Orders(models.Model):
         help_text="A 4-digit numeric passcode for the order.",
     )
     total = models.DecimalField(decimal_places=2, max_digits=10)
+    delivery_proof_photo = models.ImageField(upload_to='delivery_proofs/', null=True, blank=True)
 
 
 class OrderProducts(models.Model):
