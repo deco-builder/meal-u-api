@@ -1,10 +1,10 @@
 from django.urls import path
-from .views.orders import OrderListView, OrderStatusPaidUpdateView, OrderDetailView, OrderStatusDeliveringUpdateView, OrderStatusDeliveredUpdateView, OrderStatusCompletedUpdateView
+from .views.orders import OrderListView, OrderDetailView
 from .views.checkout import CheckoutView
 from .views.delivery_time_slot import DeliveryTimeSlotListView
 from .views.delivery_location import DeliveryLocationListView
 from .views.orders_warehouse import OrderWarehouseView
-from .views.order_status import OrderStatusPreparingView, OrderStatusReadyToDeliverView
+from .views.order_status import OrderStatusPreparingView, OrderStatusReadyToDeliverView, OrderStatusDeliveringUpdateView, OrderStatusDeliveredUpdateView, OrderStatusCompletedUpdateView, OrderStatusPaidUpdateView
 
 urlpatterns = [
     path("", OrderListView.as_view(), name="order-list"),
