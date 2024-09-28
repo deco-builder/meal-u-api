@@ -99,7 +99,7 @@ class MealKit(models.Model):
 class MealKitRecipe(models.Model):
     mealkit = models.ForeignKey(MealKit, on_delete=models.CASCADE)
     recipe = models.ForeignKey(Recipe, on_delete=models.PROTECT)
-    quantity = models.PositiveIntegerField(default=0)
+    quantity = models.PositiveIntegerField(default=1)
 
     class Meta:
         unique_together = ("mealkit", "recipe")
