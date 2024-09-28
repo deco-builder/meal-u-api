@@ -4,13 +4,17 @@ from ..models import Recipe, RecipeIngredient, Ingredient, PreparationType
 
 class IngredientSerializer(serializers.ModelSerializer):
     image = serializers.SerializerMethodField()
+    product_id = serializers.SerializerMethodField()
 
     class Meta:
         model = Ingredient
-        fields = ["id", "name", "image", "unit_id", "unit_size", "price_per_unit"]
+        fields = ["id", "name", "image", "product_id", "unit_id", "unit_size", "price_per_unit"]
 
     def get_image(self, obj):
         return obj.product_id.image.url if obj.product_id.image else None
+    
+    def get_product_id(self, obj):
+        return obj.product_id.id
 
 
 class PreparationTypeSerializer(serializers.ModelSerializer):
