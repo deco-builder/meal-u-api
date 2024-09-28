@@ -7,7 +7,7 @@ class IngredientSerializer(serializers.ModelSerializer):
 
     class Meta:
         model = Ingredient
-        fields = ["name", "image", "unit_id", "unit_size", "price_per_unit"]
+        fields = ["id", "name", "image", "unit_id", "unit_size", "price_per_unit"]
 
     def get_image(self, obj):
         return obj.product_id.image.url if obj.product_id.image else None
