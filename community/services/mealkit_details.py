@@ -1,5 +1,5 @@
 import json
-from ..models import MealKit
+from ..models import MealKit, Recipe
 from ..serializers.mealkit_details import MealKitDetailsSerializer
 from ..serializers.create_mealkit import MealKitSerializer, MealKitDietaryDetailSerializer, MealKitRecipeSerializer
 
@@ -25,6 +25,10 @@ class MealKitDetailsServices:
 
             recipes = json.loads(data.get("mealkit", {})).get("recipes", [])
             for recipe in recipes:
+                recipe_obj = Recipe.objects.get(id=recipe)
+                if recipe_obj.creator != user.id:
+                    raise Exception(f"User {str(user)} is not the creator of recipe {str(recipe_obj)}.")
+                
                 mealkit_recipe_data = {"mealkit": mealkit.id, "recipe": recipe}
                 mealkit_recipe_serializer = MealKitRecipeSerializer(data=mealkit_recipe_data)
                 mealkit_recipe_serializer.is_valid(raise_exception=True)
