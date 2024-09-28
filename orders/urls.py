@@ -1,5 +1,5 @@
 from django.urls import path
-from .views.orders import OrderListView, OrderDetailView
+from .views.orders import OrderListView, OrderDetailView,OrderListByStatusView
 from .views.checkout import CheckoutView
 from .views.delivery_time_slot import DeliveryTimeSlotListView
 from .views.delivery_location import DeliveryLocationListView
@@ -20,4 +20,5 @@ urlpatterns = [
     path('checkout/', CheckoutView.as_view(), name='checkout'),
     path('delivery-time-slots/', DeliveryTimeSlotListView.as_view(), name='delivery-time-slots'),
     path('delivery-locations/', DeliveryLocationListView.as_view(), name='delivery-locations'),
+    path('status/', OrderListByStatusView.as_view(), name='order-list-by-status'),
 ]

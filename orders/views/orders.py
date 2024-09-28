@@ -39,3 +39,29 @@ class OrderDetailView(APIView):
             return Response(
                 prepare_error_response(str(e)), status=status.HTTP_400_BAD_REQUEST
             )
+
+class OrderListByStatusView(APIView):
+    authentication_classes = [JWTAuthentication]
+    permission_classes = [IsAuthenticated]
+
+    def get(self, request):
+        user = request.user
+        status_param = request.query_params.get('status', None)
+        
+        if not status_param:
+            return Response(
+                prepare_error_response("Status query parameter is required."), 
+                status=status.HTTP_400_BAD_REQUEST
+            )
+        try:
+            response = OrdersService.get_orders_by_status(status_param)
+            if not response:  
+                return Response(
+                    prepare_error_response("No orders found for the specified status."), 
+                    status=status.HTTP_404_NOT_FOUND
+                )
+            return Response(prepare_success_response(response), status=status.HTTP_200_OK)
+        except Exception as e:
+            return Response(
+                prepare_error_response(str(e)), status=status.HTTP_400_BAD_REQUEST
+            )
