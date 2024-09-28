@@ -3,10 +3,19 @@ from .views.recipes import RecipesView
 from .views.recipe_details import RecipeDetailsView
 from .views.mealkits import MealKitsView
 from .views.mealkit_details import MealkitDetailsView
+from .views.like_and_comment import RecipeStatsView, RecipeCommentListView, MealKitStatsView, MealKitCommentListView, RecipeLikeView, RecipeCommentView, MealKitLikeView, MealKitCommentView
 
 urlpatterns = [
     path("recipes/", RecipesView.as_view(), name="Recipes"),
     path("recipe/<int:recipe_id>/", RecipeDetailsView.as_view(), name="Recipe Details"),
     path("mealkits/", MealKitsView.as_view(), name="Mealkits"),
     path("mealkit/<int:mealkit_id>/", MealkitDetailsView.as_view(), name="Mealkit Details"),
+    path('recipe/<int:recipe_id>/like/', RecipeLikeView.as_view(), name='recipe-like'),
+    path('recipe/<int:recipe_id>/comment/', RecipeCommentView.as_view(), name='recipe-comment'),
+    path('mealkit/<int:mealkit_id>/like/', MealKitLikeView.as_view(), name='mealkit-like'),
+    path('mealkit/<int:mealkit_id>/comment/', MealKitCommentView.as_view(), name='mealkit-comment'),
+    path('recipe/<int:recipe_id>/stats/', RecipeStatsView.as_view(), name='recipe-stats'),
+    path('recipe/<int:recipe_id>/comments/', RecipeCommentListView.as_view(), name='recipe-comments'),
+    path('mealkit/<int:mealkit_id>/stats/', MealKitStatsView.as_view(), name='mealkit-stats'),
+    path('mealkit/<int:mealkit_id>/comments/', MealKitCommentListView.as_view(), name='mealkit-comments'),
 ]
