@@ -115,7 +115,7 @@ class MealkitDietaryDetail(models.Model):
         unique_together = ("mealkit", "dietary_details")
 
     def __str__(self):
-        return str(self.dietary_details) + " " + str(self.recipe)
+        return str(self.dietary_details) + " " + str(self.mealkit)
 
 
 class IngredientLike(models.Model):
