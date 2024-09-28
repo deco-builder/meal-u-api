@@ -13,7 +13,13 @@ class RecipesService:
             )
 
             if search:
-                queryset = queryset.filter(Q(name__icontains=search) | Q(description__icontains=search))
+                queryset = queryset.filter(
+                    Q(name__icontains=search)
+                    | Q(description__icontains=search)
+                    | Q(recipeingredient__ingredient__product_id__name__icontains=search)
+                    | Q(recipeingredient__ingredient__product_id__description__icontains=search)
+                    | Q(recipeingredient__ingredient__product_id__category_id__name__icontains=search)
+                )
 
             if dietary_details:
                 queryset = queryset.filter(recipedietarydetail__dietary_details__name__in=dietary_details).distinct()
