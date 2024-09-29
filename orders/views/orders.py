@@ -29,7 +29,7 @@ class OrderListView(APIView):
 
 class OrderDetailView(APIView):
     authentication_classes = [JWTAuthentication]
-    permission_classes = [IsAuthenticated, IsClientUser]
+    permission_classes = [IsAuthenticated]
 
     def get(self, request, order_id):
         try:
