@@ -99,7 +99,7 @@ class MealKit(models.Model):
 class MealKitRecipe(models.Model):
     mealkit = models.ForeignKey(MealKit, on_delete=models.CASCADE)
     recipe = models.ForeignKey(Recipe, on_delete=models.PROTECT)
-    quantity = models.PositiveIntegerField(default=0)
+    quantity = models.PositiveIntegerField(default=1)
 
     class Meta:
         unique_together = ("mealkit", "recipe")
@@ -115,7 +115,7 @@ class MealkitDietaryDetail(models.Model):
         unique_together = ("mealkit", "dietary_details")
 
     def __str__(self):
-        return str(self.dietary_details) + " " + str(self.recipe)
+        return str(self.dietary_details) + " " + str(self.mealkit)
 
 
 class IngredientLike(models.Model):

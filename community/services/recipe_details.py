@@ -1,6 +1,13 @@
-from django.db.models import Q
+import json
 from ..models import Recipe
 from ..serializers.recipe_details import RecipeDetailsSerializer
+from ..serializers.create_recipe import (
+    RecipeSerializer,
+    IngredientSerializer,
+    PreparationTypeSerializer,
+    RecipeIngredientSerializer,
+    RecipeDietaryDetailSerializer,
+)
 
 
 class RecipeDetailsService:
@@ -16,5 +23,58 @@ class RecipeDetailsService:
                 .get(id=recipe_id)
             )
             return RecipeDetailsSerializer(product).data
+        except Exception as e:
+            raise e
+
+    def post(self, data, user, image):
+        try:
+            recipe = json.loads(data.get("recipe", {}))
+            recipe["creator"] = user.id
+            recipe["image"] = image
+
+            recipe_serializer = RecipeSerializer(data=recipe)
+            recipe_serializer.is_valid(raise_exception=True)
+            recipe = recipe_serializer.save()
+
+            ingredients_data = json.loads(data.get("ingredients", []))
+            for ingredient_data in ingredients_data:
+                ingredient = ingredient_data.get("ingredient", {})
+                ingredient = {
+                    "name": ingredient.get("name"),
+                    "product_id": ingredient.get("product_id"),
+                    "unit_id": ingredient.get("unit_id"),
+                    "unit_size": ingredient.get("unit_size"),
+                    "description": ingredient.get("description"),
+                }
+
+                ingredient_serializer = IngredientSerializer(data=ingredient)
+                ingredient_serializer.is_valid(raise_exception=True)
+                ingredient = ingredient_serializer.save()
+
+                preparation_type = ingredient_data.get("preparation_type", {})
+                if preparation_type != None:
+                    preparation_type["ingredient"] = ingredient.id
+                    preparation_type_serializer = PreparationTypeSerializer(data=preparation_type)
+                    preparation_type_serializer.is_valid(raise_exception=True)
+                    preparation_type = preparation_type_serializer.save()
+
+                recipe_ingredient_data = {
+                    "recipe": recipe.id,
+                    "ingredient": ingredient.id,
+                    "preparation_type": preparation_type.id if preparation_type != None else None,
+                }
+                recipe_ingredient_serializer = RecipeIngredientSerializer(data=recipe_ingredient_data)
+                recipe_ingredient_serializer.is_valid(raise_exception=True)
+                recipe_ingredient_serializer.save()
+
+            dietary_details = json.loads(data.get("dietary_details", []))
+            for dietary_detail in dietary_details:
+                dietary_detail_data = {"recipe": recipe.id, "dietary_details": dietary_detail}
+                recipe_dietary_detail_serializer = RecipeDietaryDetailSerializer(data=dietary_detail_data)
+                recipe_dietary_detail_serializer.is_valid(raise_exception=True)
+                recipe_dietary_detail_serializer.save()
+
+            return self.get(recipe.id)
+
         except Exception as e:
             raise e
