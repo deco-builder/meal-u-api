@@ -50,19 +50,17 @@ class CartView(APIView):
     def delete(self, request):
         try:
             item_type = request.data.get('item_type')
-            
+
             if item_type == 'recipe':
                 item_id = request.data.get('cart_recipe_id')
+            elif item_type == 'mealkit':
+                item_id = request.data.get('cart_mealkit_id')
             elif item_type == 'recipe_ingredient':
                 item_id = request.data.get('cart_ingredient_id')
             elif item_type == 'product':
                 item_id = request.data.get('cart_product_id')
-            elif item_type == 'mealkit':
-                item_id = request.data.get('cart_mealkit_id')
             else:
                 return Response(prepare_error_response("Invalid item type"), status=status.HTTP_400_BAD_REQUEST)
-
-            # print(f"item_type: {item_type}, item_id being passed to remove_item: {item_id}")
 
             if item_id is None:
                 return Response(prepare_error_response("Item ID is required"), status=status.HTTP_400_BAD_REQUEST)

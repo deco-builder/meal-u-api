@@ -1,11 +1,45 @@
-from django.db.models import Q
+from django.db import models
 from .models import UserCart, CartIngredient, CartProduct, CartRecipe, CartMealKit
 from community.models import Ingredient, Recipe, RecipeIngredient, MealKit, MealKitRecipe
 from groceries.models import Product
-from .serializers import UserCartSerializer, CartIngredientSerializer, CartProductSerializer, CartRecipeSerializer, CartMealKitSerializer
-
+from .serializers import UserCartSerializer, CartIngredientSerializer, CartProductSerializer, CartRecipeSerializer, CartMealKitSerializer, MealKitsSerializer, RecipesSerializer
 class CartService:
-    
+
+    def get_total_quantity(self, user_cart):
+        total = 0
+        total += CartProduct.objects.filter(user_cart=user_cart).aggregate(total=models.Sum('quantity'))['total'] or 0
+        total += CartRecipe.objects.filter(user_cart=user_cart).aggregate(total=models.Sum('quantity'))['total'] or 0
+        total += CartMealKit.objects.filter(user_cart=user_cart).aggregate(total=models.Sum('quantity'))['total'] or 0
+        # Note: We're not including CartIngredient in the total quantity as per your requirements
+        return total
+
+    def get_total_price(self, user_cart):
+        total_price = 0
+
+        # Calculate price for products
+        for cart_product in CartProduct.objects.filter(user_cart=user_cart).select_related('product'):
+            total_price += cart_product.product.price_per_unit * cart_product.quantity
+
+        # Get all meal kit recipes to exclude them from individual recipe pricing
+        mealkit_recipe_ids = MealKitRecipe.objects.filter(
+            mealkit__cartmealkit__user_cart=user_cart
+        ).values_list('recipe_id', flat=True)
+
+        # Calculate price for recipes that are not part of meal kits
+        for cart_recipe in CartRecipe.objects.filter(user_cart=user_cart).select_related('recipe'):
+            if cart_recipe.recipe.id not in mealkit_recipe_ids:
+                recipe_serializer = RecipesSerializer(cart_recipe.recipe)
+                recipe_price = recipe_serializer.data.get('total_price', 0)
+                total_price += recipe_price * cart_recipe.quantity
+
+        # Calculate price for meal kits using the serializer
+        for cart_mealkit in CartMealKit.objects.filter(user_cart=user_cart).select_related('mealkit'):
+            mealkit_serializer = MealKitsSerializer(cart_mealkit.mealkit)
+            mealkit_price = mealkit_serializer.data.get('price', 0)
+            total_price += mealkit_price * cart_mealkit.quantity
+
+        return total_price
+
     def get_cart(self, user):
         try:
             user_cart = UserCart.objects.filter(user=user).prefetch_related(
@@ -22,7 +56,20 @@ class CartService:
                 user_cart.refresh_from_db()
 
             serializer = UserCartSerializer(user_cart)
-            return serializer.data
+            data = serializer.data
+
+            # Get all meal kit recipes to mark recipes in the cart
+            mealkit_recipe_ids = MealKitRecipe.objects.filter(
+                mealkit__cartmealkit__user_cart=user_cart
+            ).values_list('recipe_id', flat=True)
+
+            # Mark recipes that are part of meal kits
+            for recipe in data['cart_recipes']:
+                recipe['is_from_mealkit'] = recipe['recipe']['id'] in mealkit_recipe_ids
+
+            data['total_quantity'] = self.get_total_quantity(user_cart)
+            data['total_price'] = self.get_total_price(user_cart)
+            return data
         except Exception as e:
             raise e
             
@@ -149,55 +196,63 @@ class CartService:
     def remove_item(self, user, item_type, item_id):
         try:
             user_cart = UserCart.objects.get(user=user)
-
+            
             if item_type == 'recipe_ingredient':
                 CartIngredient.objects.filter(user_cart=user_cart, id=item_id).delete()
+            
             elif item_type == 'product':
                 CartProduct.objects.filter(user_cart=user_cart, id=item_id).delete()
-
+            
             elif item_type == 'recipe':
                 cart_recipe = CartRecipe.objects.filter(user_cart=user_cart, id=item_id).first()
-                # print(f"Attempting to delete CartRecipe with id: {item_id}")
                 if cart_recipe:
-                    # print(f"CartRecipe found: {cart_recipe.id}")
                     try:
-                        # Delete associated ingredients
-                        deleted_ingredients = CartIngredient.objects.filter(
+                        # Delete associated cart ingredients
+                        CartIngredient.objects.filter(
                             user_cart=user_cart,
                             recipe_ingredient__recipe=cart_recipe.recipe
                         ).delete()
-                        # print(f"Deleted associated ingredients: {deleted_ingredients}")
 
                         # Delete the cart recipe
-                        deleted_recipe = cart_recipe.delete()
-                        # print(f"Deleted CartRecipe: {deleted_recipe}")
+                        cart_recipe.delete()
                     except Exception as delete_error:
-                        # print(f"Error during deletion: {str(delete_error)}")
                         raise delete_error
                 else:
-                    # print(f"No CartRecipe found for id: {item_id} in user_cart: {user_cart.id}")
-                    all_cart_recipes = CartRecipe.objects.filter(user_cart=user_cart)
-                    # print(f"All CartRecipes for this user: {list(all_cart_recipes.values())}")
-
+                    raise CartRecipe.DoesNotExist(f"No CartRecipe found for id: {item_id}")
+            
             elif item_type == 'mealkit':
-                cart_mealkit = CartMealKit.objects.get(user_cart=user_cart, id=item_id)
-                mealkit = cart_mealkit.mealkit
-                
-                mealkit_recipes = MealKitRecipe.objects.filter(mealkit=mealkit)
-                for mealkit_recipe in mealkit_recipes:
-                    CartRecipe.objects.filter(
-                        user_cart=user_cart,
-                        recipe=mealkit_recipe.recipe
-                    ).delete()
-                
-                cart_mealkit.delete()
+                cart_mealkit = CartMealKit.objects.filter(user_cart=user_cart, id=item_id).first()
+                if cart_mealkit:
+                    mealkit = cart_mealkit.mealkit
+
+                    mealkit_recipes = MealKitRecipe.objects.filter(mealkit=mealkit)
+                    for mealkit_recipe in mealkit_recipes:
+                        # Delete associated cart ingredients for each recipe in the meal kit
+                        CartIngredient.objects.filter(
+                            user_cart=user_cart,
+                            recipe_ingredient__recipe=mealkit_recipe.recipe
+                        ).delete()
+                        
+                        # Delete the cart recipe
+                        CartRecipe.objects.filter(
+                            user_cart=user_cart,
+                            recipe=mealkit_recipe.recipe
+                        ).delete()
+
+                    cart_mealkit.delete()
+                else:
+                    raise CartMealKit.DoesNotExist(f"No CartMealKit found for id: {item_id}")
+            
             else:
                 raise ValueError("Invalid item type.")
 
+            # Return the updated cart data
             return self.get_cart(user)
+        
         except UserCart.DoesNotExist:
             raise ValueError("Cart does not exist for this user.")
-        except CartProduct.DoesNotExist:
+        except (CartIngredient.DoesNotExist, CartProduct.DoesNotExist, CartRecipe.DoesNotExist, CartMealKit.DoesNotExist) as e:
+            # If the item doesn't exist, we can consider it as already removed
             return self.get_cart(user)
         except Exception as e:
             raise e
@@ -208,52 +263,51 @@ class CartService:
 
             if item_type == 'recipe_ingredient':
                 item = CartIngredient.objects.get(user_cart=user_cart, id=item_id)
+                item.quantity = new_quantity
+                item.save()
+
             elif item_type == 'product':
-                item = CartProduct.objects.get(user_cart=user_cart, id=item_id)
+                cart_product = CartProduct.objects.get(user_cart=user_cart, id=item_id)
+                cart_product.quantity = new_quantity
+                cart_product.save()
+
             elif item_type == 'recipe':
-                item, created = CartRecipe.objects.get_or_create(
-                    user_cart=user_cart,
-                    id=item_id,
-                    defaults={'quantity': new_quantity, 'recipe_id': item_id}  # Assuming item_id is also the recipe_id
-                )
-                if not created:
-                    item.quantity = new_quantity
-                    item.save()
+                cart_recipe = CartRecipe.objects.get(user_cart=user_cart, id=item_id)
+                cart_recipe.quantity = new_quantity
+                cart_recipe.save()
 
                 # Update associated CartIngredient quantities
-                recipe_ingredients = RecipeIngredient.objects.filter(recipe=item.recipe)
-                for ri in recipe_ingredients:
-                    cart_ingredient, _ = CartIngredient.objects.get_or_create(
-                        user_cart=user_cart,
-                        recipe_ingredient=ri,
-                        defaults={'quantity': ri.quantity * new_quantity}
-                    )
-                    if not created:
-                        cart_ingredient.quantity = ri.quantity * new_quantity
-                        cart_ingredient.save()
-                    
+                cart_ingredients = CartIngredient.objects.filter(
+                    user_cart=user_cart,
+                    recipe_ingredient__recipe=cart_recipe.recipe
+                )
+                for cart_ingredient in cart_ingredients:
+                    cart_ingredient.quantity = new_quantity
+                    cart_ingredient.save()
+                        
             elif item_type == 'mealkit':
-                item = CartMealKit.objects.get(user_cart=user_cart, id=item_id)
+                cart_mealkit = CartMealKit.objects.get(user_cart=user_cart, id=item_id)
+                cart_mealkit.quantity = new_quantity
+                cart_mealkit.save()
                 
-                mealkit = item.mealkit
-                mealkit_recipes = MealKitRecipe.objects.filter(mealkit=mealkit)
+                mealkit_recipes = MealKitRecipe.objects.filter(mealkit=cart_mealkit.mealkit)
                 for mealkit_recipe in mealkit_recipes:
-                    cart_recipe = CartRecipe.objects.get(
+                    cart_recipe, _ = CartRecipe.objects.get_or_create(
                         user_cart=user_cart,
-                        recipe=mealkit_recipe.recipe
+                        recipe=mealkit_recipe.recipe,
+                        defaults={'quantity': mealkit_recipe.quantity * new_quantity}
                     )
-                    cart_recipe.quantity = mealkit_recipe.quantity * new_quantity
-                    cart_recipe.save()
-            else:
-                raise ValueError("Invalid item type.")
+                    if not _:
+                        cart_recipe.quantity = mealkit_recipe.quantity * new_quantity
+                        cart_recipe.save()
 
-            item.quantity = new_quantity
-            item.save()
+            else:
+                raise ValueError(f"Invalid item_type: {item_type}")
 
             return self.get_cart(user)
         except UserCart.DoesNotExist:
             raise ValueError("Cart does not exist for this user.")
-        except (CartIngredient.DoesNotExist, CartProduct.DoesNotExist, CartMealKit.DoesNotExist):
-            raise ValueError(f"{item_type.capitalize()} not found in the cart.")
+        except (CartIngredient.DoesNotExist, CartProduct.DoesNotExist, CartMealKit.DoesNotExist, CartRecipe.DoesNotExist):
+            raise ValueError(f"{item_type.capitalize()} with id {item_id} not found in the cart.")
         except Exception as e:
             raise e

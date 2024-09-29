@@ -23,7 +23,7 @@ class CartProductSerializer(serializers.ModelSerializer):
 
 class CartMealKitSerializer(serializers.ModelSerializer):
     recipes = serializers.SerializerMethodField()
-    mealkit = MealKitDetailsSerializer(read_only=True)
+    mealkit = MealKitsSerializer(read_only=True)
 
     class Meta:
         model = CartMealKit
@@ -46,7 +46,15 @@ class UserCartSerializer(serializers.ModelSerializer):
     cart_products = CartProductSerializer(many=True, read_only=True)
     cart_recipes = CartRecipeSerializer(many=True, read_only=True)
     cart_mealkits = CartMealKitSerializer(many=True, read_only=True)
+    total_quantity = serializers.SerializerMethodField()
+    total_price = serializers.SerializerMethodField()
 
     class Meta:
         model = UserCart
-        fields = ['user', 'updated_at', 'cart_ingredients', 'cart_products', 'cart_recipes', 'cart_mealkits']
+        fields = ['user', 'cart_ingredients', 'cart_products', 'cart_recipes', 'cart_mealkits', 'total_quantity', 'total_price']
+
+    def get_total_quantity(self, obj):
+        return 0  # This will be overwritten by the CartService
+
+    def get_total_price(self, obj):
+        return 0  # This will be overwritten by the CartService
