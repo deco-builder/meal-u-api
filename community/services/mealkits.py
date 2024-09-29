@@ -9,7 +9,15 @@ class MealKitsServices:
             queryset = MealKit.objects.prefetch_related("mealkitdietarydetail_set__dietary_details")
 
             if search:
-                queryset = queryset.filter(Q(name__icontains=search) | Q(description__icontains=search))
+                queryset = queryset.filter(
+                    Q(name__icontains=search)
+                    | Q(description__icontains=search)
+                    | Q(mealkitrecipe__recipe__recipeingredient__ingredient__product_id__name__icontains=search)
+                    | Q(mealkitrecipe__recipe__recipeingredient__ingredient__product_id__description__icontains=search)
+                    | Q(
+                        mealkitrecipe__recipe__recipeingredient__ingredient__product_id__category_id__name__icontains=search
+                    )
+                )
 
             if dietary_details:
                 queryset = queryset.filter(mealkitdietarydetail__dietary_details__name__in=dietary_details).distinct()
