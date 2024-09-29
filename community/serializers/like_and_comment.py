@@ -8,9 +8,14 @@ class RecipeLikeSerializer(serializers.ModelSerializer):
         fields = ['id', 'recipe', 'user', 'liked_at']
 
 class RecipeCommentSerializer(serializers.ModelSerializer):
+    is_creator = serializers.SerializerMethodField()
+
     class Meta:
         model = RecipeComment
-        fields = ['id', 'recipe', 'user', 'comment', 'commented_at']
+        fields = ['id', 'recipe', 'user', 'comment', 'commented_at', 'is_creator']
+    
+    def get_is_creator(self, obj):
+        return obj.user == obj.recipe.creator
 
 # MealKit serializers
 class MealKitLikeSerializer(serializers.ModelSerializer):
@@ -19,6 +24,11 @@ class MealKitLikeSerializer(serializers.ModelSerializer):
         fields = ['id', 'mealkit', 'user', 'liked_at']
 
 class MealKitCommentSerializer(serializers.ModelSerializer):
+    is_creator = serializers.SerializerMethodField()
+
     class Meta:
         model = MealKitComment
-        fields = ['id', 'mealkit', 'user', 'comment', 'commented_at']
+        fields = ['id', 'mealkit', 'user', 'comment', 'commented_at', 'is_creator']
+    
+    def get_is_creator(self, obj):
+        return obj.user == obj.mealkit.creator

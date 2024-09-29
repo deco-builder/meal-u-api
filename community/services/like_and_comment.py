@@ -1,5 +1,5 @@
 from ..models import RecipeLike, RecipeComment, MealKitLike, MealKitComment, MealKitSave
-from ..serializers import RecipeLikeSerializer, RecipeCommentSerializer, MealKitLikeSerializer, MealKitCommentSerializer, MealKitSaveSerializer
+from ..serializers.like_and_comment import RecipeLikeSerializer, RecipeCommentSerializer, MealKitLikeSerializer, MealKitCommentSerializer
 from rest_framework.exceptions import ValidationError
 
 class RecipeLikeAndCommentService:
@@ -19,6 +19,19 @@ class RecipeLikeAndCommentService:
         if serializer.is_valid(raise_exception=True):
             comment = serializer.save()
             return comment
+    
+    @staticmethod
+    def get_recipe_likes_count(recipe_id):
+        return RecipeLike.objects.filter(recipe_id=recipe_id).count()
+
+    @staticmethod
+    def get_recipe_comments_count(recipe_id):
+        return RecipeComment.objects.filter(recipe_id=recipe_id).count()
+
+    @staticmethod
+    def get_all_recipe_comments(recipe_id):
+        return RecipeComment.objects.filter(recipe_id=recipe_id).order_by('-commented_at')
+    
 
 class MealKitLikeAndCommentService:
 
@@ -37,11 +50,15 @@ class MealKitLikeAndCommentService:
         if serializer.is_valid(raise_exception=True):
             comment = serializer.save()
             return comment
+    
+    @staticmethod
+    def get_mealkit_likes_count(mealkit_id):
+        return MealKitLike.objects.filter(mealkit_id=mealkit_id).count()
 
     @staticmethod
-    def save_mealkit(user, mealkit):
-        data = {'user': user.id, 'mealkit': mealkit.id}
-        serializer = MealKitSaveSerializer(data=data)
-        if serializer.is_valid(raise_exception=True):
-            save = serializer.save()
-            return save
+    def get_mealkit_comments_count(mealkit_id):
+        return MealKitComment.objects.filter(mealkit_id=mealkit_id).count()
+
+    @staticmethod
+    def get_all_mealkit_comments(mealkit_id):
+        return MealKitComment.objects.filter(mealkit_id=mealkit_id).order_by('-commented_at')
