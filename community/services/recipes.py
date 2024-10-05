@@ -19,12 +19,12 @@ class RecipesService:
                     | Q(recipeingredient__ingredient__product_id__name__icontains=search)
                     | Q(recipeingredient__ingredient__product_id__description__icontains=search)
                     | Q(recipeingredient__ingredient__product_id__category_id__name__icontains=search)
-                )
+                ).distinct()
 
             if dietary_details:
                 queryset = queryset.filter(recipedietarydetail__dietary_details__name__in=dietary_details).distinct()
 
-            recipes = queryset.all()
+            recipes = queryset.all().distinct()
             serializer = RecipesSerializer(recipes, many=True)
             return serializer.data
         except Exception as e:
