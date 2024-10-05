@@ -23,7 +23,7 @@ class ProductsService:
             if dietary_details:
                 queryset = queryset.filter(productdietarydetail__dietary_details__name__in=dietary_details).distinct()
 
-            products = queryset.all()
+            products = queryset.order_by("name").all()
             serializer = ProductsSerializer(products, many=True)
             return serializer.data
         except Exception as e:

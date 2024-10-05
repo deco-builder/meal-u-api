@@ -24,7 +24,7 @@ class RecipesService:
             if dietary_details:
                 queryset = queryset.filter(recipedietarydetail__dietary_details__name__in=dietary_details).distinct()
 
-            recipes = queryset.all().distinct()
+            recipes = queryset.order_by("name").all().distinct()
             serializer = RecipesSerializer(recipes, many=True)
             return serializer.data
         except Exception as e:

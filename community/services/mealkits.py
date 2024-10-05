@@ -22,7 +22,7 @@ class MealKitsServices:
             if dietary_details:
                 queryset = queryset.filter(mealkitdietarydetail__dietary_details__name__in=dietary_details).distinct()
 
-            mealkits = queryset.all().distinct()
+            mealkits = queryset.order_by("name").all().distinct()
             serializer = MealKitsSerializer(mealkits, many=True)
             return serializer.data
         except Exception as e:
