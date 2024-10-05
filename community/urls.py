@@ -22,6 +22,5 @@ urlpatterns = [
     path('mealkit/<int:mealkit_id>/stats/', MealKitStatsView.as_view(), name='mealkit-stats'),
     path('mealkit/<int:mealkit_id>/comments/', MealKitCommentListView.as_view(), name='mealkit-comments'),
     path("meal-types/", MealTypeView.as_view(), name="Meal Types"),
-    path("community-recipes/", CommunityRecipesView.as_view(), name="community-recipes")
-
+    path("community-recipes/", CommunityRecipesView.as_view(), name="community-recipes"),
 ]

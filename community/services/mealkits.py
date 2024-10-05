@@ -1,12 +1,15 @@
 from ..models import MealKit
 from ..serializers.mealkits import MealKitsSerializer
-from django.db.models import Q
+from django.db.models import Q, Count
 
 
 class MealKitsServices:
     def get(self, dietary_details=None, search=None):
         try:
-            queryset = MealKit.objects.prefetch_related("mealkitdietarydetail_set__dietary_details")
+            queryset = MealKit.objects.prefetch_related("mealkitdietarydetail_set__dietary_details").annotate(
+                likes_count=Count('mealkitlike'),
+                comments_count=Count('mealkitcomment') 
+            )
 
             if search:
                 queryset = queryset.filter(
@@ -27,3 +30,4 @@ class MealKitsServices:
             return serializer.data
         except Exception as e:
             raise e
+        

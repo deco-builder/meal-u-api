@@ -7,10 +7,12 @@ class MealKitsSerializer(serializers.ModelSerializer):
     creator = serializers.SerializerMethodField()
     dietary_details = serializers.SerializerMethodField()
     price = serializers.SerializerMethodField()
+    likes_count = serializers.IntegerField( read_only=True)  
+    comments_count = serializers.IntegerField( read_only=True)  
 
     class Meta:
         model = MealKit
-        fields = ["id", "name", "image", "creator", "created_at", "description", "dietary_details", "price"]
+        fields = ["id", "name", "image", "creator", "created_at", "description", "dietary_details", "price", "likes_count", "comments_count"]
 
     def get_creator(self, obj):
         return {
