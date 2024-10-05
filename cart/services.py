@@ -5,40 +5,40 @@ from groceries.models import Product
 from .serializers import UserCartSerializer, CartIngredientSerializer, CartProductSerializer, CartRecipeSerializer, CartMealKitSerializer, MealKitsSerializer, RecipesSerializer
 class CartService:
 
-    def get_total_quantity(self, user_cart):
-        total = 0
-        total += CartProduct.objects.filter(user_cart=user_cart).aggregate(total=models.Sum('quantity'))['total'] or 0
-        total += CartRecipe.objects.filter(user_cart=user_cart).aggregate(total=models.Sum('quantity'))['total'] or 0
-        total += CartMealKit.objects.filter(user_cart=user_cart).aggregate(total=models.Sum('quantity'))['total'] or 0
-        # Note: We're not including CartIngredient in the total quantity as per your requirements
-        return total
+    # def get_total_quantity(self, user_cart):
+    #     total = 0
+    #     total += CartProduct.objects.filter(user_cart=user_cart).aggregate(total=models.Sum('quantity'))['total'] or 0
+    #     total += CartRecipe.objects.filter(user_cart=user_cart).aggregate(total=models.Sum('quantity'))['total'] or 0
+    #     total += CartMealKit.objects.filter(user_cart=user_cart).aggregate(total=models.Sum('quantity'))['total'] or 0
+    #     # Note: We're not including CartIngredient in the total quantity as per your requirements
+    #     return total
 
-    def get_total_price(self, user_cart):
-        total_price = 0
+    # def get_total_price(self, user_cart):
+    #     total_price = 0
 
-        # Calculate price for products
-        for cart_product in CartProduct.objects.filter(user_cart=user_cart).select_related('product'):
-            total_price += cart_product.product.price_per_unit * cart_product.quantity
+    #     # Calculate price for products
+    #     for cart_product in CartProduct.objects.filter(user_cart=user_cart).select_related('product'):
+    #         total_price += cart_product.product.price_per_unit * cart_product.quantity
 
-        # Get all meal kit recipes to exclude them from individual recipe pricing
-        mealkit_recipe_ids = MealKitRecipe.objects.filter(
-            mealkit__cartmealkit__user_cart=user_cart
-        ).values_list('recipe_id', flat=True)
+    #     # Get all meal kit recipes to exclude them from individual recipe pricing
+    #     mealkit_recipe_ids = MealKitRecipe.objects.filter(
+    #         mealkit__cartmealkit__user_cart=user_cart
+    #     ).values_list('recipe_id', flat=True)
 
-        # Calculate price for recipes that are not part of meal kits
-        for cart_recipe in CartRecipe.objects.filter(user_cart=user_cart).select_related('recipe'):
-            if cart_recipe.recipe.id not in mealkit_recipe_ids:
-                recipe_serializer = RecipesSerializer(cart_recipe.recipe)
-                recipe_price = recipe_serializer.data.get('total_price', 0)
-                total_price += recipe_price * cart_recipe.quantity
+    #     # Calculate price for recipes that are not part of meal kits
+    #     for cart_recipe in CartRecipe.objects.filter(user_cart=user_cart).select_related('recipe'):
+    #         if cart_recipe.recipe.id not in mealkit_recipe_ids:
+    #             recipe_serializer = RecipesSerializer(cart_recipe.recipe)
+    #             recipe_price = recipe_serializer.data.get('total_price', 0)
+    #             total_price += recipe_price * cart_recipe.quantity
 
-        # Calculate price for meal kits using the serializer
-        for cart_mealkit in CartMealKit.objects.filter(user_cart=user_cart).select_related('mealkit'):
-            mealkit_serializer = MealKitsSerializer(cart_mealkit.mealkit)
-            mealkit_price = mealkit_serializer.data.get('price', 0)
-            total_price += mealkit_price * cart_mealkit.quantity
+    #     # Calculate price for meal kits using the serializer
+    #     for cart_mealkit in CartMealKit.objects.filter(user_cart=user_cart).select_related('mealkit'):
+    #         mealkit_serializer = MealKitsSerializer(cart_mealkit.mealkit)
+    #         mealkit_price = mealkit_serializer.data.get('price', 0)
+    #         total_price += mealkit_price * cart_mealkit.quantity
 
-        return total_price
+    #     return total_price
 
     def get_cart(self, user):
         try:
@@ -67,8 +67,8 @@ class CartService:
             for recipe in data['cart_recipes']:
                 recipe['is_from_mealkit'] = recipe['recipe']['id'] in mealkit_recipe_ids
 
-            data['total_quantity'] = self.get_total_quantity(user_cart)
-            data['total_price'] = self.get_total_price(user_cart)
+            # data['total_quantity'] = self.get_total_quantity(user_cart)
+            # data['total_price'] = self.get_total_price(user_cart)
             return data
         except Exception as e:
             raise e
@@ -91,40 +91,44 @@ class CartService:
         except Exception as e:
             raise e
 
-    def _add_recipe(self, user_cart, item_data, quantity):
+    def _add_recipe(self, user_cart, item_data, quantity, from_mealkit=False):
         recipe_id = item_data.get('recipe_id')
-        recipe_ingredients = item_data.get('recipe_ingredients', [])
-
-        if not recipe_id:
-            raise ValueError("Recipe ID is required.")
-
         recipe = Recipe.objects.get(id=recipe_id)
+
+        # Ensure that we correctly handle the is_from_mealkit flag
         cart_recipe, created = CartRecipe.objects.get_or_create(
             user_cart=user_cart,
             recipe=recipe,
+            is_from_mealkit=from_mealkit,  # Include this in the lookup
             defaults={'quantity': quantity}
         )
+        
         if not created:
+            # Only update quantity if it's from the same source
             cart_recipe.quantity += quantity
             cart_recipe.save()
 
-        for ri_data in recipe_ingredients:
+        # Process ingredients
+        for ri_data in item_data.get('recipe_ingredients', []):
+            ingredient_id = ri_data['ingredient_id']
+            preparation_type_id = ri_data.get('preparation_type_id', None)
+            ingredient_quantity = ri_data['quantity'] * quantity
+
             recipe_ingredient = RecipeIngredient.objects.get(
-                recipe_id=recipe_id,
-                ingredient_id=ri_data['ingredient_id'],
-                preparation_type_id=ri_data.get('preparation_type_id')
+                recipe_id=recipe_id, 
+                ingredient_id=ingredient_id, 
+                preparation_type_id=preparation_type_id
             )
-            cart_ingredient, created = CartIngredient.objects.get_or_create(
+            cart_ingredient, ci_created = CartIngredient.objects.get_or_create(
                 user_cart=user_cart,
                 recipe_ingredient=recipe_ingredient,
-                defaults={'quantity': ri_data.get('quantity', 1) * quantity}
+                defaults={'quantity': ingredient_quantity}
             )
-            if not created:
-                cart_ingredient.quantity += ri_data.get('quantity', 1) * quantity
+            if not ci_created:
+                cart_ingredient.quantity += ingredient_quantity
                 cart_ingredient.save()
 
-        serializer = CartRecipeSerializer(cart_recipe)
-        return serializer.data
+        return CartRecipeSerializer(cart_recipe).data
 
     def _add_product(self, user_cart, item_data, quantity):
         product = Product.objects.get(id=item_data)
@@ -141,8 +145,6 @@ class CartService:
 
     def _add_mealkit(self, user_cart, item_data, quantity):
         mealkit_id = item_data.get('mealkit_id')
-        recipes = item_data.get('recipes', [])
-
         if not mealkit_id:
             raise ValueError("MealKit ID is required.")
 
@@ -160,38 +162,11 @@ class CartService:
             cart_mealkit.quantity += quantity
             cart_mealkit.save()
 
-        for recipe_data in recipes:
-            recipe_id = recipe_data.get('recipe_id')
-            recipe_quantity = recipe_data.get('quantity', 1)
-            recipe_ingredients = recipe_data.get('recipe_ingredients', [])
+        # Process each recipe specified in the meal kit
+        for recipe_data in item_data['recipes']:
+            self._add_recipe(user_cart, recipe_data, recipe_data['quantity'] * quantity, from_mealkit=True)
 
-            recipe = Recipe.objects.get(id=recipe_id)
-            cart_recipe, created = CartRecipe.objects.get_or_create(
-                user_cart=user_cart,
-                recipe=recipe,
-                defaults={'quantity': recipe_quantity * quantity}
-            )
-            if not created:
-                cart_recipe.quantity += recipe_quantity * quantity
-                cart_recipe.save()
-
-            for ri_data in recipe_ingredients:
-                recipe_ingredient = RecipeIngredient.objects.get(
-                    recipe_id=recipe_id,
-                    ingredient_id=ri_data['ingredient_id'],
-                    preparation_type_id=ri_data.get('preparation_type_id')
-                )
-                cart_ingredient, created = CartIngredient.objects.get_or_create(
-                    user_cart=user_cart,
-                    recipe_ingredient=recipe_ingredient,
-                    defaults={'quantity': ri_data.get('quantity', 1) * recipe_quantity * quantity}
-                )
-                if not created:
-                    cart_ingredient.quantity += ri_data.get('quantity', 1) * recipe_quantity * quantity
-                    cart_ingredient.save()
-
-        serializer = CartMealKitSerializer(cart_mealkit)
-        return serializer.data
+        return CartMealKitSerializer(cart_mealkit).data
 
     def remove_item(self, user, item_type, item_id):
         try:

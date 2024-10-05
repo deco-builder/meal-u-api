@@ -36,13 +36,15 @@ class CartRecipe(models.Model):
     user_cart = models.ForeignKey(UserCart, on_delete=models.CASCADE, related_name='cart_recipes')
     recipe = models.ForeignKey('community.Recipe', on_delete=models.CASCADE)
     quantity = models.PositiveIntegerField(default=1)
+    is_from_mealkit = models.BooleanField(default=False)  # Track source
 
     class Meta:
-        unique_together = ('user_cart', 'recipe')
+        unique_together = ('user_cart', 'recipe', 'is_from_mealkit')  # Ensure this includes 'is_from_mealkit'
 
     def __str__(self):
-        return f"{self.quantity} x {self.recipe.name} in cart for {self.user_cart.user.email}"
-
+        source = "from MealKit" if self.is_from_mealkit else "directly added"
+        return f"{self.quantity} x {self.recipe.name} in cart {source}"
+        
 class CartMealKit(models.Model):
     user_cart = models.ForeignKey(UserCart, on_delete=models.CASCADE, related_name='cart_mealkits')
     mealkit = models.ForeignKey(MealKit, on_delete=models.CASCADE)
