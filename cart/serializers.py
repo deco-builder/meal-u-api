@@ -9,10 +9,11 @@ from groceries.serializers.products import ProductsSerializer
 
 class CartIngredientSerializer(serializers.ModelSerializer):
     recipe_ingredient = RecipeIngredientSerializer(read_only=True)
+    cart_recipe = serializers.PrimaryKeyRelatedField(read_only=True)
 
     class Meta:
         model = CartIngredient
-        fields = ['id', 'recipe_ingredient', 'quantity']
+        fields = ['id', 'recipe_ingredient', 'quantity', 'cart_recipe']
 
 class CartProductSerializer(serializers.ModelSerializer):
     product = ProductsSerializer(read_only=True)
@@ -53,7 +54,7 @@ class RecipesSerializer(serializers.ModelSerializer):
     meal_type = serializers.CharField(source="meal_type.name", read_only=True)
     dietary_details = serializers.SerializerMethodField()
     total_price = serializers.SerializerMethodField()
-    ingredients = RecipeIngredientSerializer(source='recipeingredient_set', many=True, read_only=True)
+    # ingredients = RecipeIngredientSerializer(source='recipeingredient_set', many=True, read_only=True)
 
     class Meta:
         model = Recipe
@@ -67,8 +68,8 @@ class RecipesSerializer(serializers.ModelSerializer):
             "created_at",
             "image",
             "dietary_details",
-            "ingredients",
-            "total_price",
+            # "ingredients",
+            "total_price"
         ]
 
     def get_creator(self, obj):
@@ -115,10 +116,16 @@ class RecipesSerializer(serializers.ModelSerializer):
 class CartRecipeSerializer(serializers.ModelSerializer):
     recipe = RecipesSerializer(read_only=True)
     is_from_mealkit = serializers.BooleanField(read_only=True)
+    meal_kit_recipe = serializers.PrimaryKeyRelatedField(read_only=True)  # Show meal kit recipe ID if needed
+    ingredients = serializers.SerializerMethodField()
 
     class Meta:
         model = CartRecipe
-        fields = ['id', 'recipe', 'quantity', 'is_from_mealkit']
+        fields = ['id', 'recipe', 'quantity', 'is_from_mealkit', 'meal_kit_recipe','ingredients']
+
+    def get_ingredients(self, obj):
+        ingredients = CartIngredient.objects.filter(user_cart=obj.user_cart, recipe_ingredient__recipe=obj.recipe)
+        return CartIngredientSerializer(ingredients, many=True).data
 
     # def get_cart_ingredients(self, obj):
     #     # Filtering CartIngredient entries specific to the given recipe in the cart

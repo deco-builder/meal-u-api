@@ -74,41 +74,36 @@ class CartService:
             raise e
             
     def add_item(self, user, item_type, item_data, quantity=1):
-        try:
-            user_cart, _ = UserCart.objects.get_or_create(user=user)
-            
-            if item_type == 'recipe':
-                return self._add_recipe(user_cart, item_data, quantity)
-            elif item_type == 'product':
-                return self._add_product(user_cart, item_data, quantity)
-            elif item_type == 'mealkit':
-                if not isinstance(item_data, dict) or 'mealkit_id' not in item_data:
-                    raise ValueError("Invalid mealkit data format. Expected a dictionary with 'mealkit_id'.")
-                return self._add_mealkit(user_cart, item_data, quantity)
-            else:
-                raise ValueError(f"Invalid item type: {item_type}")
+        user_cart, _ = UserCart.objects.get_or_create(user=user)
+        
+        if item_type == 'recipe':
+            meal_kit_recipe_id = item_data.get('meal_kit_recipe_id')  # Expecting this to be passed when adding from a meal kit
+            return self._add_recipe(user_cart, item_data, quantity, from_mealkit=True, meal_kit_recipe_id=meal_kit_recipe_id)
+        elif item_type == 'product':
+            return self._add_product(user_cart, item_data, quantity)
+        elif item_type == 'mealkit':
+            if not isinstance(item_data, dict) or 'mealkit_id' not in item_data:
+                raise ValueError("Invalid mealkit data format. Expected a dictionary with 'mealkit_id'.")
+            return self._add_mealkit(user_cart, item_data, quantity)
+        else:
+            raise ValueError(f"Invalid item type: {item_type}")
 
-        except Exception as e:
-            raise e
-
-    def _add_recipe(self, user_cart, item_data, quantity, from_mealkit=False):
+    def _add_recipe(self, user_cart, item_data, quantity, from_mealkit=False, meal_kit_recipe_id=None):
         recipe_id = item_data.get('recipe_id')
         recipe = Recipe.objects.get(id=recipe_id)
+        meal_kit_recipe = MealKitRecipe.objects.get(id=meal_kit_recipe_id) if meal_kit_recipe_id else None
 
-        # Ensure that we correctly handle the is_from_mealkit flag
         cart_recipe, created = CartRecipe.objects.get_or_create(
             user_cart=user_cart,
             recipe=recipe,
-            is_from_mealkit=from_mealkit,  # Include this in the lookup
+            meal_kit_recipe=meal_kit_recipe,
             defaults={'quantity': quantity}
         )
-        
         if not created:
-            # Only update quantity if it's from the same source
             cart_recipe.quantity += quantity
             cart_recipe.save()
 
-        # Process ingredients
+        # Update or create cart ingredients
         for ri_data in item_data.get('recipe_ingredients', []):
             ingredient_id = ri_data['ingredient_id']
             preparation_type_id = ri_data.get('preparation_type_id', None)
@@ -119,9 +114,10 @@ class CartService:
                 ingredient_id=ingredient_id, 
                 preparation_type_id=preparation_type_id
             )
-            cart_ingredient, ci_created = CartIngredient.objects.get_or_create(
+            cart_ingredient, ci_created = CartIngredient.objects.update_or_create(
                 user_cart=user_cart,
                 recipe_ingredient=recipe_ingredient,
+                cart_recipe=cart_recipe,  # Link to the specific CartRecipe
                 defaults={'quantity': ingredient_quantity}
             )
             if not ci_created:
@@ -145,13 +141,7 @@ class CartService:
 
     def _add_mealkit(self, user_cart, item_data, quantity):
         mealkit_id = item_data.get('mealkit_id')
-        if not mealkit_id:
-            raise ValueError("MealKit ID is required.")
-
-        try:
-            mealkit = MealKit.objects.get(id=mealkit_id)
-        except MealKit.DoesNotExist:
-            raise ValueError(f"MealKit with ID {mealkit_id} does not exist.")
+        mealkit = MealKit.objects.get(id=mealkit_id)
 
         cart_mealkit, created = CartMealKit.objects.get_or_create(
             user_cart=user_cart,
@@ -162,9 +152,16 @@ class CartService:
             cart_mealkit.quantity += quantity
             cart_mealkit.save()
 
-        # Process each recipe specified in the meal kit
-        for recipe_data in item_data['recipes']:
-            self._add_recipe(user_cart, recipe_data, recipe_data['quantity'] * quantity, from_mealkit=True)
+        # Add each recipe from the meal kit to the cart
+        meal_kit_recipes = MealKitRecipe.objects.filter(mealkit=mealkit)
+        for meal_kit_recipe in meal_kit_recipes:
+            self._add_recipe(
+                user_cart,
+                {'recipe_id': meal_kit_recipe.recipe.id, 'recipe_ingredients': []},  # Simplified data
+                meal_kit_recipe.quantity * quantity,
+                from_mealkit=True,
+                meal_kit_recipe_id=meal_kit_recipe.id
+            )
 
         return CartMealKitSerializer(cart_mealkit).data
 
