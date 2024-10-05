@@ -14,7 +14,7 @@ class CheckoutService:
             delivery_date = datetime.strptime(delivery_date, '%Y-%m-%d').date()
         
         if delivery_date < date.today():
-            raise ValidationError({"delivery_date": "Delivery date must be in the future."})
+            raise ValidationError("Delivery date must be in the future.")
 
         # Fetch cart items for the user
         user_cart = UserCart.objects.get(user_id=user)

@@ -11,9 +11,7 @@ from rest_framework.permissions import IsAuthenticated
 User = get_user_model()
 # Recipe Like Consumer
 class LikeRecipeConsumer(AsyncWebsocketConsumer):
-    authentication_classes = [JWTAuthentication]
-    permission_classes = [IsAuthenticated, IsClientUser]
-    
+
     async def connect(self):
         self.recipe_id = self.scope['url_route']['kwargs']['recipe_id']
         await self.channel_layer.group_add(
@@ -30,10 +28,9 @@ class LikeRecipeConsumer(AsyncWebsocketConsumer):
 
     async def receive(self, text_data):
         data = json.loads(text_data)
-        user_id = data['user_id']
 
         recipe = await self.get_recipe(self.recipe_id)
-        user = await self.get_user(user_id)
+        user = self.scope["user"]
         liked = await self.toggle_like(recipe, user)
 
         likes_count = await self.get_likes_count(recipe)
@@ -43,7 +40,7 @@ class LikeRecipeConsumer(AsyncWebsocketConsumer):
             f"recipe_{self.recipe_id}",
             {
                 'type': 'recipe_stats_updated',
-                'user_id': user_id,
+                'user_id': user.id,
                 'recipe_id': self.recipe_id,
                 'likes_count': likes_count,
                 'comments_count': comments_count
@@ -101,11 +98,10 @@ class CommentRecipeConsumer(AsyncWebsocketConsumer):
 
     async def receive(self, text_data):
         data = json.loads(text_data)
-        user_id = data['user_id']
         comment = data['comment']
 
         recipe = await self.get_recipe(self.recipe_id)
-        user = await self.get_user(user_id)
+        user = self.scope["user"]
         await self.add_comment(recipe, user, comment)
 
         likes_count = await self.get_likes_count(recipe)
@@ -115,7 +111,7 @@ class CommentRecipeConsumer(AsyncWebsocketConsumer):
             f"recipe_{self.recipe_id}",
             {
                 'type': 'recipe_stats_updated',
-                'user_id': user_id,
+                'user_id': user.id,
                 'recipe_id': self.recipe_id,
                 'likes_count': likes_count,
                 'comments_count': comments_count
@@ -169,10 +165,9 @@ class LikeMealKitConsumer(AsyncWebsocketConsumer):
 
     async def receive(self, text_data):
         data = json.loads(text_data)
-        user_id = data['user_id']
 
         mealkit = await self.get_mealkit(self.mealkit_id)
-        user = await self.get_user(user_id)
+        user = self.scope["user"]
         liked = await self.toggle_like(mealkit, user)
 
         likes_count = await self.get_likes_count(mealkit)
@@ -182,7 +177,7 @@ class LikeMealKitConsumer(AsyncWebsocketConsumer):
             f"mealkit_{self.mealkit_id}",
             {
                 'type': 'mealkit_stats_updated',
-                'user_id': user_id,
+                'user_id': user.id,
                 'mealkit_id': self.mealkit_id,
                 'likes_count': likes_count,
                 'comments_count': comments_count
@@ -240,11 +235,10 @@ class CommentMealKitConsumer(AsyncWebsocketConsumer):
 
     async def receive(self, text_data):
         data = json.loads(text_data)
-        user_id = data['user_id']
         comment = data['comment']
 
         mealkit = await self.get_mealkit(self.mealkit_id)
-        user = await self.get_user(user_id)
+        user = self.scope["user"]
         await self.add_comment(mealkit, user, comment)
 
         likes_count = await self.get_likes_count(mealkit)
@@ -254,7 +248,7 @@ class CommentMealKitConsumer(AsyncWebsocketConsumer):
             f"mealkit_{self.mealkit_id}",
             {
                 'type': 'mealkit_stats_updated',
-                'user_id': user_id,
+                'user_id': user.id,
                 'mealkit_id': self.mealkit_id,
                 'likes_count': likes_count,
                 'comments_count': comments_count
