@@ -66,6 +66,7 @@ INSTALLED_APPS = [
     "orders",
     "users",
     "cart",
+    "channels",
 ]
 
 MIDDLEWARE = [
@@ -97,8 +98,14 @@ TEMPLATES = [
     },
 ]
 
-WSGI_APPLICATION = "meal_u.wsgi.application"
+CHANNEL_LAYERS = {
+    'default': {
+        'BACKEND': 'channels.layers.InMemoryChannelLayer',
+    },
+}
 
+WSGI_APPLICATION = "meal_u.wsgi.application"
+ASGI_APPLICATION = "meal_u.asgi.application"
 
 # Database
 # https://docs.djangoproject.com/en/5.1/ref/settings/#databases

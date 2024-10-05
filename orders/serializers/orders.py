@@ -54,15 +54,18 @@ class OrderSerializer(serializers.ModelSerializer):
     def get_item_names(self, obj):
         # This method extracts and combines names of products, recipes, and meal kits related to the order
         
-        # Get product names
-        product_names = obj.orderproducts_set.values_list('product__name', flat=True)
+         # Get product names and quantities
+        product_items = obj.orderproducts_set.values('product__name', 'quantity')
+        product_list = [{'name': item['product__name'], 'quantity': item['quantity']} for item in product_items]
         
-        # Get recipe names
-        recipe_names = obj.orderrecipes_set.values_list('recipe__name', flat=True)
+        # Get recipe names and quantities
+        recipe_items = obj.orderrecipes_set.values('recipe__name', 'quantity')
+        recipe_list = [{'name': item['recipe__name'], 'quantity': item['quantity']} for item in recipe_items]
         
-        # Get meal kit names
-        mealkit_names = obj.ordermealkits_set.values_list('mealkit__name', flat=True)
+        # Get meal kit names and quantities
+        mealkit_items = obj.ordermealkits_set.values('mealkit__name', 'quantity')
+        mealkit_list = [{'name': item['mealkit__name'], 'quantity': item['quantity']} for item in mealkit_items]
 
-        # Combine all the names into one list
-        all_names = list(product_names) + list(recipe_names) + list(mealkit_names)
-        return all_names
+        # Combine all the items into one list
+        all_items = product_list + recipe_list + mealkit_list
+        return all_items
