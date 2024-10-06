@@ -70,6 +70,10 @@ class DeliveryLocation(models.Model):
     postal_code = models.CharField(max_length=20)
     country = models.CharField(max_length=50)
     details = models.TextField()
+    delivery_fee = models.DecimalField(decimal_places=2, max_digits=10)
+    longitude = models.DecimalField(decimal_places=4, null=True, max_digits=8)
+    latitude = models.DecimalField(decimal_places=4, null=True, max_digits=8)
+
 
     def __str__(self):
         return self.name + " " + self.branch
