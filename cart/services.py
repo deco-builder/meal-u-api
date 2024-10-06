@@ -91,18 +91,30 @@ class CartService:
     def _add_recipe(self, user_cart, item_data, quantity, from_mealkit=False, meal_kit_recipe_id=None):
         recipe_id = item_data.get('recipe_id')
         recipe = Recipe.objects.get(id=recipe_id)
-        meal_kit_recipe = MealKitRecipe.objects.get(id=meal_kit_recipe_id) if meal_kit_recipe_id else None
+        from_mealkit=False
+        meal_kit_recipe = None
+
+        if meal_kit_recipe_id:
+            # print(meal_kit_recipe_id) 
+            meal_kit_recipe = MealKitRecipe.objects.get(id=meal_kit_recipe_id)
+            from_mealkit = True  # Ensure this is only True if meal_kit_recipe is actually found
 
         cart_recipe, created = CartRecipe.objects.get_or_create(
             user_cart=user_cart,
             recipe=recipe,
-            meal_kit_recipe=meal_kit_recipe,
-            defaults={'quantity': quantity, 'is_from_mealkit': from_mealkit}
+            defaults={
+                'quantity': quantity,
+                'is_from_mealkit': from_mealkit,
+                'meal_kit_recipe': meal_kit_recipe
+            }
         )
         if not created:
-            cart_recipe.is_from_mealkit = from_mealkit  
             cart_recipe.quantity += quantity
+            cart_recipe.is_from_mealkit = from_mealkit
+            # print(from_mealkit)
+            cart_recipe.meal_kit_recipe = meal_kit_recipe
             cart_recipe.save()
+
 
         # Update or create cart ingredients
         for ri_data in item_data.get('recipe_ingredients', []):

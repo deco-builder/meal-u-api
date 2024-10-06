@@ -158,7 +158,8 @@ class UserCartSerializer(serializers.ModelSerializer):
         # Fetch only those recipes that were explicitly added as standalone (not part of a meal kit)
         cart_recipes = CartRecipe.objects.filter(
             user_cart=obj,
-            is_from_mealkit=False  # Only fetch recipes not from meal kits
+            is_from_mealkit=False,  # Only fetch recipes not from meal kits
+            meal_kit_recipe_id=None
         )
         return CartRecipeSerializer(cart_recipes, many=True, context=self.context).data
 
