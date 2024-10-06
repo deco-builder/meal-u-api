@@ -48,3 +48,17 @@ class CommunityRecipesView(APIView):
             return Response(prepare_success_response(response), status=status.HTTP_200_OK)
         except Exception as e:
             return Response(prepare_error_response(str(e)), status=status.HTTP_400_BAD_REQUEST)
+
+class TrendingRecipesView(APIView):
+    authentication_classes = [JWTAuthentication]
+    permission_classes = [IsAuthenticated, IsClientUser]
+    
+    def __init__(self):
+        self.recipe_service = RecipesService()
+
+    def get(self, request):
+        try:
+            response = self.recipe_service.get_trending_recipes()
+            return Response(prepare_success_response(response), status=status.HTTP_200_OK)
+        except Exception as e:
+            return Response(prepare_error_response(str(e)), status=status.HTTP_400_BAD_REQUEST)

@@ -1,6 +1,6 @@
 from django.db.models import Q, Count
 from ..models import Recipe, RecipeIngredient
-from ..serializers.recipes import RecipesSerializer
+from ..serializers.recipes import RecipesSerializer, TrendingRecipesSerializer
 from .like_and_comment import RecipeLikeAndCommentService
 
 
@@ -87,5 +87,17 @@ class RecipesService:
                 recipes_with_stats.append(recipe_data)
 
             return recipes_with_stats
+        except Exception as e:
+            raise e
+    
+    def get_trending_recipes(self):
+        try:
+            queryset = Recipe.objects.annotate(
+                likes_count=Count('recipelike'),
+                comments_count=Count('recipecomment')
+            ).order_by('-likes_count', '-comments_count')  
+
+            serializer = TrendingRecipesSerializer(queryset, many=True)
+            return serializer.data
         except Exception as e:
             raise e

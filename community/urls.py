@@ -1,7 +1,7 @@
 from django.urls import path
-from .views.recipes import RecipesView, CommunityRecipesView
+from .views.recipes import RecipesView, CommunityRecipesView, TrendingRecipesView
 from .views.recipe_details import RecipeDetailsView, RecipeView
-from .views.mealkits import MealKitsView
+from .views.mealkits import MealKitsView, TrendingMealKitsView
 from .views.mealkit_details import MealkitDetailsView, MealKitView
 from .views.meal_type import MealTypeView
 from .views.like_and_comment import RecipeStatsView, RecipeCommentListView, MealKitStatsView, MealKitCommentListView, RecipeLikeView, RecipeCommentView, MealKitLikeView, MealKitCommentView
@@ -23,4 +23,6 @@ urlpatterns = [
     path('mealkit/<int:mealkit_id>/comments/', MealKitCommentListView.as_view(), name='mealkit-comments'),
     path("meal-types/", MealTypeView.as_view(), name="Meal Types"),
     path("community-recipes/", CommunityRecipesView.as_view(), name="community-recipes"),
+    path("trending-recipes/", TrendingRecipesView.as_view(), name="trending-recipes"),
+    path("trending-mealkits/", TrendingMealKitsView.as_view(), name="trending-mealkits")
 ]
