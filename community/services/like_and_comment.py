@@ -6,11 +6,17 @@ class RecipeLikeAndCommentService:
 
     @staticmethod
     def like_recipe(user, recipe):
-        data = {'user': user.id, 'recipe': recipe.id}
-        serializer = RecipeLikeSerializer(data=data)
-        if serializer.is_valid(raise_exception=True):
-            like = serializer.save()
-            return like
+        try:
+            existing_like = RecipeLike.objects.get(user=user, recipe=recipe)
+
+            existing_like.delete()
+            return {'message': 'Like removed'}
+        except RecipeLike.DoesNotExist:
+            data = {'user': user.id, 'recipe': recipe.id}
+            serializer = RecipeLikeSerializer(data=data)
+            if serializer.is_valid(raise_exception=True):
+                like = serializer.save()
+                return {'message': 'Like added', 'like_id': like.id}
 
     @staticmethod
     def comment_on_recipe(user, recipe, comment_text):
@@ -37,11 +43,16 @@ class MealKitLikeAndCommentService:
 
     @staticmethod
     def like_mealkit(user, mealkit):
-        data = {'user': user.id, 'mealkit': mealkit.id}
-        serializer = MealKitLikeSerializer(data=data)
-        if serializer.is_valid(raise_exception=True):
-            like = serializer.save()
-            return like
+        try:
+            existing_like = MealKitLike.objects.get(user=user, mealkit=mealkit)
+            existing_like.delete()
+            return {'message': 'Like removed'}
+        except MealKitLike.DoesNotExist:
+            data = {'user': user.id, 'mealkit': mealkit.id}
+            serializer = MealKitLikeSerializer(data=data)
+            if serializer.is_valid(raise_exception=True):
+                like = serializer.save()
+                return {'message': 'Like added', 'like_id': like.id}
 
     @staticmethod
     def comment_on_mealkit(user, mealkit, comment_text):
