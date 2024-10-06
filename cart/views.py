@@ -53,7 +53,7 @@ class CartView(APIView):
             
             if item_type == 'recipe':
                 item_id = request.data.get('cart_recipe_id')
-            elif item_type == 'recipe_ingredient':
+            elif item_type == 'ingredient':
                 item_id = request.data.get('cart_ingredient_id')
             elif item_type == 'product':
                 item_id = request.data.get('cart_product_id')
@@ -83,7 +83,7 @@ class CartView(APIView):
             if not item_type or not item_id or new_quantity is None:
                 return Response(prepare_error_response("Item type, item ID, and quantity are required"), status=status.HTTP_400_BAD_REQUEST)
 
-            if item_type not in ['recipe_ingredient', 'product', 'recipe', 'mealkit']:
+            if item_type not in ['ingredient', 'product', 'recipe', 'mealkit']:
                 return Response(prepare_error_response("Invalid item type"), status=status.HTTP_400_BAD_REQUEST)
 
             response = self.cart_service.update_item_quantity(request.user, item_type, item_id, new_quantity)

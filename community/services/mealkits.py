@@ -20,12 +20,12 @@ class MealKitsServices:
                     | Q(
                         mealkitrecipe__recipe__recipeingredient__ingredient__product_id__category_id__name__icontains=search
                     )
-                )
+                ).distinct()
 
             if dietary_details:
                 queryset = queryset.filter(mealkitdietarydetail__dietary_details__name__in=dietary_details).distinct()
 
-            mealkits = queryset.all()
+            mealkits = queryset.order_by("name").all().distinct()
             serializer = MealKitsSerializer(mealkits, many=True)
             return serializer.data
         except Exception as e:

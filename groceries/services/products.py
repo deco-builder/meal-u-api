@@ -13,20 +13,17 @@ class ProductsService:
             if categories:
                 queryset = queryset.filter(category_id__name__in=categories)
 
-            if dietary_details:
-                queryset = queryset.filter(productdietarydetail__dietary_details__name__in=dietary_details).distinct()
-
             if search:
                 queryset = queryset.filter(
                     Q(name__icontains=search)
                     | Q(description__icontains=search)
                     | Q(category_id__name__icontains=search)
-                )
+                ).distinct()
 
             if dietary_details:
                 queryset = queryset.filter(productdietarydetail__dietary_details__name__in=dietary_details).distinct()
 
-            products = queryset.all()
+            products = queryset.order_by("name").all()
             serializer = ProductsSerializer(products, many=True)
             return serializer.data
         except Exception as e:
