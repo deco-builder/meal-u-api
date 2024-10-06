@@ -46,6 +46,7 @@ class Recipe(models.Model):
     updated_at = models.DateField(auto_now=True)
     image = models.ImageField(upload_to="recipes/", blank=True, null=True)
     is_customized = models.BooleanField(default=False)
+    monetize = models.BooleanField(default=False)
 
     def __str__(self):
         return self.name
@@ -91,6 +92,7 @@ class MealKit(models.Model):
     created_at = models.DateTimeField(auto_now_add=True)
     updated_at = models.DateField(auto_now=True)
     is_customized = models.BooleanField(default=False)
+    monetize = models.BooleanField(default=False)
 
     def __str__(self):
         return self.name
