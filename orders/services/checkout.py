@@ -4,6 +4,7 @@ from orders.models import OrderProducts, OrderRecipes, OrderMealKits, DeliveryDe
 # from ..models import UserCart, UserCartProducts, UserCartRecipes, UserCartMealKits
 from community.models import RecipeIngredient, MealKitRecipe
 from cart.models import UserCart, CartIngredient, CartProduct, CartRecipe, CartMealKit
+from cart.serializers import CartProductSerializer, CartRecipeSerializer, CartMealKitSerializer
 
 class CheckoutService:
     @staticmethod
@@ -12,7 +13,7 @@ class CheckoutService:
         delivery_date = data.get('delivery_date')
         if isinstance(delivery_date, str):
             delivery_date = datetime.strptime(delivery_date, '%Y-%m-%d').date()
-        
+
         if delivery_date < date.today():
             raise ValidationError("Delivery date must be in the future.")
 
@@ -37,7 +38,7 @@ class CheckoutService:
         for cart_product in products_data:
             product = cart_product.product
             product_total = product.price_per_unit * cart_product.quantity
-            order_product = OrderProducts.objects.create(
+            OrderProducts.objects.create(
                 order=order,
                 product=product,
                 quantity=cart_product.quantity,
@@ -45,22 +46,24 @@ class CheckoutService:
             )
             total_price += product_total
 
-        # Handle recipes
+        # Handle recipes with updated ingredient quantities and preparation types
         for cart_recipe in recipes_data:
             recipe = cart_recipe.recipe
-            
-            # Calculate the total price for this recipe based on its ingredients
             recipe_total = 0
-            recipe_ingredients = RecipeIngredient.objects.filter(recipe=recipe)
-            for recipe_ingredient in recipe_ingredients:
-                ingredient = recipe_ingredient.ingredient
-                ingredient_total = ingredient.price_per_unit
+
+            # Loop through the cart ingredients to calculate their total
+            for cart_ingredient in cart_recipe.cartingredient_set.all():
+                ingredient = cart_ingredient.recipe_ingredient.ingredient
+                preparation_price = (
+                    cart_ingredient.recipe_ingredient.preparation_type.additional_price
+                    if cart_ingredient.recipe_ingredient.preparation_type
+                    else 0
+                )
+                ingredient_total = (ingredient.price_per_unit + preparation_price) * cart_ingredient.quantity
                 recipe_total += ingredient_total
-            
-            # Multiply by the quantity of this recipe in the cart
-            recipe_total *= cart_recipe.quantity
-            
-            order_recipe = OrderRecipes.objects.create(
+
+            # Create an OrderRecipes entry
+            OrderRecipes.objects.create(
                 order=order,
                 recipe=recipe,
                 quantity=cart_recipe.quantity,
@@ -71,39 +74,31 @@ class CheckoutService:
         # Handle meal kits
         for cart_mealkit in mealkits_data:
             mealkit = cart_mealkit.mealkit
-            
-            # Calculate the total price for this meal kit based on its recipes
             mealkit_total = 0
-            meal_kit_recipes = MealKitRecipe.objects.filter(mealkit=mealkit)
-            for meal_kit_recipe in meal_kit_recipes:
-                recipe = meal_kit_recipe.recipe
-                
-                # Calculate the total price for this recipe based on its ingredients
+
+            # Calculate the total price for each recipe in the meal kit
+            for cart_recipe in cart_mealkit.cartrecipe_set.all():
                 recipe_total = 0
-                recipe_ingredients = RecipeIngredient.objects.filter(recipe=recipe)
-                for recipe_ingredient in recipe_ingredients:
-                    ingredient = recipe_ingredient.ingredient
-                    preparation_price = (recipe_ingredient.preparation_type.additional_price if recipe_ingredient.preparation_type else 0)
-                    ingredient_total = ingredient.price_per_unit 
-                    recipe_total += ingredient_total + preparation_price
-                
-                # Add the total price of this recipe to the meal kit's total
-                mealkit_total += recipe_total * meal_kit_recipe.quantity
-            
-            # Multiply by the quantity of this meal kit in the cart
-            mealkit_total *= cart_mealkit.quantity
+                for cart_ingredient in cart_recipe.cartingredient_set.all():
+                    ingredient = cart_ingredient.recipe_ingredient.ingredient
+                    preparation_price = (
+                        cart_ingredient.recipe_ingredient.preparation_type.additional_price
+                        if cart_ingredient.recipe_ingredient.preparation_type
+                        else 0
+                    )
+                    ingredient_total = (ingredient.price_per_unit + preparation_price) * cart_ingredient.quantity
+                    recipe_total += ingredient_total
+
+                mealkit_total 
 
             # Create an OrderMealKits entry
-            order_mealkit = OrderMealKits.objects.create(
+            OrderMealKits.objects.create(
                 order=order,
                 mealkit=mealkit,
                 quantity=cart_mealkit.quantity,
                 total=mealkit_total
             )
-            
-            # Add to the overall total price of the order
             total_price += mealkit_total
-
 
         # Update order total
         order.total = total_price
@@ -118,8 +113,8 @@ class CheckoutService:
         )
 
         # Clear the user's cart
-        products_data.delete()
-        recipes_data.delete()
-        mealkits_data.delete()
+        # products_data.delete()
+        # recipes_data.delete()
+        # mealkits_data.delete()
 
         return order

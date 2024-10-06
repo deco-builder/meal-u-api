@@ -8,15 +8,33 @@ class RecipeLikeAndCommentService:
     def like_recipe(user, recipe):
         try:
             existing_like = RecipeLike.objects.get(user=user, recipe=recipe)
-
             existing_like.delete()
-            return {'message': 'Like removed'}
+            message = 'Like removed'
         except RecipeLike.DoesNotExist:
             data = {'user': user.id, 'recipe': recipe.id}
             serializer = RecipeLikeSerializer(data=data)
             if serializer.is_valid(raise_exception=True):
                 like = serializer.save()
-                return {'message': 'Like added', 'like_id': like.id}
+                message = 'Like added'
+
+        RecipeLikeAndCommentService.check_and_update_monetization(recipe)
+
+        return {'message': message}
+
+    @staticmethod
+    def check_and_update_monetization(recipe):
+        like_threshold = 2  
+        comment_threshold = 1
+
+        likes_count = RecipeLike.objects.filter(recipe=recipe).count()
+        comments_count = RecipeComment.objects.filter(recipe=recipe).count()
+
+        if likes_count >= like_threshold and comments_count >= comment_threshold:
+            recipe.monetize = True
+            recipe.save()
+        else:
+            recipe.monetize = False
+            recipe.save()
 
     @staticmethod
     def comment_on_recipe(user, recipe, comment_text):
@@ -24,6 +42,7 @@ class RecipeLikeAndCommentService:
         serializer = RecipeCommentSerializer(data=data)
         if serializer.is_valid(raise_exception=True):
             comment = serializer.save()
+            RecipeLikeAndCommentService.check_and_update_monetization(recipe)
             return comment
     
     @staticmethod
