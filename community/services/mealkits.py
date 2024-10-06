@@ -30,4 +30,15 @@ class MealKitsServices:
             return serializer.data
         except Exception as e:
             raise e
+    
+    def get_trending_mealkits(self):
+        try:
+            queryset = MealKit.objects.annotate(
+                likes_count=Count('mealkitlike'),
+                comments_count=Count('mealkitcomment')
+            ).order_by('-likes_count', '-comments_count')  
         
+            serializer = MealKitsSerializer(queryset, many=True)
+            return serializer.data
+        except Exception as e:
+            raise e
