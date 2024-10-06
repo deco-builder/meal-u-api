@@ -16,8 +16,8 @@ class RecipeLikeView(APIView):
     def post(self, request, recipe_id):
         try:
             recipe = Recipe.objects.get(id=recipe_id)
-            like = RecipeLikeAndCommentService.like_recipe(request.user, recipe)
-            return Response(prepare_success_response({"message": "Recipe liked successfully."}), status=status.HTTP_201_CREATED)
+            response = RecipeLikeAndCommentService.like_recipe(request.user, recipe)
+            return Response(prepare_success_response({"message": response['message']}), status=status.HTTP_201_CREATED)
         except Recipe.DoesNotExist:
             return Response({"error": "Recipe not found."}, status=status.HTTP_404_NOT_FOUND)
         except Exception as e:
@@ -78,8 +78,8 @@ class MealKitLikeView(APIView):
     def post(self, request, mealkit_id):
         try:
             mealkit = MealKit.objects.get(id=mealkit_id)
-            like = MealKitLikeAndCommentService.like_mealkit(request.user, mealkit)
-            return Response(prepare_success_response({"message": "MealKit liked successfully."}), status=status.HTTP_201_CREATED)
+            response = MealKitLikeAndCommentService.like_mealkit(request.user, mealkit)
+            return Response(prepare_success_response({"message": response['message']}), status=status.HTTP_201_CREATED)
         except MealKit.DoesNotExist:
             return Response({"error": "MealKit not found."}, status=status.HTTP_404_NOT_FOUND)
         except Exception as e:

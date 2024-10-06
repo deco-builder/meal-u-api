@@ -1,4 +1,5 @@
-from ..models import OrderStatuses, Orders, Lockers, DeliveryDetails
+from ..models import OrderStatuses, Orders, Lockers, DeliveryDetails, OrderRecipes, OrderMealKits
+from community.models import Recipe, MealKit
 import random
 from django.db.models import Q
 from .orders import OrdersService
@@ -115,11 +116,36 @@ class OrderStatusPaidService:
             
             order.order_status = PAID_STATUS
             order.save()
+
+            total_revenue = 0
+            for order_recipe in OrderRecipes.objects.filter(order=order):
+                recipe = order_recipe.recipe
+                if recipe.monetize:
+                    author_cut = self.calculate_author_cut(recipe, order_recipe.quantity)
+                    recipe.creator.voucher_credits += author_cut
+                    total_revenue += author_cut
+                    recipe.creator.save()
+
+            for order_mealkit in OrderMealKits.objects.filter(order=order):
+                mealkit = order_mealkit.mealkit
+                if mealkit.monetize:
+                    author_cut = self.calculate_author_cut(mealkit, order_mealkit.quantity)
+                    mealkit.creator.voucher_credits += author_cut
+                    total_revenue += author_cut
+                    mealkit.creator.save()
+            
         except Orders.DoesNotExist:
             raise Exception(f"Order with id {order_id} does not exist")
         except Exception as e:
             raise e
 
+    def calculate_author_cut(self, item, quantity):
+        if isinstance(item, Recipe):
+            return item.price * quantity * 0.1  
+        elif isinstance(item, MealKit):
+            return item.price * quantity * 0.1  
+        return 0
+        
 class OrderStatusDeliveringService:
     def post(self, order_id):
         try:
