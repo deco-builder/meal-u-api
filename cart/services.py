@@ -97,9 +97,10 @@ class CartService:
             user_cart=user_cart,
             recipe=recipe,
             meal_kit_recipe=meal_kit_recipe,
-            defaults={'quantity': quantity}
+            defaults={'quantity': quantity, 'is_from_mealkit': from_mealkit}
         )
         if not created:
+            cart_recipe.is_from_mealkit = from_mealkit  
             cart_recipe.quantity += quantity
             cart_recipe.save()
 
@@ -152,15 +153,19 @@ class CartService:
             cart_mealkit.quantity += quantity
             cart_mealkit.save()
 
-        # Add each recipe from the meal kit to the cart
-        meal_kit_recipes = MealKitRecipe.objects.filter(mealkit=mealkit)
-        for meal_kit_recipe in meal_kit_recipes:
+        # Process each recipe specified in the request for the meal kit
+        recipes_data = item_data.get('recipes', [])
+        for recipe_data in recipes_data:
+            recipe_id = recipe_data.get('recipe_id')
+            # Fetch the MealKitRecipe that matches both the meal kit and the recipe
+            meal_kit_recipe = MealKitRecipe.objects.get(mealkit_id=mealkit_id, recipe_id=recipe_id)
+
             self._add_recipe(
                 user_cart,
-                {'recipe_id': meal_kit_recipe.recipe.id, 'recipe_ingredients': []},  # Simplified data
-                meal_kit_recipe.quantity * quantity,
+                recipe_data,
+                recipe_data.get('quantity', 1) * quantity,
                 from_mealkit=True,
-                meal_kit_recipe_id=meal_kit_recipe.id
+                meal_kit_recipe_id=meal_kit_recipe.id  # Passing the correct MealKitRecipe ID
             )
 
         return CartMealKitSerializer(cart_mealkit).data

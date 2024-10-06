@@ -32,21 +32,22 @@ class CartMealKitSerializer(serializers.ModelSerializer):
         fields = ['id', 'mealkit', 'quantity', 'recipes', 'total_price']
 
     def get_recipes(self, obj):
-        recipe_mealkits = MealKitRecipe.objects.filter(mealkit=obj.mealkit)
-        return RecipesSerializer([rm.recipe for rm in recipe_mealkits], many=True).data
-
+        # Fetch recipes from CartRecipe that are linked to this meal kit
+        cart_recipes = CartRecipe.objects.filter(user_cart=obj.user_cart, meal_kit_recipe__mealkit=obj.mealkit)
+        return CartRecipeSerializer(cart_recipes, many=True, context={'request': self.context.get('request')}).data
 
     def get_total_price(self, obj):
         total_price = 0
-        for recipe_link in MealKitRecipe.objects.filter(mealkit=obj.mealkit):
-            recipe_price = RecipesSerializer(recipe_link.recipe, context={
+        for cart_recipe in CartRecipe.objects.filter(user_cart=obj.user_cart, meal_kit_recipe__mealkit=obj.mealkit):
+            recipe_serializer = RecipesSerializer(cart_recipe.recipe, context={
                 'quantity_multiplier': obj.quantity,
                 'cart_ingredients': CartIngredient.objects.filter(
                     user_cart=obj.user_cart,
-                    recipe_ingredient__recipe=recipe_link.recipe
-                )
-            }).data['total_price']
-            total_price += recipe_price
+                    recipe_ingredient__recipe=cart_recipe.recipe
+                ),
+                'request': self.context.get('request')
+            })
+            total_price += recipe_serializer.data['total_price'] * cart_recipe.quantity
         return total_price
 
 class RecipesSerializer(serializers.ModelSerializer):
@@ -116,16 +117,24 @@ class RecipesSerializer(serializers.ModelSerializer):
 class CartRecipeSerializer(serializers.ModelSerializer):
     recipe = RecipesSerializer(read_only=True)
     is_from_mealkit = serializers.BooleanField(read_only=True)
-    meal_kit_recipe = serializers.PrimaryKeyRelatedField(read_only=True)  # Show meal kit recipe ID if needed
+    meal_kit_recipe = serializers.PrimaryKeyRelatedField(read_only=True)
     ingredients = serializers.SerializerMethodField()
 
     class Meta:
         model = CartRecipe
-        fields = ['id', 'recipe', 'quantity', 'is_from_mealkit', 'meal_kit_recipe','ingredients']
+        fields = ['id', 'recipe', 'quantity', 'is_from_mealkit', 'meal_kit_recipe', 'ingredients']
 
     def get_ingredients(self, obj):
-        ingredients = CartIngredient.objects.filter(user_cart=obj.user_cart, recipe_ingredient__recipe=obj.recipe)
+        ingredients = CartIngredient.objects.filter(cart_recipe=obj)
         return CartIngredientSerializer(ingredients, many=True).data
+
+    def to_representation(self, instance):
+        representation = super().to_representation(instance)
+        if instance.is_from_mealkit:
+            representation['recipe_source'] = "Part of Meal Kit"
+        else:
+            representation['recipe_source'] = "Added Individually"
+        return representation
 
     # def get_cart_ingredients(self, obj):
     #     # Filtering CartIngredient entries specific to the given recipe in the cart
@@ -149,47 +158,29 @@ class UserCartSerializer(serializers.ModelSerializer):
         # Fetch only those recipes that were explicitly added as standalone (not part of a meal kit)
         cart_recipes = CartRecipe.objects.filter(
             user_cart=obj,
-            is_from_mealkit=False
+            is_from_mealkit=False  # Only fetch recipes not from meal kits
         )
         return CartRecipeSerializer(cart_recipes, many=True, context=self.context).data
 
     def get_total_quantity(self, obj):
-        # Total quantity of meal kits
-        total_mealkits = sum([
-            mealkit.quantity for mealkit in obj.cart_mealkits.all()
-        ])
-
-        # Total quantity of standalone recipes (not from meal kits)
-        total_recipes = sum([
-            recipe.quantity for recipe in CartRecipe.objects.filter(
-                user_cart=obj,
-                is_from_mealkit=False
-            )
-        ])
-
-        # Total quantity of products
-        total_products = sum([
-            product.quantity for product in obj.cart_products.all()
-        ])
-
-        # Calculate the total distinct counts
+        # Calculate the total quantity of items in the cart
+        total_mealkits = sum(mealkit.quantity for mealkit in obj.cart_mealkits.all())
+        total_recipes = sum(recipe.quantity for recipe in CartRecipe.objects.filter(user_cart=obj, is_from_mealkit=False))
+        total_products = sum(product.quantity for product in obj.cart_products.all())
         total_quantity = total_mealkits + total_recipes + total_products
         return total_quantity
 
     def get_total_price(self, obj):
         total_price = 0
-        # Sum the total price of products
+        # Summing the total price of standalone products
         for product in obj.cart_products.all():
             total_price += product.product.price_per_unit * product.quantity
-        
-        # Sum the total price of cart recipes using the RecipesSerializer to calculate recipe prices
-        for cart_recipe in obj.cart_recipes.all():
+        # Summing the total price of standalone recipes
+        for cart_recipe in CartRecipe.objects.filter(user_cart=obj, is_from_mealkit=False):
             recipe_serializer = RecipesSerializer(cart_recipe.recipe, context={'request': self.context.get('request')})
             total_price += recipe_serializer.data['total_price'] * cart_recipe.quantity
-        
-        # Sum the total price of meal kits
+        # Summing the total price of meal kits
         for cart_mealkit in obj.cart_mealkits.all():
             meal_kit_serializer = CartMealKitSerializer(cart_mealkit, context={'request': self.context.get('request')})
             total_price += meal_kit_serializer.data['total_price']
-        
         return total_price
