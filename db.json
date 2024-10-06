@@ -3769,6 +3769,24 @@
     }
 },
 {
+    "model": "community.recipelike",
+    "pk": 2,
+    "fields": {
+        "recipe": 12,
+        "user": 4,
+        "liked_at": "2024-10-06T05:08:43.749Z"
+    }
+},
+{
+    "model": "community.recipelike",
+    "pk": 3,
+    "fields": {
+        "recipe": 2,
+        "user": 3,
+        "liked_at": "2024-10-06T05:10:10.711Z"
+    }
+},
+{
     "model": "community.recipecomment",
     "pk": 1,
     "fields": {
@@ -4504,7 +4522,9 @@
         "postal_code": "4072",
         "country": "Australia",
         "details": "at uq union",
-        "delivery_fee": "10.00"
+        "delivery_fee": "10.00",
+        "longitude": null,
+        "latitude": null
     }
 },
 {
