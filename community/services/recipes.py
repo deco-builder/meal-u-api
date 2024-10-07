@@ -5,7 +5,7 @@ from .like_and_comment import RecipeLikeAndCommentService
 
 
 class RecipesService:
-    def get(self, dietary_details=None, search=None):
+    def get(self, dietary_details=None, search=None, creator=None):
         try:
             queryset = Recipe.objects.select_related("meal_type").prefetch_related(
                 "recipedietarydetail_set__dietary_details",
@@ -24,6 +24,9 @@ class RecipesService:
 
             if dietary_details:
                 queryset = queryset.filter(recipedietarydetail__dietary_details__name__in=dietary_details).distinct()
+
+            if creator:
+                queryset = queryset.filter(creator_id=creator).distinct()
 
             recipes = queryset.order_by("name").all().distinct()
             serializer = RecipesSerializer(recipes, many=True)

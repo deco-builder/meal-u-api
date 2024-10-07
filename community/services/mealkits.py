@@ -4,7 +4,7 @@ from django.db.models import Q, Count
 
 
 class MealKitsServices:
-    def get(self, dietary_details=None, search=None):
+    def get(self, dietary_details=None, search=None, creator=None):
         try:
             queryset = MealKit.objects.prefetch_related("mealkitdietarydetail_set__dietary_details")
             
@@ -22,6 +22,9 @@ class MealKitsServices:
 
             if dietary_details:
                 queryset = queryset.filter(mealkitdietarydetail__dietary_details__name__in=dietary_details).distinct()
+            
+            if creator:
+                queryset = queryset.filter(creator_id=creator).distinct()
 
             mealkits = queryset.order_by("name").all().distinct()
             serializer = MealKitsSerializer(mealkits, many=True)
