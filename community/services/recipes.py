@@ -74,6 +74,7 @@ class RecipesService:
                         'profile_picture': recipe.creator.image.url if recipe.creator.image else None,
                     },
                     'name': recipe.name,
+                    'description': recipe.description,
                     'serving_size': recipe.serving_size,
                     'meal_type': recipe.meal_type.name,
                     'cooking_time': recipe.cooking_time,
