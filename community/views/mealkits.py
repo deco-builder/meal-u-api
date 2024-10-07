@@ -41,3 +41,17 @@ class TrendingMealKitsView(APIView):
             return Response(prepare_success_response(response), status=status.HTTP_200_OK)
         except Exception as e:
             return Response(prepare_error_response(str(e)), status=status.HTTP_400_BAD_REQUEST)
+
+class CommunityMealKitsView(APIView):
+    authentication_classes = [JWTAuthentication]
+    permission_classes = [IsAuthenticated, IsWarehouseUser | IsClientUser]
+    
+    def __init__(self):
+        self.meal_kit_service = MealKitsServices()
+
+    def get(self, request):
+        try:
+            response = self.meal_kit_service.get_with_stats()
+            return Response(prepare_success_response(response), status=status.HTTP_200_OK)
+        except Exception as e:
+            return Response(prepare_error_response(str(e)), status=status.HTTP_400_BAD_REQUEST)

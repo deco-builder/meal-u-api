@@ -1,15 +1,13 @@
 from ..models import MealKit
-from ..serializers.mealkits import MealKitsSerializer
+from ..serializers.mealkits import MealKitsSerializer, CommunityMealKitsSerializer
 from django.db.models import Q, Count
 
 
 class MealKitsServices:
     def get(self, dietary_details=None, search=None):
         try:
-            queryset = MealKit.objects.prefetch_related("mealkitdietarydetail_set__dietary_details").annotate(
-                likes_count=Count('mealkitlike'),
-                comments_count=Count('mealkitcomment') 
-            )
+            queryset = MealKit.objects.prefetch_related("mealkitdietarydetail_set__dietary_details")
+            
 
             if search:
                 queryset = queryset.filter(
@@ -42,3 +40,17 @@ class MealKitsServices:
             return serializer.data
         except Exception as e:
             raise e
+    
+    def get_with_stats():
+        try:
+            queryset = MealKit.objects.prefetch_related("mealkitdietarydetail_set__dietary_details").annotate(
+                likes_count=Count('mealkitlike'),
+                comments_count=Count('mealkitcomment') 
+            )
+
+            mealkits = queryset.order_by("name").all().distinct()
+            serializer = CommunityMealKitsSerializer(mealkits, many=True)
+            return serializer.data
+        except Exception as e:
+            raise e
+
