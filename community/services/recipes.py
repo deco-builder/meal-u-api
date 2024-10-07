@@ -93,9 +93,9 @@ class RecipesService:
     def get_trending_recipes(self):
         try:
             queryset = Recipe.objects.annotate(
-                likes_count=Count('recipelike'),
-                comments_count=Count('recipecomment')
-            ).order_by('-likes_count', '-comments_count')  
+            likes_count=Count('recipelike'),
+            comments_count=Count('recipecomment')
+            ).filter(likes_count__gt=0).order_by('-likes_count', '-comments_count')[:7]   
 
             serializer = TrendingRecipesSerializer(queryset, many=True)
             return serializer.data

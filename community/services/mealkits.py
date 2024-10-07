@@ -36,7 +36,7 @@ class MealKitsServices:
             queryset = MealKit.objects.annotate(
                 likes_count=Count('mealkitlike'),
                 comments_count=Count('mealkitcomment')
-            ).order_by('-likes_count', '-comments_count')  
+            ).filter(likes_count__gt=0).order_by('-likes_count', '-comments_count')[:7]  
         
             serializer = MealKitsSerializer(queryset, many=True)
             return serializer.data
