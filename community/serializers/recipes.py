@@ -1,5 +1,6 @@
 from rest_framework import serializers
 from ..models import Recipe, RecipeIngredient, Ingredient, PreparationType
+from user_auth.models import User
 
 
 class IngredientSerializer(serializers.ModelSerializer):
@@ -12,7 +13,7 @@ class IngredientSerializer(serializers.ModelSerializer):
 
     def get_image(self, obj):
         return obj.product_id.image.url if obj.product_id.image else None
-    
+
     def get_product_id(self, obj):
         return obj.product_id.id
 
@@ -62,7 +63,7 @@ class RecipesSerializer(serializers.ModelSerializer):
     def get_creator(self, obj):
         return {
             "name": f"{obj.creator.first_name} {obj.creator.last_name}",
-            "profile_picture": obj.creator.image.url if obj.creator.image else None
+            "profile_picture": obj.creator.image.url if obj.creator.image else None,
         }
 
     def get_dietary_details(self, obj):
@@ -82,6 +83,7 @@ class RecipesSerializer(serializers.ModelSerializer):
             )
             total_price += ingredient_price + preparation_price
         return total_price
+
 
 class TrendingRecipesSerializer(serializers.ModelSerializer):
     creator = serializers.SerializerMethodField()
@@ -104,14 +106,14 @@ class TrendingRecipesSerializer(serializers.ModelSerializer):
             "image",
             "dietary_details",
             "total_price",
-            'likes_count', 
-            'comments_count'
+            "likes_count",
+            "comments_count",
         ]
 
     def get_creator(self, obj):
         return {
             "name": f"{obj.creator.first_name} {obj.creator.last_name}",
-            "profile_picture": obj.creator.image.url if obj.creator.image else None
+            "profile_picture": obj.creator.image.url if obj.creator.image else None,
         }
 
     def get_dietary_details(self, obj):
@@ -131,3 +133,15 @@ class TrendingRecipesSerializer(serializers.ModelSerializer):
             )
             total_price += ingredient_price + preparation_price
         return total_price
+
+
+class TopCreatorSerializer(serializers.Serializer):
+    id = serializers.IntegerField(source="creator__id")
+    email = serializers.EmailField(source="creator__email")
+    first_name = serializers.CharField(source="creator__first_name")
+    last_name = serializers.CharField(source="creator__last_name")
+    image = serializers.SerializerMethodField()
+    recipe_count = serializers.IntegerField()
+
+    def get_image(self, obj):
+        return User.objects.get(id=obj["creator__id"]).image.url

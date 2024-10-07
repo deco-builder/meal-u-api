@@ -1,6 +1,6 @@
 from django.db.models import Q, Count
 from ..models import Recipe, RecipeIngredient
-from ..serializers.recipes import RecipesSerializer, TrendingRecipesSerializer
+from ..serializers.recipes import RecipesSerializer, TrendingRecipesSerializer, TopCreatorSerializer
 from .like_and_comment import RecipeLikeAndCommentService
 
 
@@ -36,13 +36,19 @@ class RecipesService:
         Fetch recipes with dietary details, likes, and comments stats for the community page.
         """
         try:
-            queryset = Recipe.objects.select_related("meal_type", "creator").prefetch_related(
-                "recipedietarydetail_set__dietary_details",
-                "recipeingredient_set__ingredient",
-                "recipeingredient_set__preparation_type",
-            ).annotate(
-                likes_count=Count('recipelike'),  # Assuming a related name 'recipelike' in your RecipeLike model
-                comments_count=Count('recipecomment')  # Assuming a related name 'recipecomment' in your RecipeComment model
+            queryset = (
+                Recipe.objects.select_related("meal_type", "creator")
+                .prefetch_related(
+                    "recipedietarydetail_set__dietary_details",
+                    "recipeingredient_set__ingredient",
+                    "recipeingredient_set__preparation_type",
+                )
+                .annotate(
+                    likes_count=Count("recipelike"),  # Assuming a related name 'recipelike' in your RecipeLike model
+                    comments_count=Count(
+                        "recipecomment"
+                    ),  # Assuming a related name 'recipecomment' in your RecipeComment model
+                )
             )
 
             if search:
@@ -64,41 +70,58 @@ class RecipesService:
                 for recipe_ingredient in recipe_ingredients:
                     ingredient_price = recipe_ingredient.ingredient.price_per_unit
                     preparation_price = (
-                        recipe_ingredient.preparation_type.additional_price if recipe_ingredient.preparation_type else 0
+                        recipe_ingredient.preparation_type.additional_price
+                        if recipe_ingredient.preparation_type
+                        else 0
                     )
                     total_price += ingredient_price + preparation_price
                 recipe_data = {
-                    'id': recipe.id,
-                    'creator': {
-                        'name': f"{recipe.creator.first_name} {recipe.creator.last_name}",
-                        'profile_picture': recipe.creator.image.url if recipe.creator.image else None,
+                    "id": recipe.id,
+                    "creator": {
+                        "name": f"{recipe.creator.first_name} {recipe.creator.last_name}",
+                        "profile_picture": recipe.creator.image.url if recipe.creator.image else None,
                     },
-                    'name': recipe.name,
-                    'description': recipe.description,
-                    'serving_size': recipe.serving_size,
-                    'meal_type': recipe.meal_type.name,
-                    'cooking_time': recipe.cooking_time,
-                    'created_at': recipe.created_at,
-                    'image': recipe.image.url if recipe.image else None,
-                    'dietary_details': recipe.recipedietarydetail_set.values_list('dietary_details__name', flat=True),
-                    'total_price': total_price,
-                    'likes_count': recipe.likes_count,
-                    'comments_count': recipe.comments_count
+                    "name": recipe.name,
+                    "description": recipe.description,
+                    "serving_size": recipe.serving_size,
+                    "meal_type": recipe.meal_type.name,
+                    "cooking_time": recipe.cooking_time,
+                    "created_at": recipe.created_at,
+                    "image": recipe.image.url if recipe.image else None,
+                    "dietary_details": recipe.recipedietarydetail_set.values_list("dietary_details__name", flat=True),
+                    "total_price": total_price,
+                    "likes_count": recipe.likes_count,
+                    "comments_count": recipe.comments_count,
                 }
                 recipes_with_stats.append(recipe_data)
 
             return recipes_with_stats
         except Exception as e:
             raise e
-    
+
     def get_trending_recipes(self):
         try:
-            queryset = Recipe.objects.annotate(
-            likes_count=Count('recipelike'),
-            comments_count=Count('recipecomment')
-            ).filter(likes_count__gt=0).order_by('-likes_count', '-comments_count')[:7]   
+            queryset = (
+                Recipe.objects.annotate(likes_count=Count("recipelike"), comments_count=Count("recipecomment"))
+                .filter(likes_count__gt=0)
+                .order_by("-likes_count", "-comments_count")[:7]
+            )
 
             serializer = TrendingRecipesSerializer(queryset, many=True)
             return serializer.data
         except Exception as e:
             raise e
+
+    def get_top_creators_by_recipe_count(self, dietary_detail_id):
+        filtered_recipes = Recipe.objects.filter(recipedietarydetail__dietary_details_id=dietary_detail_id)
+
+        top_creators = (
+            filtered_recipes.values(
+                "creator__id", "creator__email", "creator__first_name", "creator__last_name", "creator__image"
+            )
+            .annotate(recipe_count=Count("id"))
+            .order_by("-recipe_count")
+        )
+
+        serializer = TopCreatorSerializer(top_creators, many=True)
+        return serializer.data
