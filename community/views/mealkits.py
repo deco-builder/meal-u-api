@@ -51,12 +51,6 @@ class CommunityMealKitsView(APIView):
 
     def get(self, request):
         try:
-            dietary_details = request.query_params.getlist("dietary_details")
-            search = request.query_params.get("search", None)
-
-            if dietary_details:
-                dietary_details = list(map(str, dietary_details))
-
             response = self.meal_kit_service.get_with_stats()
             return Response(prepare_success_response(response), status=status.HTTP_200_OK)
         except Exception as e:

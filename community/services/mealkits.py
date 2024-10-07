@@ -41,26 +41,12 @@ class MealKitsServices:
         except Exception as e:
             raise e
     
-    def get_with_stats(self, dietary_details=None, search=None):
+    def get_with_stats():
         try:
             queryset = MealKit.objects.prefetch_related("mealkitdietarydetail_set__dietary_details").annotate(
                 likes_count=Count('mealkitlike'),
                 comments_count=Count('mealkitcomment') 
             )
-
-            # if search:
-            #     queryset = queryset.filter(
-            #         Q(name__icontains=search)
-            #         | Q(description__icontains=search)
-            #         | Q(mealkitrecipe__recipe__recipeingredient__ingredient__product_id__name__icontains=search)
-            #         | Q(mealkitrecipe__recipe__recipeingredient__ingredient__product_id__description__icontains=search)
-            #         | Q(
-            #             mealkitrecipe__recipe__recipeingredient__ingredient__product_id__category_id__name__icontains=search
-            #         )
-            #     ).distinct()
-
-            # if dietary_details:
-            #     queryset = queryset.filter(mealkitdietarydetail__dietary_details__name__in=dietary_details).distinct()
 
             mealkits = queryset.order_by("name").all().distinct()
             serializer = CommunityMealKitsSerializer(mealkits, many=True)
