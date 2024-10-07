@@ -38,16 +38,8 @@ class OrderProducts(models.Model):
     quantity = models.PositiveIntegerField(null=False, blank=False)
     total = models.DecimalField(decimal_places=2, max_digits=10)
 
-
-class OrderRecipes(models.Model):
-    order = models.ForeignKey(Orders, on_delete=models.CASCADE)
-    recipe = models.ForeignKey(Recipe, on_delete=models.CASCADE)
-
-    class Meta:
-        unique_together = ("order", "recipe")
-
-    quantity = models.PositiveIntegerField(null=False, blank=False)
-    total = models.DecimalField(decimal_places=2, max_digits=10)
+    def __str__(self):
+        return f"{self.quantity} x {self.product.name} for order {self.order.id}"
 
 
 class OrderMealKits(models.Model):
@@ -59,6 +51,32 @@ class OrderMealKits(models.Model):
 
     quantity = models.PositiveIntegerField(null=False, blank=False)
     total = models.DecimalField(decimal_places=2, max_digits=10)
+
+    def __str__(self):
+        return f"{self.quantity} x {self.mealkit.name} for order {self.order.id}"
+
+class OrderRecipes(models.Model):
+    order = models.ForeignKey(Orders, on_delete=models.CASCADE)
+    recipe = models.ForeignKey(Recipe, on_delete=models.CASCADE)
+    mealkit = models.ForeignKey(OrderMealKits, on_delete=models.CASCADE, null=True, blank=True)  
+
+    class Meta:
+        unique_together = ("order", "recipe", "mealkit")
+
+    quantity = models.PositiveIntegerField(null=False, blank=False)
+    total = models.DecimalField(decimal_places=2, max_digits=10)
+
+    def __str__(self):
+        return f"{self.quantity} x {self.recipe.name} for order {self.order.id}"
+
+class OrderIngredients(models.Model):
+    order_recipe = models.ForeignKey(OrderRecipes, on_delete=models.CASCADE)
+    ingredient = models.ForeignKey("community.RecipeIngredient", on_delete=models.CASCADE)
+    quantity = models.PositiveIntegerField(null=False, blank=False)
+    total = models.DecimalField(decimal_places=2, max_digits=10)
+
+    def __str__(self):
+        return f"{self.quantity} x {self.ingredient} for order {self.order_recipe.id}"
 
 
 class DeliveryLocation(models.Model):
