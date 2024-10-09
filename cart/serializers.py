@@ -39,13 +39,14 @@ class CartIngredientSerializer(serializers.ModelSerializer):
 
 class CartRecipeSerializer(serializers.ModelSerializer):
     name = serializers.CharField(source="recipe.name", read_only=True)
+    image = serializers.URLField(source="recipe.image.url", read_only=True)
     dietary_details = serializers.SerializerMethodField()
     ingredients = CartIngredientSerializer(many=True, read_only=True, source="cartingredient_set")
     total_price = serializers.SerializerMethodField()
 
     class Meta:
         model = CartRecipe
-        fields = ["id", "recipe", "name", "quantity", "ingredients", "dietary_details", "total_price"]
+        fields = ["id", "recipe", "name", "image", "quantity", "ingredients", "dietary_details", "total_price"]
 
     def get_dietary_details(self, obj):
         dietary_details = RecipeDietaryDetail.objects.filter(recipe=obj.recipe)
@@ -67,12 +68,13 @@ class CartRecipeSerializer(serializers.ModelSerializer):
 
 class CartMealKitSerializer(serializers.ModelSerializer):
     name = serializers.CharField(source="mealkit.name", read_only=True)
+    image = serializers.URLField(source="mealkit.image.url", read_only=True)
     recipes = serializers.SerializerMethodField()
     total_price = serializers.SerializerMethodField()
 
     class Meta:
         model = CartMealKit
-        fields = ["id", "mealkit", "name", "quantity", "recipes", "total_price"]
+        fields = ["id", "mealkit", "name", "image", "quantity", "recipes", "total_price"]
 
     def get_recipes(self, obj):
         mealkit_recipes = (
