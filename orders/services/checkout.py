@@ -1,6 +1,6 @@
 from datetime import datetime, date
 from rest_framework.exceptions import ValidationError
-from orders.models import OrderProducts, OrderRecipes, OrderMealKits, DeliveryDetails, Orders, OrderIngredients
+from orders.models import OrderProducts, OrderRecipes, OrderMealKits, DeliveryDetails, Orders, OrderIngredients, OrderStatuses
 # from ..models import UserCart, UserCartProducts, UserCartRecipes, UserCartMealKits
 from community.models import RecipeIngredient, MealKitRecipe
 from cart.models import UserCart, CartIngredient, CartProduct, CartRecipe, CartMealKit
@@ -33,9 +33,11 @@ class CheckoutService:
         standalone_recipe_serializer = CartRecipeSerializer(standalone_recipes_data, many=True)
         mealkit_serializer = CartMealKitSerializer(mealkits_data, many=True)
 
+        status = OrderStatuses.objects.get(name="pending")
+
         order = Orders.objects.create(
             user_id=user,
-            order_status_id=1,  
+            order_status_id=status.id,  
             total=0  
         )
 
@@ -153,55 +155,6 @@ class CheckoutService:
             # Update the total for the OrderMealKits
             order_mealkit.total = mealkit_total
             order_mealkit.save()
-    
-        # Handle recipes with updated ingredient quantities and preparation types
-        # for cart_recipe in recipes_data:
-        #     recipe = cart_recipe.recipe
-        #     recipe_total = 0
-
-        #     for cart_ingredient in cart_recipe.cartingredient_set.all():
-        #         ingredient = cart_ingredient.recipe_ingredient.ingredient
-        #         preparation_price = (
-        #             cart_ingredient.recipe_ingredient.preparation_type.additional_price
-        #             if cart_ingredient.recipe_ingredient.preparation_type
-        #             else 0
-        #         )
-        #         ingredient_total = (ingredient.price_per_unit + preparation_price) * cart_ingredient.quantity
-        #         recipe_total += ingredient_total
-
-        #     OrderRecipes.objects.create(
-        #         order=order,
-        #         recipe=recipe,
-        #         quantity=cart_recipe.quantity,
-        #         total=recipe_total
-        #     )
-
-        # Handle meal kits
-        # for cart_mealkit in mealkits_data:
-        #     mealkit = cart_mealkit.mealkit
-        #     mealkit_total = 0
-
-        #     for cart_recipe in cart_mealkit.cartrecipe_set.all():
-        #         recipe_total = 0
-        #         for cart_ingredient in cart_recipe.cartingredient_set.all():
-        #             ingredient = cart_ingredient.recipe_ingredient.ingredient
-        #             preparation_price = (
-        #                 cart_ingredient.recipe_ingredient.preparation_type.additional_price
-        #                 if cart_ingredient.recipe_ingredient.preparation_type
-        #                 else 0
-        #             )
-        #             ingredient_total = (ingredient.price_per_unit + preparation_price) * cart_ingredient.quantity
-        #             recipe_total += ingredient_total
-
-        #         mealkit_total += recipe_total 
-
-        #     # Create an OrderMealKits entry
-        #     OrderMealKits.objects.create(
-        #         order=order,
-        #         mealkit=mealkit,
-        #         quantity=cart_mealkit.quantity,
-        #         total=mealkit_total
-        #     )
 
         order.total = total_price
         order.save()

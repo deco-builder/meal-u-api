@@ -99,7 +99,7 @@ class OrderStatusReadyToDeliverService:
             raise e
 
 class OrderStatusPaidService:
-    def post(self, order_id):
+    def post(self, order_id, use_voucher=False):
         try:
             # Get the 'pending' status
             PENDING_STATUS = OrderStatuses.objects.get(name="pending")
@@ -115,6 +115,15 @@ class OrderStatusPaidService:
             # Update the order status to 'paid'
             order.order_status = PAID_STATUS
             order.save()
+
+            user = order.user_id
+            total_order_amount = order.total
+            # Apply voucher if requested
+            if use_voucher:
+                total_order_amount, user.voucher_credits = self.apply_voucher_credit(user.voucher_credits, total_order_amount)
+                user.save()  # Save the updated voucher credit
+                order.total = total_order_amount
+                order.save()
 
             total_revenue = 0
 
@@ -153,6 +162,33 @@ class OrderStatusPaidService:
         """
         percentage_cut = Decimal('0.01')
         return total_price * percentage_cut
+    
+    def calculate_total_order(self, order):
+        """
+        Calculate the total amount for the entire order.
+        This function sums up the total fields from all OrderRecipes and OrderMealKits.
+        """
+        total_order_amount = Decimal('0.00')
+        for order_recipe in OrderRecipes.objects.filter(order=order):
+            total_order_amount += order_recipe.total
+        for order_mealkit in OrderMealKits.objects.filter(order=order):
+            total_order_amount += order_mealkit.total
+        return total_order_amount
+
+    def apply_voucher_credit(self, voucher_credits, total_order_amount):
+        """
+        Apply the user's voucher credit to the order's total amount.
+        If voucher credit is less than or equal to the total, subtract it from the total and set voucher credit to 0.
+        If voucher credit is greater than the total, subtract total from voucher credit and set total to 0.
+        """
+        if voucher_credits <= total_order_amount:
+            total_order_amount -= voucher_credits
+            voucher_credits = Decimal('0.00')
+        else:
+            voucher_credits -= total_order_amount
+            total_order_amount = Decimal('0.00')
+        
+        return total_order_amount, voucher_credits
 
 
         
