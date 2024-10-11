@@ -144,4 +144,4 @@ class TopCreatorSerializer(serializers.Serializer):
     recipe_count = serializers.IntegerField()
 
     def get_image(self, obj):
-        return User.objects.get(id=obj["creator__id"]).image.url
+        return User.objects.get(id=obj["creator__id"]).image.url if User.objects.get(id=obj["creator__id"]).image.url else None
