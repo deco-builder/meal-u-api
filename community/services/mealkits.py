@@ -44,7 +44,7 @@ class MealKitsServices:
         except Exception as e:
             raise e
     
-    def get_with_stats():
+    def get_with_stats(self):
         try:
             queryset = MealKit.objects.prefetch_related("mealkitdietarydetail_set__dietary_details").annotate(
                 likes_count=Count('mealkitlike'),
