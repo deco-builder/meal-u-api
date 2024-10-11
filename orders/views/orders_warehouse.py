@@ -3,7 +3,7 @@ from rest_framework.response import Response
 from rest_framework import status
 from rest_framework.permissions import IsAuthenticated
 from rest_framework_simplejwt.authentication import JWTAuthentication
-from user_auth.permission import IsWarehouseUser
+from user_auth.permission import IsWarehouseUser, IsCourierUser
 from applibs.response import prepare_success_response, prepare_error_response
 from ..services.orders_warehouse import OrderWarehouseService
 from datetime import datetime
@@ -11,7 +11,7 @@ from datetime import datetime
 
 class OrderWarehouseView(APIView):
     authentication_classes = [JWTAuthentication]
-    permission_classes = [IsAuthenticated, IsWarehouseUser]
+    permission_classes = [IsAuthenticated, IsWarehouseUser | IsCourierUser]
 
     def __init__(self):
         self.order_warehouse_service = OrderWarehouseService()

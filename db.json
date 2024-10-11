@@ -2808,6 +2808,58 @@
     }
   },
   {
+    "model": "admin.logentry",
+    "pk": 217,
+    "fields": {
+      "action_time": "2024-10-06T08:59:49.872Z",
+      "user": 1,
+      "content_type": 59,
+      "object_id": "4",
+      "object_repr": "Cart for client1@gmail.com",
+      "action_flag": 3,
+      "change_message": ""
+    }
+  },
+  {
+    "model": "admin.logentry",
+    "pk": 218,
+    "fields": {
+      "action_time": "2024-10-06T23:24:58.968Z",
+      "user": 1,
+      "content_type": 59,
+      "object_id": "3",
+      "object_repr": "Cart for john.doe@gmail.com",
+      "action_flag": 3,
+      "change_message": ""
+    }
+  },
+  {
+    "model": "admin.logentry",
+    "pk": 219,
+    "fields": {
+      "action_time": "2024-10-06T23:28:38.860Z",
+      "user": 1,
+      "content_type": 38,
+      "object_id": "1",
+      "object_repr": "UQ Union Complex",
+      "action_flag": 2,
+      "change_message": "[{\"changed\": {\"fields\": [\"Name\", \"Branch\", \"Details\", \"Longitude\", \"Latitude\"]}}]"
+    }
+  },
+  {
+    "model": "admin.logentry",
+    "pk": 220,
+    "fields": {
+      "action_time": "2024-10-06T23:29:50.951Z",
+      "user": 1,
+      "content_type": 38,
+      "object_id": "2",
+      "object_repr": "UQ Biological Sciences Library",
+      "action_flag": 1,
+      "change_message": "[{\"added\": {}}]"
+    }
+  },
+  {
     "model": "sessions.session",
     "pk": "8iv0tpmv0cs9au1zl40j9mmxlbwk6wmk",
     "fields": {
@@ -3265,166 +3317,82 @@
   {
     "model": "community.preparationtype",
     "pk": 1,
-    "fields": {
-      "name": "Diced",
-      "ingredient": 1,
-      "additional_price": "0.00"
-    }
+    "fields": { "name": "Diced", "ingredient": 1, "additional_price": "0.00" }
   },
   {
     "model": "community.preparationtype",
     "pk": 2,
-    "fields": {
-      "name": "Fillet",
-      "ingredient": 1,
-      "additional_price": "0.00"
-    }
+    "fields": { "name": "Fillet", "ingredient": 1, "additional_price": "0.00" }
   },
   {
     "model": "community.preparationtype",
     "pk": 3,
-    "fields": {
-      "name": "Cutlets",
-      "ingredient": 1,
-      "additional_price": "0.00"
-    }
+    "fields": { "name": "Cutlets", "ingredient": 1, "additional_price": "0.00" }
   },
   {
     "model": "community.preparationtype",
     "pk": 4,
-    "fields": {
-      "name": "Cubed",
-      "ingredient": 1,
-      "additional_price": "0.00"
-    }
+    "fields": { "name": "Cubed", "ingredient": 1, "additional_price": "0.00" }
   },
   {
     "model": "community.preparationtype",
     "pk": 5,
-    "fields": {
-      "name": "Sliced",
-      "ingredient": 1,
-      "additional_price": "0.00"
-    }
+    "fields": { "name": "Sliced", "ingredient": 1, "additional_price": "0.00" }
   },
   {
     "model": "community.preparationtype",
     "pk": 6,
-    "fields": {
-      "name": "Minced",
-      "ingredient": 6,
-      "additional_price": "0.00"
-    }
+    "fields": { "name": "Minced", "ingredient": 6, "additional_price": "0.00" }
   },
   {
     "model": "community.preparationtype",
     "pk": 7,
-    "fields": {
-      "name": "Chopped",
-      "ingredient": 6,
-      "additional_price": "0.00"
-    }
+    "fields": { "name": "Chopped", "ingredient": 6, "additional_price": "0.00" }
   },
   {
     "model": "community.preparationtype",
     "pk": 8,
-    "fields": {
-      "name": "Crushed",
-      "ingredient": 6,
-      "additional_price": "0.00"
-    }
+    "fields": { "name": "Crushed", "ingredient": 6, "additional_price": "0.00" }
   },
   {
     "model": "community.preparationtype",
     "pk": 9,
-    "fields": {
-      "name": "Sliced",
-      "ingredient": 6,
-      "additional_price": "0.00"
-    }
+    "fields": { "name": "Sliced", "ingredient": 6, "additional_price": "0.00" }
   },
   {
     "model": "community.preparationtype",
     "pk": 10,
-    "fields": {
-      "name": "Whole",
-      "ingredient": 6,
-      "additional_price": "0.00"
-    }
+    "fields": { "name": "Whole", "ingredient": 6, "additional_price": "0.00" }
   },
   {
     "model": "community.preparationtype",
     "pk": 11,
-    "fields": {
-      "name": "Fillet",
-      "ingredient": 11,
-      "additional_price": "0.00"
-    }
+    "fields": { "name": "Fillet", "ingredient": 11, "additional_price": "0.00" }
   },
   {
     "model": "community.preparationtype",
     "pk": 12,
-    "fields": {
-      "name": "Diced",
-      "ingredient": 11,
-      "additional_price": "0.00"
-    }
+    "fields": { "name": "Diced", "ingredient": 11, "additional_price": "0.00" }
   },
   {
     "model": "community.preparationtype",
     "pk": 13,
-    "fields": {
-      "name": "Cubed",
-      "ingredient": 11,
-      "additional_price": "0.00"
-    }
+    "fields": { "name": "Cubed", "ingredient": 11, "additional_price": "0.00" }
   },
   {
     "model": "community.preparationtype",
     "pk": 16,
-    "fields": {
-      "name": "Sliced",
-      "ingredient": 25,
-      "additional_price": "0.00"
-    }
+    "fields": { "name": "Sliced", "ingredient": 25, "additional_price": "0.00" }
   },
   {
     "model": "community.preparationtype",
     "pk": 17,
-    "fields": {
-      "name": "Sliced",
-      "ingredient": 26,
-      "additional_price": "0.00"
-    }
+    "fields": { "name": "Sliced", "ingredient": 26, "additional_price": "0.00" }
   },
-  {
-    "model": "community.mealtype",
-    "pk": 1,
-    "fields": {
-      "name": "Lunch"
-    }
-  },
-  {
-    "model": "community.mealtype",
-    "pk": 2,
-    "fields": {
-      "name": "Breakfast"
-    }
-  },
-  {
-    "model": "community.mealtype",
-    "pk": 3,
-    "fields": {
-      "name": "Dinner"
-    }
-  },
-  {
-    "model": "community.mealtype",
-    "pk": 4,
-    "fields": {
-      "name": "Snack"
-    }
-  },
+  { "model": "community.mealtype", "pk": 1, "fields": { "name": "Lunch" } },
+  { "model": "community.mealtype", "pk": 2, "fields": { "name": "Breakfast" } },
+  { "model": "community.mealtype", "pk": 3, "fields": { "name": "Dinner" } },
+  { "model": "community.mealtype", "pk": 4, "fields": { "name": "Snack" } },
   {
     "model": "community.recipe",
     "pk": 1,
@@ -3508,197 +3476,112 @@
   {
     "model": "community.recipeingredient",
     "pk": 1,
-    "fields": {
-      "recipe": 1,
-      "ingredient": 1,
-      "preparation_type": 1
-    }
+    "fields": { "recipe": 1, "ingredient": 1, "preparation_type": 1 }
   },
   {
     "model": "community.recipeingredient",
     "pk": 2,
-    "fields": {
-      "recipe": 1,
-      "ingredient": 2,
-      "preparation_type": null
-    }
+    "fields": { "recipe": 1, "ingredient": 2, "preparation_type": null }
   },
   {
     "model": "community.recipeingredient",
     "pk": 3,
-    "fields": {
-      "recipe": 1,
-      "ingredient": 3,
-      "preparation_type": null
-    }
+    "fields": { "recipe": 1, "ingredient": 3, "preparation_type": null }
   },
   {
     "model": "community.recipeingredient",
     "pk": 4,
-    "fields": {
-      "recipe": 1,
-      "ingredient": 4,
-      "preparation_type": null
-    }
+    "fields": { "recipe": 1, "ingredient": 4, "preparation_type": null }
   },
   {
     "model": "community.recipeingredient",
     "pk": 5,
-    "fields": {
-      "recipe": 1,
-      "ingredient": 5,
-      "preparation_type": null
-    }
+    "fields": { "recipe": 1, "ingredient": 5, "preparation_type": null }
   },
   {
     "model": "community.recipeingredient",
     "pk": 6,
-    "fields": {
-      "recipe": 1,
-      "ingredient": 6,
-      "preparation_type": 6
-    }
+    "fields": { "recipe": 1, "ingredient": 6, "preparation_type": 6 }
   },
   {
     "model": "community.recipeingredient",
     "pk": 7,
-    "fields": {
-      "recipe": 1,
-      "ingredient": 7,
-      "preparation_type": 6
-    }
+    "fields": { "recipe": 1, "ingredient": 7, "preparation_type": 6 }
   },
   {
     "model": "community.recipeingredient",
     "pk": 8,
-    "fields": {
-      "recipe": 1,
-      "ingredient": 8,
-      "preparation_type": null
-    }
+    "fields": { "recipe": 1, "ingredient": 8, "preparation_type": null }
   },
   {
     "model": "community.recipeingredient",
     "pk": 9,
-    "fields": {
-      "recipe": 1,
-      "ingredient": 9,
-      "preparation_type": null
-    }
+    "fields": { "recipe": 1, "ingredient": 9, "preparation_type": null }
   },
   {
     "model": "community.recipeingredient",
     "pk": 10,
-    "fields": {
-      "recipe": 1,
-      "ingredient": 10,
-      "preparation_type": null
-    }
+    "fields": { "recipe": 1, "ingredient": 10, "preparation_type": null }
   },
   {
     "model": "community.recipeingredient",
     "pk": 11,
-    "fields": {
-      "recipe": 2,
-      "ingredient": 11,
-      "preparation_type": 11
-    }
+    "fields": { "recipe": 2, "ingredient": 11, "preparation_type": 11 }
   },
   {
     "model": "community.recipeingredient",
     "pk": 12,
-    "fields": {
-      "recipe": 2,
-      "ingredient": 12,
-      "preparation_type": null
-    }
+    "fields": { "recipe": 2, "ingredient": 12, "preparation_type": null }
   },
   {
     "model": "community.recipeingredient",
     "pk": 13,
-    "fields": {
-      "recipe": 2,
-      "ingredient": 13,
-      "preparation_type": null
-    }
+    "fields": { "recipe": 2, "ingredient": 13, "preparation_type": null }
   },
   {
     "model": "community.recipeingredient",
     "pk": 14,
-    "fields": {
-      "recipe": 2,
-      "ingredient": 5,
-      "preparation_type": null
-    }
+    "fields": { "recipe": 2, "ingredient": 5, "preparation_type": null }
   },
   {
     "model": "community.recipeingredient",
     "pk": 15,
-    "fields": {
-      "recipe": 2,
-      "ingredient": 8,
-      "preparation_type": null
-    }
+    "fields": { "recipe": 2, "ingredient": 8, "preparation_type": null }
   },
   {
     "model": "community.recipeingredient",
     "pk": 16,
-    "fields": {
-      "recipe": 2,
-      "ingredient": 14,
-      "preparation_type": null
-    }
+    "fields": { "recipe": 2, "ingredient": 14, "preparation_type": null }
   },
   {
     "model": "community.recipeingredient",
     "pk": 17,
-    "fields": {
-      "recipe": 2,
-      "ingredient": 15,
-      "preparation_type": null
-    }
+    "fields": { "recipe": 2, "ingredient": 15, "preparation_type": null }
   },
   {
     "model": "community.recipeingredient",
     "pk": 27,
-    "fields": {
-      "recipe": 12,
-      "ingredient": 35,
-      "preparation_type": null
-    }
+    "fields": { "recipe": 12, "ingredient": 35, "preparation_type": null }
   },
   {
     "model": "community.recipeingredient",
     "pk": 28,
-    "fields": {
-      "recipe": 12,
-      "ingredient": 36,
-      "preparation_type": null
-    }
+    "fields": { "recipe": 12, "ingredient": 36, "preparation_type": null }
   },
   {
     "model": "community.recipedietarydetail",
     "pk": 1,
-    "fields": {
-      "recipe": 1,
-      "dietary_details": 3
-    }
+    "fields": { "recipe": 1, "dietary_details": 3 }
   },
   {
     "model": "community.recipedietarydetail",
     "pk": 2,
-    "fields": {
-      "recipe": 2,
-      "dietary_details": 3
-    }
+    "fields": { "recipe": 2, "dietary_details": 3 }
   },
   {
     "model": "community.recipedietarydetail",
     "pk": 7,
-    "fields": {
-      "recipe": 12,
-      "dietary_details": 1
-    }
+    "fields": { "recipe": 12, "dietary_details": 1 }
   },
   {
     "model": "community.recipenutrition",
@@ -3736,37 +3619,22 @@
   {
     "model": "community.mealkitrecipe",
     "pk": 1,
-    "fields": {
-      "mealkit": 2,
-      "recipe": 1,
-      "quantity": 1
-    }
+    "fields": { "mealkit": 2, "recipe": 1, "quantity": 1 }
   },
   {
     "model": "community.mealkitrecipe",
     "pk": 2,
-    "fields": {
-      "mealkit": 2,
-      "recipe": 2,
-      "quantity": 1
-    }
+    "fields": { "mealkit": 2, "recipe": 2, "quantity": 1 }
   },
   {
     "model": "community.mealkitdietarydetail",
     "pk": 1,
-    "fields": {
-      "mealkit": 2,
-      "dietary_details": 3
-    }
+    "fields": { "mealkit": 2, "dietary_details": 3 }
   },
   {
     "model": "community.recipelike",
     "pk": 1,
-    "fields": {
-      "recipe": 2,
-      "user": 4,
-      "liked_at": "2024-10-06T04:46:41.390Z"
-    }
+    "fields": { "recipe": 2, "user": 4, "liked_at": "2024-10-06T04:46:41.390Z" }
   },
   {
     "model": "community.recipelike",
@@ -3780,11 +3648,7 @@
   {
     "model": "community.recipelike",
     "pk": 3,
-    "fields": {
-      "recipe": 2,
-      "user": 3,
-      "liked_at": "2024-10-06T05:10:10.711Z"
-    }
+    "fields": { "recipe": 2, "user": 3, "liked_at": "2024-10-06T05:10:10.711Z" }
   },
   {
     "model": "community.recipecomment",
@@ -3818,234 +3682,138 @@
   {
     "model": "groceries.category",
     "pk": 1,
-    "fields": {
-      "name": "Poultry",
-      "image": "category/poultry.png"
-    }
+    "fields": { "name": "Poultry", "image": "category/poultry.png" }
   },
   {
     "model": "groceries.category",
     "pk": 2,
-    "fields": {
-      "name": "Meat",
-      "image": "category/meat.png"
-    }
+    "fields": { "name": "Meat", "image": "category/meat.png" }
   },
   {
     "model": "groceries.category",
     "pk": 3,
-    "fields": {
-      "name": "Seafood",
-      "image": "category/seafood.png"
-    }
+    "fields": { "name": "Seafood", "image": "category/seafood.png" }
   },
   {
     "model": "groceries.category",
     "pk": 4,
-    "fields": {
-      "name": "Fruit",
-      "image": "category/fruits.png"
-    }
+    "fields": { "name": "Fruit", "image": "category/fruits.png" }
   },
   {
     "model": "groceries.category",
     "pk": 5,
-    "fields": {
-      "name": "Vegetables",
-      "image": "category/vegetables.png"
-    }
+    "fields": { "name": "Vegetables", "image": "category/vegetables.png" }
   },
   {
     "model": "groceries.category",
     "pk": 6,
-    "fields": {
-      "name": "Salad",
-      "image": "category/salad.png"
-    }
+    "fields": { "name": "Salad", "image": "category/salad.png" }
   },
   {
     "model": "groceries.category",
     "pk": 7,
-    "fields": {
-      "name": "Bakery",
-      "image": "category/bakery.png"
-    }
+    "fields": { "name": "Bakery", "image": "category/bakery.png" }
   },
   {
     "model": "groceries.category",
     "pk": 8,
-    "fields": {
-      "name": "Dairy",
-      "image": "category/dairy.png"
-    }
+    "fields": { "name": "Dairy", "image": "category/dairy.png" }
   },
   {
     "model": "groceries.category",
     "pk": 9,
-    "fields": {
-      "name": "Eggs",
-      "image": "category/eggs.png"
-    }
+    "fields": { "name": "Eggs", "image": "category/eggs.png" }
   },
   {
     "model": "groceries.category",
     "pk": 10,
-    "fields": {
-      "name": "Herbs",
-      "image": "category/herbs.png"
-    }
+    "fields": { "name": "Herbs", "image": "category/herbs.png" }
   },
   {
     "model": "groceries.category",
     "pk": 11,
-    "fields": {
-      "name": "Spices",
-      "image": "category/spices.png"
-    }
+    "fields": { "name": "Spices", "image": "category/spices.png" }
   },
   {
     "model": "groceries.category",
     "pk": 12,
-    "fields": {
-      "name": "Sauces",
-      "image": "category/sauces.png"
-    }
+    "fields": { "name": "Sauces", "image": "category/sauces.png" }
   },
   {
     "model": "groceries.category",
     "pk": 13,
-    "fields": {
-      "name": "Pantry",
-      "image": "category/pantry.png"
-    }
+    "fields": { "name": "Pantry", "image": "category/pantry.png" }
   },
   {
     "model": "groceries.category",
     "pk": 14,
-    "fields": {
-      "name": "Grains",
-      "image": "category/grains.png"
-    }
+    "fields": { "name": "Grains", "image": "category/grains.png" }
   },
   {
     "model": "groceries.dietarydetail",
     "pk": 1,
-    "fields": {
-      "name": "Vegetarian"
-    }
+    "fields": { "name": "Vegetarian" }
   },
   {
     "model": "groceries.dietarydetail",
     "pk": 2,
-    "fields": {
-      "name": "Paleo"
-    }
+    "fields": { "name": "Paleo" }
   },
   {
     "model": "groceries.dietarydetail",
     "pk": 3,
-    "fields": {
-      "name": "High-Protein"
-    }
+    "fields": { "name": "High-Protein" }
   },
   {
     "model": "groceries.dietarydetail",
     "pk": 4,
-    "fields": {
-      "name": "Dairy-Free"
-    }
+    "fields": { "name": "Dairy-Free" }
   },
   {
     "model": "groceries.dietarydetail",
     "pk": 5,
-    "fields": {
-      "name": "Gluten-Free"
-    }
+    "fields": { "name": "Gluten-Free" }
   },
   {
     "model": "groceries.dietarydetail",
     "pk": 6,
-    "fields": {
-      "name": "Halal"
-    }
+    "fields": { "name": "Halal" }
   },
   {
     "model": "groceries.dietarydetail",
     "pk": 8,
-    "fields": {
-      "name": "Low-Carb"
-    }
+    "fields": { "name": "Low-Carb" }
   },
   {
     "model": "groceries.dietarydetail",
     "pk": 9,
-    "fields": {
-      "name": "Low-Sodium"
-    }
+    "fields": { "name": "Low-Sodium" }
   },
   {
     "model": "groceries.dietarydetail",
     "pk": 10,
-    "fields": {
-      "name": "Nut-Free"
-    }
+    "fields": { "name": "Nut-Free" }
   },
   {
     "model": "groceries.dietarydetail",
     "pk": 12,
-    "fields": {
-      "name": "Pescatarian"
-    }
+    "fields": { "name": "Pescatarian" }
   },
   {
     "model": "groceries.dietarydetail",
     "pk": 13,
-    "fields": {
-      "name": "Sugar-Free"
-    }
+    "fields": { "name": "Sugar-Free" }
   },
   {
     "model": "groceries.dietarydetail",
     "pk": 14,
-    "fields": {
-      "name": "Vegan"
-    }
+    "fields": { "name": "Vegan" }
   },
-  {
-    "model": "groceries.unit",
-    "pk": 1,
-    "fields": {
-      "name": "Kg"
-    }
-  },
-  {
-    "model": "groceries.unit",
-    "pk": 2,
-    "fields": {
-      "name": "g"
-    }
-  },
-  {
-    "model": "groceries.unit",
-    "pk": 3,
-    "fields": {
-      "name": "ml"
-    }
-  },
-  {
-    "model": "groceries.unit",
-    "pk": 4,
-    "fields": {
-      "name": "EA"
-    }
-  },
-  {
-    "model": "groceries.unit",
-    "pk": 5,
-    "fields": {
-      "name": "Clove"
-    }
-  },
+  { "model": "groceries.unit", "pk": 1, "fields": { "name": "Kg" } },
+  { "model": "groceries.unit", "pk": 2, "fields": { "name": "g" } },
+  { "model": "groceries.unit", "pk": 3, "fields": { "name": "ml" } },
+  { "model": "groceries.unit", "pk": 4, "fields": { "name": "EA" } },
+  { "model": "groceries.unit", "pk": 5, "fields": { "name": "Clove" } },
   {
     "model": "groceries.product",
     "pk": 1,
@@ -4337,42 +4105,27 @@
   {
     "model": "groceries.productdietarydetail",
     "pk": 1,
-    "fields": {
-      "product": 1,
-      "dietary_details": 2
-    }
+    "fields": { "product": 1, "dietary_details": 2 }
   },
   {
     "model": "groceries.productdietarydetail",
     "pk": 2,
-    "fields": {
-      "product": 1,
-      "dietary_details": 3
-    }
+    "fields": { "product": 1, "dietary_details": 3 }
   },
   {
     "model": "groceries.productdietarydetail",
     "pk": 3,
-    "fields": {
-      "product": 2,
-      "dietary_details": 2
-    }
+    "fields": { "product": 2, "dietary_details": 2 }
   },
   {
     "model": "groceries.productdietarydetail",
     "pk": 4,
-    "fields": {
-      "product": 2,
-      "dietary_details": 3
-    }
+    "fields": { "product": 2, "dietary_details": 3 }
   },
   {
     "model": "groceries.productdietarydetail",
     "pk": 5,
-    "fields": {
-      "product": 3,
-      "dietary_details": 1
-    }
+    "fields": { "product": 3, "dietary_details": 1 }
   },
   {
     "model": "groceries.productnutrition",
@@ -4398,54 +4151,32 @@
       "sodium_per_100g": "333.00"
     }
   },
-  {
-    "model": "orders.orderstatuses",
-    "pk": 1,
-    "fields": {
-      "name": "pending"
-    }
-  },
-  {
-    "model": "orders.orderstatuses",
-    "pk": 2,
-    "fields": {
-      "name": "paid"
-    }
-  },
+  { "model": "orders.orderstatuses", "pk": 1, "fields": { "name": "pending" } },
+  { "model": "orders.orderstatuses", "pk": 2, "fields": { "name": "paid" } },
   {
     "model": "orders.orderstatuses",
     "pk": 3,
-    "fields": {
-      "name": "preparing"
-    }
+    "fields": { "name": "preparing" }
   },
   {
     "model": "orders.orderstatuses",
     "pk": 4,
-    "fields": {
-      "name": "ready to deliver"
-    }
+    "fields": { "name": "ready to deliver" }
   },
   {
     "model": "orders.orderstatuses",
     "pk": 5,
-    "fields": {
-      "name": "delivering"
-    }
+    "fields": { "name": "delivering" }
   },
   {
     "model": "orders.orderstatuses",
     "pk": 6,
-    "fields": {
-      "name": "delivered"
-    }
+    "fields": { "name": "delivered" }
   },
   {
     "model": "orders.orderstatuses",
     "pk": 7,
-    "fields": {
-      "name": "completed"
-    }
+    "fields": { "name": "completed" }
   },
   {
     "model": "orders.orders",
@@ -4463,68 +4194,60 @@
   {
     "model": "orders.orderproducts",
     "pk": 5,
-    "fields": {
-      "order": 4,
-      "product": 2,
-      "quantity": 2,
-      "total": "29.00"
-    }
+    "fields": { "order": 4, "product": 2, "quantity": 2, "total": "29.00" }
   },
   {
     "model": "orders.orderproducts",
     "pk": 6,
-    "fields": {
-      "order": 4,
-      "product": 4,
-      "quantity": 1,
-      "total": "6.80"
-    }
+    "fields": { "order": 4, "product": 4, "quantity": 1, "total": "6.80" }
   },
   {
     "model": "orders.orderrecipes",
     "pk": 3,
-    "fields": {
-      "order": 4,
-      "recipe": 1,
-      "quantity": 2,
-      "total": "6.98"
-    }
+    "fields": { "order": 4, "recipe": 1, "quantity": 2, "total": "6.98" }
   },
   {
     "model": "orders.orderrecipes",
     "pk": 4,
-    "fields": {
-      "order": 4,
-      "recipe": 2,
-      "quantity": 1,
-      "total": "9.49"
-    }
+    "fields": { "order": 4, "recipe": 2, "quantity": 1, "total": "9.49" }
   },
   {
     "model": "orders.ordermealkits",
     "pk": 3,
-    "fields": {
-      "order": 4,
-      "mealkit": 2,
-      "quantity": 2,
-      "total": "25.96"
-    }
+    "fields": { "order": 4, "mealkit": 2, "quantity": 2, "total": "25.96" }
   },
   {
     "model": "orders.deliverylocation",
     "pk": 1,
     "fields": {
-      "name": "uq union",
-      "branch": "uq",
+      "name": "UQ",
+      "branch": "Union Complex",
       "address_line1": "St Lucia QLD 4072",
       "address_line2": "St Lucia QLD 4072",
       "city": "Brisbane",
       "postal_code": "4072",
       "country": "Australia",
-      "details": "at uq union",
+      "details": "Union Complex, St Lucia QLD 4067",
       "delivery_fee": "10.00",
-      "longitude": null,
-      "latitude": null
+      "longitude": "153.0153",
+      "latitude": "-27.4971"
+    }
+  },
+  {
+    "model": "orders.deliverylocation",
+    "pk": 2,
+    "fields": {
+      "name": "UQ",
+      "branch": "Biological Sciences Library",
+      "address_line1": "The University of Queensland",
+      "address_line2": "Building 94 Slip Rd",
+      "city": "Brisbane",
+      "postal_code": "4067",
+      "country": "Australia",
+      "details": "The University of Queensland, Building 94 Slip Rd, St Lucia QLD 4067",
+      "delivery_fee": "10.00",
+      "longitude": "153.0115",
+      "latitude": "-27.4967"
     }
   },
   {
@@ -4641,27 +4364,92 @@
   },
   {
     "model": "cart.usercart",
-    "pk": 4,
-    "fields": {
-      "updated_at": "2024-09-18T09:45:50.293Z"
-    }
+    "pk": 3,
+    "fields": { "updated_at": "2024-10-06T23:25:25.675Z" }
   },
   {
     "model": "cart.cartproduct",
-    "pk": 5,
-    "fields": {
-      "user_cart": 4,
-      "product": 1,
-      "quantity": 2
-    }
+    "pk": 7,
+    "fields": { "user_cart": 3, "product": 2, "quantity": 3 }
+  },
+  {
+    "model": "cart.cartmealkit",
+    "pk": 2,
+    "fields": { "user_cart": 3, "mealkit": 2, "quantity": 1 }
   },
   {
     "model": "cart.cartrecipe",
-    "pk": 4,
+    "pk": 7,
+    "fields": { "user_cart": 3, "recipe": 1, "quantity": 1, "mealkit": null }
+  },
+  {
+    "model": "cart.cartrecipe",
+    "pk": 8,
+    "fields": { "user_cart": 3, "recipe": 1, "quantity": 2, "mealkit": 2 }
+  },
+  {
+    "model": "cart.cartingredient",
+    "pk": 7,
     "fields": {
-      "user_cart": 4,
-      "recipe": 1,
-      "quantity": 1
+      "user_cart": 3,
+      "recipe_ingredient": 1,
+      "quantity": 2,
+      "recipe": 7
     }
+  },
+  {
+    "model": "cart.cartingredient",
+    "pk": 8,
+    "fields": {
+      "user_cart": 3,
+      "recipe_ingredient": 2,
+      "quantity": 2,
+      "recipe": 7
+    }
+  },
+  {
+    "model": "cart.cartingredient",
+    "pk": 9,
+    "fields": {
+      "user_cart": 3,
+      "recipe_ingredient": 3,
+      "quantity": 1,
+      "recipe": 7
+    }
+  },
+  {
+    "model": "cart.cartingredient",
+    "pk": 10,
+    "fields": {
+      "user_cart": 3,
+      "recipe_ingredient": 1,
+      "quantity": 2,
+      "recipe": 8
+    }
+  },
+  {
+    "model": "cart.cartingredient",
+    "pk": 11,
+    "fields": {
+      "user_cart": 3,
+      "recipe_ingredient": 2,
+      "quantity": 2,
+      "recipe": 8
+    }
+  },
+  {
+    "model": "cart.cartingredient",
+    "pk": 12,
+    "fields": {
+      "user_cart": 3,
+      "recipe_ingredient": 3,
+      "quantity": 2,
+      "recipe": 8
+    }
+  },
+  {
+    "model": "cart.mealkitrecipecartrelation",
+    "pk": 2,
+    "fields": { "cart_meal_kit": 2, "cart_recipe": 8 }
   }
 ]

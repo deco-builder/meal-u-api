@@ -19,11 +19,12 @@ class MealKitsView(APIView):
         try:
             dietary_details = request.query_params.getlist("dietary_details")
             search = request.query_params.get("search", None)
+            creator = request.query_params.get("creator", None)
 
             if dietary_details:
                 dietary_details = list(map(str, dietary_details))
 
-            response = self.meal_kit_service.get(dietary_details=dietary_details, search=search)
+            response = self.meal_kit_service.get(dietary_details=dietary_details, search=search, creator=creator)
             return Response(prepare_success_response(response), status=status.HTTP_200_OK)
         except Exception as e:
             return Response(prepare_error_response(str(e)), status=status.HTTP_400_BAD_REQUEST)

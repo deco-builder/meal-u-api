@@ -140,7 +140,7 @@ class DeliveryDetails(models.Model):
 
     def save(self, *args, **kwargs):
         if self.locker:
-            self.qr_code = f"{self.delivery_location.name}_{self.delivery_time.name}_{self.delivery_date}_{self.order.id}_{self.locker.locker_number}"
+            self.qr_code = f"{str(self.delivery_location)}_{self.delivery_time.name}_{self.delivery_date}_{self.order.id}_{self.locker.locker_number}"
         else:
             self.qr_code = None
         super(DeliveryDetails, self).save(*args, **kwargs)
