@@ -1,6 +1,6 @@
 from django.db import models
 from user_auth.models import User
-from groceries.models import Unit, Product, DietaryDetail
+from groceries.models import Unit, Product, DietaryDetail, CategoryPreparationType
 
 
 class Ingredient(models.Model):
@@ -16,6 +16,25 @@ class Ingredient(models.Model):
 
     def __str__(self):
         return str(self.unit_size) + str(self.unit_id) + " " + self.name
+
+    def save(self, *args, **kwargs):
+        is_new = self.pk is None
+        super().save(*args, **kwargs)
+
+        if is_new:
+            self.create_default_preparation_types()
+
+    def create_default_preparation_types(self):
+        default_preparation_types = (
+            CategoryPreparationType.objects.get(filter=self.product_id.category_id).all().distinct()
+        )
+
+        for prep_type in default_preparation_types:
+            PreparationType.objects.create(
+                name=prep_type.name,
+                ingredient=self,
+                additional_price=prep_type.additional_price,
+            )
 
 
 class PreparationType(models.Model):
@@ -75,7 +94,8 @@ class RecipeDietaryDetail(models.Model):
 
     def __str__(self):
         return str(self.dietary_details) + " " + str(self.recipe)
-    
+
+
 class RecipeNutrition(models.Model):
     recipe_id = models.OneToOneField(Recipe, primary_key=True, on_delete=models.CASCADE)
     energy_per_serving = models.DecimalField(max_digits=6, decimal_places=2, null=True, help_text="in kJ")
@@ -108,7 +128,8 @@ class MealKitRecipe(models.Model):
 
     def __str__(self):
         return str(self.mealkit) + " " + str(self.recipe)
-    
+
+
 class MealkitDietaryDetail(models.Model):
     mealkit = models.ForeignKey(MealKit, on_delete=models.CASCADE)
     dietary_details = models.ForeignKey(DietaryDetail, on_delete=models.CASCADE)
