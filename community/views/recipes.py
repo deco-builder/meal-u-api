@@ -81,3 +81,17 @@ class TrendingCreatorView(APIView):
             return Response(prepare_success_response(response), status=status.HTTP_200_OK)
         except Exception as e:
             return Response(prepare_error_response(str(e)), status=status.HTTP_400_BAD_REQUEST)
+
+class TopCreatorDietaryView(APIView):
+    authentication_classes = [JWTAuthentication]
+    permission_classes = [IsAuthenticated, IsClientUser]
+
+    def __init__(self):
+        self.recipe_service = RecipesService()
+
+    def get(self, request):
+        try:
+            response = self.recipe_service.get_top_creators_by_dietary_details()
+            return Response(prepare_success_response(response), status=status.HTTP_200_OK)
+        except Exception as e:
+            return Response(prepare_error_response(str(e)), status=status.HTTP_400_BAD_REQUEST)

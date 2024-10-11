@@ -1,5 +1,5 @@
 from django.db.models import Q, Count
-from ..models import Recipe, RecipeIngredient
+from ..models import Recipe, RecipeIngredient, DietaryDetail
 from ..serializers.recipes import RecipesSerializer, TrendingRecipesSerializer, TopCreatorSerializer
 from .like_and_comment import RecipeLikeAndCommentService
 
@@ -128,3 +128,24 @@ class RecipesService:
 
         serializer = TopCreatorSerializer(top_creators, many=True)
         return serializer.data
+    
+    def get_top_creators_by_dietary_details(self):
+        all_dietary_details = DietaryDetail.objects.all()
+
+        top_creators = []
+
+        for dietary_detail in all_dietary_details:
+            top_creators_for_detail = self.get_top_creators_by_recipe_count(dietary_detail.id)
+            
+            if top_creators_for_detail:
+                top_creator = top_creators_for_detail[0]  
+                top_creators.append({
+                    "dietary_detail": {
+                        "id": dietary_detail.id,
+                        "name": dietary_detail.name,
+                    },
+                    "top_creator": top_creator
+                })
+
+        return top_creators
+

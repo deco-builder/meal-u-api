@@ -7,6 +7,9 @@ from PIL import Image
 import io
 from django.core.files.base import ContentFile
 from decimal import Decimal
+from datetime import datetime
+from django.utils import timezone
+
 
 class OrderStatusPreparingService:
     def post(self, order_id):
@@ -108,6 +111,22 @@ class OrderStatusPaidService:
             order = Orders.objects.get(id=order_id)
             if order.order_status != PENDING_STATUS:
                 raise Exception(f"Order with id {order_id} has invalid current status to update into paid")
+
+            delivery_details = order.deliverydetails_set.first()
+            if delivery_details:
+                current_datetime = timezone.now()
+                delivery_date = delivery_details.delivery_date
+                cut_off_time = delivery_details.delivery_time.cut_off
+                
+                cut_off_datetime = datetime.combine(delivery_date, cut_off_time)
+                
+                cut_off_datetime = timezone.make_aware(cut_off_datetime, timezone.get_current_timezone())
+
+                if current_datetime >= cut_off_datetime:
+                    CANCELLED_STATUS = OrderStatuses.objects.get(name="cancelled")
+                    order.order_status = CANCELLED_STATUS
+                    order.save()
+                    return f"Order {order_id} has been cancelled because the cut-off time has passed."
             
             # Get the 'paid' status
             PAID_STATUS = OrderStatuses.objects.get(name="paid")
@@ -149,6 +168,8 @@ class OrderStatusPaidService:
                     mealkit.creator.voucher_credits += author_cut
                     total_revenue += author_cut
                     mealkit.creator.save()
+        
+            return f"Order {order.id} status updated to 'paid'"
             
         except Orders.DoesNotExist:
             raise Exception(f"Order with id {order_id} does not exist")
