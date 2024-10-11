@@ -7,7 +7,7 @@ class CategoryPreparationTypeSerializer(serializers.ModelSerializer):
 
     class Meta:
         model = CategoryPreparationType
-        fields = "__all__"
+        fields = ["name", "category", "additional_price"]
 
     def get_category(self, obj):
         return obj.category.name
