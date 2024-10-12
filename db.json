@@ -3640,6 +3640,71 @@
     }
   },
   {
+    "model": "admin.logentry",
+    "pk": 281,
+    "fields": {
+      "action_time": "2024-10-12T03:43:43.782Z",
+      "user": 1,
+      "content_type": 40,
+      "object_id": "1",
+      "object_repr": "Morning 09:30:00 - 10:00:00",
+      "action_flag": 2,
+      "change_message": "[{\"changed\": {\"fields\": [\"Name\", \"Start time\", \"End time\", \"Cut off\"]}}]"
+    }
+  },
+  {
+    "model": "admin.logentry",
+    "pk": 282,
+    "fields": {
+      "action_time": "2024-10-12T03:44:41.036Z",
+      "user": 1,
+      "content_type": 40,
+      "object_id": "2",
+      "object_repr": "Afternoon 12:30:00 - 13:00:00",
+      "action_flag": 1,
+      "change_message": "[{\"added\": {}}]"
+    }
+  },
+  {
+    "model": "admin.logentry",
+    "pk": 283,
+    "fields": {
+      "action_time": "2024-10-12T03:45:09.731Z",
+      "user": 1,
+      "content_type": 40,
+      "object_id": "3",
+      "object_repr": "AAfternoon 14:30:00 - 15:00:00",
+      "action_flag": 1,
+      "change_message": "[{\"added\": {}}]"
+    }
+  },
+  {
+    "model": "admin.logentry",
+    "pk": 284,
+    "fields": {
+      "action_time": "2024-10-12T03:45:16.147Z",
+      "user": 1,
+      "content_type": 40,
+      "object_id": "2",
+      "object_repr": "Noon 12:30:00 - 13:00:00",
+      "action_flag": 2,
+      "change_message": "[{\"changed\": {\"fields\": [\"Name\"]}}]"
+    }
+  },
+  {
+    "model": "admin.logentry",
+    "pk": 285,
+    "fields": {
+      "action_time": "2024-10-12T03:45:20.112Z",
+      "user": 1,
+      "content_type": 40,
+      "object_id": "3",
+      "object_repr": "Afternoon 14:30:00 - 15:00:00",
+      "action_flag": 2,
+      "change_message": "[{\"changed\": {\"fields\": [\"Name\"]}}]"
+    }
+  },
+  {
     "model": "sessions.session",
     "pk": "8iv0tpmv0cs9au1zl40j9mmxlbwk6wmk",
     "fields": {
@@ -5174,10 +5239,30 @@
     "model": "orders.deliverytimeslot",
     "pk": 1,
     "fields": {
-      "name": "afternoon",
-      "start_time": "10:00:00",
-      "end_time": "10:30:00",
-      "cut_off": "11:00:00"
+      "name": "Morning",
+      "start_time": "09:30:00",
+      "end_time": "10:00:00",
+      "cut_off": "07:00:00"
+    }
+  },
+  {
+    "model": "orders.deliverytimeslot",
+    "pk": 2,
+    "fields": {
+      "name": "Noon",
+      "start_time": "12:30:00",
+      "end_time": "13:00:00",
+      "cut_off": "10:30:00"
+    }
+  },
+  {
+    "model": "orders.deliverytimeslot",
+    "pk": 3,
+    "fields": {
+      "name": "Afternoon",
+      "start_time": "14:30:00",
+      "end_time": "15:00:00",
+      "cut_off": "12:30:00"
     }
   },
   {
