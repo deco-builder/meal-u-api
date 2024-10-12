@@ -25,10 +25,10 @@ class OrderProductSerializer(serializers.ModelSerializer):
         fields = ['product', 'product_name', 'quantity', 'total']
 
 class OrderIngredientSerializer(serializers.ModelSerializer):
-    ingredient_name = serializers.CharField(source='ingredient.ingredient.name', read_only=True)
-    preparation_type = serializers.CharField(source='ingredient.preparation_type.name', read_only=True)
-    unit_size = serializers.DecimalField(source='ingredient.ingredient.unit_size', max_digits=6, decimal_places=2, read_only=True)
-    unit_name = serializers.CharField(source='ingredient.ingredient.unit_id.name', read_only=True)
+    ingredient_name = serializers.CharField(source='ingredient.name', read_only=True)
+    preparation_type = serializers.CharField(source='preparation_type.name', read_only=True)
+    unit_size = serializers.DecimalField(source='ingredient.unit_size', max_digits=6, decimal_places=2, read_only=True)
+    unit_name = serializers.CharField(source='ingredient.unit_id.name', read_only=True)
 
     class Meta:
         model = OrderIngredients
