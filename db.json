@@ -1,5 +1,96 @@
 [
   {
+    "model": "admin.logentry",
+    "pk": 1,
+    "fields": {
+      "action_time": "2024-10-12T05:01:11.291Z",
+      "user": 1,
+      "content_type": 56,
+      "object_id": "3",
+      "object_repr": "Cart for john.doe@gmail.com",
+      "action_flag": 3,
+      "change_message": ""
+    }
+  },
+  {
+    "model": "admin.logentry",
+    "pk": 2,
+    "fields": {
+      "action_time": "2024-10-12T05:03:47.250Z",
+      "user": 1,
+      "content_type": 56,
+      "object_id": "3",
+      "object_repr": "Cart for john.doe@gmail.com",
+      "action_flag": 3,
+      "change_message": ""
+    }
+  },
+  {
+    "model": "admin.logentry",
+    "pk": 3,
+    "fields": {
+      "action_time": "2024-10-12T05:04:42.862Z",
+      "user": 1,
+      "content_type": 56,
+      "object_id": "3",
+      "object_repr": "Cart for john.doe@gmail.com",
+      "action_flag": 3,
+      "change_message": ""
+    }
+  },
+  {
+    "model": "admin.logentry",
+    "pk": 4,
+    "fields": {
+      "action_time": "2024-10-12T05:21:17.708Z",
+      "user": 1,
+      "content_type": 56,
+      "object_id": "3",
+      "object_repr": "Cart for john.doe@gmail.com",
+      "action_flag": 3,
+      "change_message": ""
+    }
+  },
+  {
+    "model": "admin.logentry",
+    "pk": 5,
+    "fields": {
+      "action_time": "2024-10-12T05:29:03.736Z",
+      "user": 1,
+      "content_type": 7,
+      "object_id": "3",
+      "object_repr": "john.doe@gmail.com",
+      "action_flag": 2,
+      "change_message": "[]"
+    }
+  },
+  {
+    "model": "admin.logentry",
+    "pk": 6,
+    "fields": {
+      "action_time": "2024-10-12T05:29:23.711Z",
+      "user": 1,
+      "content_type": 7,
+      "object_id": "5",
+      "object_repr": "courier@gmail.com",
+      "action_flag": 1,
+      "change_message": "[{\"added\": {}}]"
+    }
+  },
+  {
+    "model": "admin.logentry",
+    "pk": 7,
+    "fields": {
+      "action_time": "2024-10-12T05:42:03.222Z",
+      "user": 1,
+      "content_type": 56,
+      "object_id": "3",
+      "object_repr": "Cart for john.doe@gmail.com",
+      "action_flag": 3,
+      "change_message": ""
+    }
+  },
+  {
     "model": "sessions.session",
     "pk": "8iv0tpmv0cs9au1zl40j9mmxlbwk6wmk",
     "fields": {
@@ -109,6 +200,25 @@
       "is_active": true,
       "is_staff": false,
       "role": "client",
+      "image": "",
+      "voucher_credits": "0.00",
+      "groups": [],
+      "user_permissions": []
+    }
+  },
+  {
+    "model": "user_auth.user",
+    "pk": 5,
+    "fields": {
+      "password": "pbkdf2_sha256$870000$SjOYVjgE6aBaEFc27GvCQM$ffyhx2fhdWz1KBUcf8NtCydkQe2u3lodFELK/cYt2jA=",
+      "last_login": null,
+      "is_superuser": false,
+      "email": "courier@gmail.com",
+      "first_name": "Courier",
+      "last_name": "MealU",
+      "is_active": true,
+      "is_staff": false,
+      "role": "courier",
       "image": "",
       "voucher_credits": "0.00",
       "groups": [],
