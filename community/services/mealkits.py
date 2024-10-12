@@ -1,5 +1,6 @@
-from ..models import MealKit
+from ..models import MealKit, Recipe
 from ..serializers.mealkits import MealKitsSerializer, CommunityMealKitsSerializer
+from ..serializers.recipes import RecipesSerializer
 from django.db.models import Q, Count
 
 
@@ -57,3 +58,23 @@ class MealKitsServices:
         except Exception as e:
             raise e
 
+class CombinedService:
+    def get_combined_mealkits_and_recipes(self):
+        try:
+            # Fetch meal kits and recipes
+            meal_kits = MealKit.objects.all()
+            recipes = Recipe.objects.all()
+
+            # Serialize both meal kits and recipes
+            meal_kit_serializer = MealKitsSerializer(meal_kits, many=True)
+            recipe_serializer = RecipesSerializer(recipes, many=True)
+
+            # Combine both serialized data into a single list
+            combined_data = meal_kit_serializer.data + recipe_serializer.data
+
+            # Sort the combined data by 'created_at' in descending order
+            sorted_data = sorted(combined_data, key=lambda x: x['created_at'], reverse=True)
+
+            return sorted_data
+        except Exception as e:
+            raise e
