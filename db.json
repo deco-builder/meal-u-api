@@ -91,6 +91,19 @@
     }
   },
   {
+    "model": "admin.logentry",
+    "pk": 8,
+    "fields": {
+      "action_time": "2024-10-12T05:44:18.796Z",
+      "user": 1,
+      "content_type": 48,
+      "object_id": "8",
+      "object_repr": "cancelled",
+      "action_flag": 1,
+      "change_message": "[{\"added\": {}}]"
+    }
+  },
+  {
     "model": "sessions.session",
     "pk": "8iv0tpmv0cs9au1zl40j9mmxlbwk6wmk",
     "fields": {
@@ -1555,6 +1568,11 @@
     "model": "orders.orderstatuses",
     "pk": 7,
     "fields": { "name": "completed" }
+  },
+  {
+    "model": "orders.orderstatuses",
+    "pk": 8,
+    "fields": { "name": "cancelled" }
   },
   {
     "model": "orders.orders",
