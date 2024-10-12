@@ -4,6 +4,7 @@ from .views.products import ProductsView
 from .views.product_details import ProductDetailsView
 from .views.dietary_details import DietaryDetailView
 from .views.unit import UnitView
+from .views.preparation_type import ProductPreparationTypeView
 
 urlpatterns = [
     path("categories/", CategoryView.as_view(), name="Categories"),
@@ -22,5 +23,10 @@ urlpatterns = [
         "units/",
         UnitView.as_view(),
         name="Units",
+    ),
+    path(
+        "preparation-type/<int:product_id>/",
+        ProductPreparationTypeView.as_view(),
+        name="Product Preparation Type",
     ),
 ]

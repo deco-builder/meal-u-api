@@ -18,8 +18,9 @@ class OrderStatusPaidUpdateView(APIView):
     def post(self, request, order_id):
         
         try:
-            response = self.order_status_paid_service.post(order_id)
-            return Response(prepare_success_response(f"Order {order_id} status updated to 'paid'"), status=status.HTTP_200_OK)
+            use_voucher = request.data.get("use_voucher", False)  # Get the flag from the request body
+            response = self.order_status_paid_service.post(order_id, use_voucher)
+            return Response(prepare_success_response(response), status=status.HTTP_200_OK)
         except Exception as e:
             return Response(
                 prepare_error_response(str(e)), status=status.HTTP_400_BAD_REQUEST

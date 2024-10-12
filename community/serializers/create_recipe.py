@@ -4,7 +4,6 @@ from ..models import (
     RecipeNutrition,
     Recipe,
     Ingredient,
-    PreparationType,
     RecipeDietaryDetail,
 )
 from decimal import Decimal
@@ -30,17 +29,11 @@ class IngredientSerializer(serializers.ModelSerializer):
             price_per_unit = product.price_per_measurement
         else:
             price_per_unit = Decimal(unit_size) / product.measurement_size * product.price_per_measurement
-        
-        validated_data['price_per_unit'] = price_per_unit
-        validated_data['stock'] = 100
+
+        validated_data["price_per_unit"] = price_per_unit
+        validated_data["stock"] = 100
 
         return super().create(validated_data)
-
-
-class PreparationTypeSerializer(serializers.ModelSerializer):
-    class Meta:
-        model = PreparationType
-        fields = ["name", "ingredient"]
 
 
 class RecipeIngredientSerializer(serializers.ModelSerializer):

@@ -1,10 +1,15 @@
-from ..models import OrderStatuses, Orders, Lockers, DeliveryDetails
+from ..models import OrderStatuses, Orders, Lockers, DeliveryDetails, OrderRecipes, OrderMealKits, OrderIngredients
+from community.models import Recipe, MealKit
 import random
 from django.db.models import Q
 from .orders import OrdersService
 from PIL import Image
 import io
 from django.core.files.base import ContentFile
+from decimal import Decimal
+from datetime import datetime
+from django.utils import timezone
+
 
 class OrderStatusPreparingService:
     def post(self, order_id):
@@ -97,29 +102,115 @@ class OrderStatusReadyToDeliverService:
             raise e
 
 class OrderStatusPaidService:
-    def post(self, order_id):
+    def post(self, order_id, use_voucher=False):
         try:
-            try:
-                PENDING_STATUS = OrderStatuses.objects.get(name="pending")
-            except Exception as e:
-                raise e
+            # Get the 'pending' status
+            PENDING_STATUS = OrderStatuses.objects.get(name="pending")
             
+            # Get the order and check if it is in the pending state
             order = Orders.objects.get(id=order_id)
             if order.order_status != PENDING_STATUS:
                 raise Exception(f"Order with id {order_id} has invalid current status to update into paid")
+
+            delivery_details = order.deliverydetails_set.first()
+            if delivery_details:
+                current_datetime = datetime.now()
+                delivery_date = delivery_details.delivery_date
+                cut_off_time = delivery_details.delivery_time.cut_off
+                
+                cut_off_datetime = datetime.combine(delivery_date, cut_off_time)
+                
+                if current_datetime >= cut_off_datetime:
+                    CANCELLED_STATUS = OrderStatuses.objects.get(name="cancelled")
+                    order.order_status = CANCELLED_STATUS
+                    order.save()
+                    return f"Order {order_id} has been cancelled because the cut-off time has passed."
             
-            try:
-                PAID_STATUS = OrderStatuses.objects.get(name="paid")
-            except Exception as e:
-                raise e
+            # Get the 'paid' status
+            PAID_STATUS = OrderStatuses.objects.get(name="paid")
             
+            # Update the order status to 'paid'
             order.order_status = PAID_STATUS
             order.save()
+
+            user = order.user_id
+            total_order_amount = order.total
+            # Apply voucher if requested
+            if use_voucher:
+                total_order_amount, user.voucher_credits = self.apply_voucher_credit(user.voucher_credits, total_order_amount)
+                user.save()  # Save the updated voucher credit
+                order.total = total_order_amount
+                order.save()
+
+            total_revenue = 0
+
+            # Process each OrderRecipe in the order
+            for order_recipe in OrderRecipes.objects.filter(order=order):
+                recipe = order_recipe.recipe
+
+                # Only process if the recipe is monetizable
+                if recipe.monetize:
+                    # Use the total field of OrderRecipe to calculate the author cut
+                    author_cut = self.calculate_author_cut(order_recipe.total)
+                    recipe.creator.voucher_credits += author_cut
+                    total_revenue += author_cut
+                    recipe.creator.save()
+
+            # Process each OrderMealKit in the order
+            for order_mealkit in OrderMealKits.objects.filter(order=order):
+                mealkit = order_mealkit.mealkit
+                
+                # Only process if the meal kit is monetizable
+                if mealkit.monetize:
+                    author_cut = self.calculate_author_cut(order_mealkit.total)
+                    mealkit.creator.voucher_credits += author_cut
+                    total_revenue += author_cut
+                    mealkit.creator.save()
+        
+            return f"Order {order.id} status updated to 'paid'"
+            
         except Orders.DoesNotExist:
             raise Exception(f"Order with id {order_id} does not exist")
         except Exception as e:
             raise e
 
+    def calculate_author_cut(self, total_price):
+        """
+        Calculate the author cut based on the total price of the recipe or mealkit.
+        The author receives 10% of the total price.
+        """
+        percentage_cut = Decimal('0.01')
+        return total_price * percentage_cut
+    
+    def calculate_total_order(self, order):
+        """
+        Calculate the total amount for the entire order.
+        This function sums up the total fields from all OrderRecipes and OrderMealKits.
+        """
+        total_order_amount = Decimal('0.00')
+        for order_recipe in OrderRecipes.objects.filter(order=order):
+            total_order_amount += order_recipe.total
+        for order_mealkit in OrderMealKits.objects.filter(order=order):
+            total_order_amount += order_mealkit.total
+        return total_order_amount
+
+    def apply_voucher_credit(self, voucher_credits, total_order_amount):
+        """
+        Apply the user's voucher credit to the order's total amount.
+        If voucher credit is less than or equal to the total, subtract it from the total and set voucher credit to 0.
+        If voucher credit is greater than the total, subtract total from voucher credit and set total to 0.
+        """
+        if voucher_credits <= total_order_amount:
+            total_order_amount -= voucher_credits
+            voucher_credits = Decimal('0.00')
+        else:
+            voucher_credits -= total_order_amount
+            total_order_amount = Decimal('0.00')
+        
+        return total_order_amount, voucher_credits
+
+
+        
 class OrderStatusDeliveringService:
     def post(self, order_id):
         try:

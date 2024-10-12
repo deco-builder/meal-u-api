@@ -1,6 +1,6 @@
 from django.db import models
 from user_auth.models import User
-from groceries.models import Unit, Product, DietaryDetail
+from groceries.models import Unit, Product, DietaryDetail, PreparationType
 
 
 class Ingredient(models.Model):
@@ -16,15 +16,6 @@ class Ingredient(models.Model):
 
     def __str__(self):
         return str(self.unit_size) + str(self.unit_id) + " " + self.name
-
-
-class PreparationType(models.Model):
-    name = models.CharField(max_length=255, null=False, blank=False)
-    ingredient = models.ForeignKey(Ingredient, on_delete=models.CASCADE)
-    additional_price = models.DecimalField(max_digits=6, decimal_places=2, default=0)
-
-    def __str__(self):
-        return self.name + " " + str(self.ingredient)
 
 
 class MealType(models.Model):
@@ -46,6 +37,7 @@ class Recipe(models.Model):
     updated_at = models.DateField(auto_now=True)
     image = models.ImageField(upload_to="recipes/", blank=True, null=True)
     is_customized = models.BooleanField(default=False)
+    monetize = models.BooleanField(default=False)
 
     def __str__(self):
         return self.name
@@ -64,6 +56,15 @@ class RecipeIngredient(models.Model):
             return str(self.preparation_type) + " " + str(self.recipe)
         return str(self.ingredient) + " " + str(self.recipe)
 
+    def save(self, *args, **kwargs):
+        if self.preparation_type:
+            if self.preparation_type.category != self.ingredient.product_id.category_id:
+                raise ValueError(
+                    f"The preparation type '{self.preparation_type}' is for product category {self.preparation_type.category}, does not match the product category '{self.ingredient.product_id.category_id}'."
+                )
+
+        super().save(*args, **kwargs)
+
 
 class RecipeDietaryDetail(models.Model):
     recipe = models.ForeignKey(Recipe, on_delete=models.CASCADE)
@@ -74,7 +75,8 @@ class RecipeDietaryDetail(models.Model):
 
     def __str__(self):
         return str(self.dietary_details) + " " + str(self.recipe)
-    
+
+
 class RecipeNutrition(models.Model):
     recipe_id = models.OneToOneField(Recipe, primary_key=True, on_delete=models.CASCADE)
     energy_per_serving = models.DecimalField(max_digits=6, decimal_places=2, null=True, help_text="in kJ")
@@ -91,6 +93,7 @@ class MealKit(models.Model):
     created_at = models.DateTimeField(auto_now_add=True)
     updated_at = models.DateField(auto_now=True)
     is_customized = models.BooleanField(default=False)
+    monetize = models.BooleanField(default=False)
 
     def __str__(self):
         return self.name
@@ -106,7 +109,8 @@ class MealKitRecipe(models.Model):
 
     def __str__(self):
         return str(self.mealkit) + " " + str(self.recipe)
-    
+
+
 class MealkitDietaryDetail(models.Model):
     mealkit = models.ForeignKey(MealKit, on_delete=models.CASCADE)
     dietary_details = models.ForeignKey(DietaryDetail, on_delete=models.CASCADE)

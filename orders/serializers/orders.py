@@ -8,7 +8,7 @@ from rest_framework import serializers
 class DeliveryLocationSerializer(serializers.ModelSerializer):
     class Meta:
         model = DeliveryLocation
-        fields = ['name', 'branch', 'address_line1', 'address_line2', 'city', 'postal_code', 'country', 'details']
+        fields = '__all__'
 
 class DeliveryTimeSlotSerializer(serializers.ModelSerializer):
     class Meta:
