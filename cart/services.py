@@ -94,7 +94,7 @@ class CartService:
             )
             if not created:
                 cart_ingredient.quantity += ri_data.get("quantity", 1) * quantity
-                cart_ingredient.save()
+            cart_ingredient.save()
 
         return self.get_cart(user_cart.user)
 
@@ -106,7 +106,11 @@ class CartService:
             raise ValueError("Recipe ID is required.")
 
         recipe = Recipe.objects.get(id=recipe_id)
-        cart_recipe = CartRecipe.objects.create(user_cart=user_cart, recipe=recipe, quantity=quantity, mealkit=mealkit)
+        cart_recipe, created = CartRecipe.objects.get_or_create(
+            user_cart=user_cart, recipe=recipe, quantity=quantity, mealkit=mealkit
+        )
+        if not created:
+            cart_recipe.quantity += quantity
         cart_recipe.save()
 
         for ri_data in recipe_ingredients:
@@ -122,6 +126,8 @@ class CartService:
                 recipe=cart_recipe,
                 defaults={"quantity": ri_data.get("quantity", 1) * quantity},
             )
+            if not created:
+                cart_ingredient.quantity += ri_data.get("quantity", 1) * quantity
             cart_ingredient.save()
 
         return cart_recipe
