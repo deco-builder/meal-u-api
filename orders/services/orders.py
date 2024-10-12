@@ -14,7 +14,7 @@ class OrdersService:
                 'orderproducts_set', 'orderrecipes_set', 'ordermealkits_set', 'deliverydetails_set__delivery_time'
             )
             # Get current date and time
-            current_datetime = timezone.now()
+            current_datetime = datetime.now()
             for order in orders:
                 delivery_details = order.deliverydetails_set.first()
 
@@ -23,8 +23,6 @@ class OrdersService:
                     cut_off_time = delivery_details.delivery_time.cut_off
 
                     cut_off_datetime = datetime.combine(delivery_date, cut_off_time)
-
-                    cut_off_datetime = timezone.make_aware(cut_off_datetime, timezone.get_current_timezone())
 
                     if current_datetime >= cut_off_datetime:
                         cancelled_status = OrderStatuses.objects.get(name="cancelled")
