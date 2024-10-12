@@ -1,6 +1,6 @@
-from .models import UserCart, CartIngredient, CartProduct, CartRecipe, CartMealKit, MealKitRecipeCartRelation
-from community.models import Recipe, RecipeIngredient, MealKit, MealKitRecipe
-from groceries.models import Product
+from .models import UserCart, CartIngredient, CartProduct, CartRecipe, CartMealKit
+from community.models import Recipe, MealKit, Ingredient
+from groceries.models import Product, PreparationType
 from .serializers import CartProductSerializer, CartRecipeSerializer, CartMealKitSerializer
 
 
@@ -11,20 +11,13 @@ class CartService:
             user_cart = UserCart.objects.get(user=user)
 
             products = CartProduct.objects.filter(user_cart=user_cart).all()
-            recipes = (
-                CartRecipe.objects.filter(user_cart=user_cart, mealkit__isnull=True)
-                .select_related("recipe")
-                .prefetch_related(
-                    "cartingredient_set__recipe_ingredient__ingredient",
-                    "cartingredient_set__recipe_ingredient__preparation_type",
-                )
-            )
+            recipes = CartRecipe.objects.filter(user_cart=user_cart, mealkit__isnull=True).select_related("recipe")
             mealkits = (
                 CartMealKit.objects.filter(user_cart=user_cart)
                 .select_related("mealkit")
                 .prefetch_related(
-                    "cartrecipe_set__cartingredient_set__recipe_ingredient__ingredient",
-                    "cartrecipe_set__cartingredient_set__recipe_ingredient__preparation_type",
+                    "cartrecipe_set__cartingredient_set__ingredient",
+                    "cartrecipe_set__cartingredient_set__preparation_type",
                 )
             )
 
@@ -87,14 +80,15 @@ class CartService:
             cart_recipe.save()
 
         for ri_data in recipe_ingredients:
-            recipe_ingredient = RecipeIngredient.objects.get(
-                recipe_id=recipe_id,
-                ingredient_id=ri_data["ingredient_id"],
-                preparation_type_id=ri_data.get("preparation_type_id"),
-            )
+            ingredient = Ingredient.objects.get(id=ri_data["ingredient_id"])
+            if ri_data["preparation_type_id"] != None:
+                preparation_type = PreparationType.objects.get(id=ri_data["preparation_type_id"])
+            else:
+                preparation_type = None
             cart_ingredient, created = CartIngredient.objects.get_or_create(
                 user_cart=user_cart,
-                recipe_ingredient=recipe_ingredient,
+                ingredient=ingredient,
+                preparation_type=preparation_type,
                 recipe=cart_recipe,
                 defaults={"quantity": ri_data.get("quantity", 1) * quantity},
             )
@@ -116,16 +110,17 @@ class CartService:
         cart_recipe.save()
 
         for ri_data in recipe_ingredients:
-            recipe_ingredient = RecipeIngredient.objects.get(
-                recipe_id=recipe_id,
-                ingredient_id=ri_data["ingredient_id"],
-                preparation_type_id=ri_data.get("preparation_type_id"),
-            )
-            cart_ingredient = CartIngredient.objects.create(
+            ingredient = Ingredient.objects.get(id=ri_data["ingredient_id"])
+            if ri_data["preparation_type_id"] != None:
+                preparation_type = PreparationType.objects.get(id=ri_data["preparation_type_id"])
+            else:
+                preparation_type = None
+            cart_ingredient, created = CartIngredient.objects.get_or_create(
                 user_cart=user_cart,
-                recipe_ingredient=recipe_ingredient,
-                quantity=ri_data.get("quantity", 1) * quantity,
+                ingredient=ingredient,
+                preparation_type=preparation_type,
                 recipe=cart_recipe,
+                defaults={"quantity": ri_data.get("quantity", 1) * quantity},
             )
             cart_ingredient.save()
 
@@ -166,7 +161,6 @@ class CartService:
             recipe_cart = self._add_mealkit_recipe(
                 user_cart, recipe_data, recipe_data.get("quantity", 1) * quantity, cart_mealkit
             )
-            MealKitRecipeCartRelation.objects.get_or_create(cart_meal_kit=cart_mealkit, cart_recipe=recipe_cart)
 
         return self.get_cart(user_cart.user)
 
@@ -238,5 +232,33 @@ class CartService:
             raise ValueError("Cart does not exist for this user.")
         except (CartIngredient.DoesNotExist, CartProduct.DoesNotExist, CartMealKit.DoesNotExist):
             raise ValueError(f"{item_type.capitalize()} not found in the cart.")
+        except Exception as e:
+            raise e
+
+    def update_ingredient_preparation_type(self, user, item_id, new_preparation_type):
+        try:
+            user_cart = UserCart.objects.get(user=user)
+            item = CartIngredient.objects.get(user_cart=user_cart, id=item_id)
+            if new_preparation_type != None:
+                preparation_type = PreparationType.objects.get(id=new_preparation_type)
+            else:
+                preparation_type = None
+            item.preparation_type = preparation_type
+            item.save()
+            return self.get_cart(user)
+        except UserCart.DoesNotExist:
+            raise ValueError("Cart does not exist for this user.")
+        except (CartIngredient.DoesNotExist,):
+            raise ValueError(f"{item_id.capitalize()} not found in the cart.")
+        except Exception as e:
+            raise e
+
+    def put(self, user, item_type, item_id, new_quantity, request):
+        try:
+            if item_type == "ingredient":
+                new_preparation_type = request.data.get("preparation_type", None)
+                self.update_ingredient_preparation_type(user, item_id, new_preparation_type)
+            self.update_item_quantity(request.user, item_type, item_id, new_quantity)
+            return self.get_cart(user)
         except Exception as e:
             raise e

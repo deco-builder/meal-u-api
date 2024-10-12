@@ -21,8 +21,8 @@ class CartProductSerializer(serializers.ModelSerializer):
 
 
 class CartIngredientSerializer(serializers.ModelSerializer):
-    ingredient = IngredientSerializer(source="recipe_ingredient.ingredient", read_only=True)
-    preparation_type = PreparationTypeSerializer(source="recipe_ingredient.preparation_type", read_only=True)
+    ingredient = IngredientSerializer(read_only=True)
+    preparation_type = PreparationTypeSerializer(read_only=True)
     price = serializers.SerializerMethodField()
 
     class Meta:
@@ -30,9 +30,9 @@ class CartIngredientSerializer(serializers.ModelSerializer):
         fields = ["id", "ingredient", "preparation_type", "quantity", "price"]
 
     def get_price(self, obj):
-        ingredient_price = obj.recipe_ingredient.ingredient.price_per_unit
+        ingredient_price = obj.ingredient.price_per_unit
         preparation_price = (
-            obj.recipe_ingredient.preparation_type.additional_price if obj.recipe_ingredient.preparation_type else 0
+            obj.preparation_type.additional_price if obj.preparation_type else 0
         )
         return (ingredient_price + preparation_price) * obj.quantity
 
@@ -55,10 +55,10 @@ class CartRecipeSerializer(serializers.ModelSerializer):
     def get_total_price(self, obj):
         total_price = 0
         for ingredient in obj.cartingredient_set.all():
-            ingredient_price = ingredient.recipe_ingredient.ingredient.price_per_unit
+            ingredient_price = ingredient.ingredient.price_per_unit
             preparation_price = (
-                ingredient.recipe_ingredient.preparation_type.additional_price
-                if ingredient.recipe_ingredient.preparation_type
+                ingredient.preparation_type.additional_price
+                if ingredient.preparation_type
                 else 0
             )
             total_price += (ingredient_price + preparation_price) * ingredient.quantity
@@ -80,10 +80,6 @@ class CartMealKitSerializer(serializers.ModelSerializer):
         mealkit_recipes = (
             CartRecipe.objects.filter(mealkit=obj)
             .select_related("recipe")
-            .prefetch_related(
-                "cartingredient_set__recipe_ingredient__ingredient",
-                "cartingredient_set__recipe_ingredient__preparation_type",
-            )
         )
         return CartRecipeSerializer(mealkit_recipes, many=True).data
 
