@@ -114,14 +114,12 @@ class OrderStatusPaidService:
 
             delivery_details = order.deliverydetails_set.first()
             if delivery_details:
-                current_datetime = timezone.now()
+                current_datetime = datetime.now()
                 delivery_date = delivery_details.delivery_date
                 cut_off_time = delivery_details.delivery_time.cut_off
                 
                 cut_off_datetime = datetime.combine(delivery_date, cut_off_time)
                 
-                cut_off_datetime = timezone.make_aware(cut_off_datetime, timezone.get_current_timezone())
-
                 if current_datetime >= cut_off_datetime:
                     CANCELLED_STATUS = OrderStatuses.objects.get(name="cancelled")
                     order.order_status = CANCELLED_STATUS
