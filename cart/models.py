@@ -1,7 +1,7 @@
 from django.db import models
 from user_auth.models import User
-from community.models import Ingredient, Recipe, MealKit, RecipeIngredient, MealKitRecipe
-from groceries.models import Product
+from community.models import Ingredient, Recipe, MealKit, RecipeIngredient
+from groceries.models import Product, PreparationType
 
 
 class UserCart(models.Model):
@@ -51,23 +51,22 @@ class CartRecipe(models.Model):
 
 class CartIngredient(models.Model):
     user_cart = models.ForeignKey(UserCart, on_delete=models.CASCADE)
-    recipe_ingredient = models.ForeignKey("community.RecipeIngredient", on_delete=models.CASCADE)
-    quantity = models.PositiveIntegerField(default=1)
     recipe = models.ForeignKey(CartRecipe, on_delete=models.CASCADE)
+    ingredient = models.ForeignKey(Ingredient, on_delete=models.CASCADE)
+    preparation_type = models.ForeignKey(PreparationType, on_delete=models.CASCADE, null=True)
+    quantity = models.PositiveIntegerField(default=1)
 
     class Meta:
-        unique_together = ("user_cart", "recipe_ingredient", "recipe")
+        unique_together = ("user_cart", "recipe", "ingredient", "preparation_type")
 
     def __str__(self):
-        return f"{self.quantity} x {self.recipe_ingredient} in cart for {self.user_cart.user.email}"
+        return f"{self.quantity} x {str(self.preparation_type)} {str(self.ingredient)} in cart for {self.user_cart.user.email}"
+    
+    def save(self, *args, **kwargs):
+        if self.preparation_type:
+            if self.preparation_type.category != self.ingredient.product_id.category_id:
+                raise ValueError(
+                    f"The preparation type '{self.preparation_type}' is for product category {self.preparation_type.category}, does not match the product category '{self.ingredient.product_id.category_id}'."
+                )
 
-
-class MealKitRecipeCartRelation(models.Model):
-    cart_meal_kit = models.ForeignKey(CartMealKit, on_delete=models.CASCADE)
-    cart_recipe = models.ForeignKey(CartRecipe, on_delete=models.CASCADE)
-
-    class Meta:
-        unique_together = ("cart_meal_kit", "cart_recipe")
-
-    def __str__(self):
-        return f"MealKit {self.cart_meal_kit.mealkit.name} contains Recipe {self.cart_recipe.recipe.name}"
+        super().save(*args, **kwargs)
