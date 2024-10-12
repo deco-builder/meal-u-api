@@ -1,7 +1,7 @@
 from django.db import models
 from user_auth.models import User
 from groceries.models import Product
-from community.models import Recipe, MealKit
+from community.models import Recipe, MealKit, Ingredient, PreparationType
 from django.core.validators import RegexValidator
 
 
@@ -70,13 +70,14 @@ class OrderRecipes(models.Model):
         return f"{self.quantity} x {self.recipe.name} for order {self.order.id}"
 
 class OrderIngredients(models.Model):
-    order_recipe = models.ForeignKey(OrderRecipes, on_delete=models.CASCADE)
-    ingredient = models.ForeignKey("community.RecipeIngredient", on_delete=models.CASCADE)
+    order_recipe = models.ForeignKey(OrderRecipes, on_delete=models.CASCADE)  
+    ingredient = models.ForeignKey(Ingredient, on_delete=models.CASCADE)      
+    preparation_type = models.ForeignKey(PreparationType, on_delete=models.CASCADE, null=True)  
     quantity = models.PositiveIntegerField(null=False, blank=False)
     total = models.DecimalField(decimal_places=2, max_digits=10)
 
     def __str__(self):
-        return f"{self.quantity} x {self.ingredient} for order {self.order_recipe.id}"
+        return f"{self.quantity} x {self.ingredient.name} for order recipe {self.order_recipe.id}"
 
 
 class DeliveryLocation(models.Model):

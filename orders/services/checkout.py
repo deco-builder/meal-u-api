@@ -19,14 +19,19 @@ class CheckoutService:
         user_cart = UserCart.objects.get(user_id=user)
 
         products_data = CartProduct.objects.filter(user_cart=user_cart).all()
-        standalone_recipes_data = CartRecipe.objects.filter(user_cart=user_cart, mealkit__isnull=True).select_related("recipe").prefetch_related(
-                    "cartingredient_set__recipe_ingredient__ingredient",
-                    "cartingredient_set__recipe_ingredient__preparation_type",
-                )
-        mealkits_data = CartMealKit.objects.filter(user_cart=user_cart).select_related("mealkit").prefetch_related(
-                    "cartrecipe_set__cartingredient_set__recipe_ingredient__ingredient",
-                    "cartrecipe_set__cartingredient_set__recipe_ingredient__preparation_type",
-                )
+        standalone_recipes_data = CartRecipe.objects.filter(
+            user_cart=user_cart, 
+            mealkit__isnull=True
+        ).select_related("recipe").prefetch_related(
+            "cartingredient_set__ingredient",  # Prefetching Ingredient
+            "cartingredient_set__preparation_type"  # Prefetching PreparationType
+        )
+        mealkits_data = CartMealKit.objects.filter(
+            user_cart=user_cart
+        ).select_related("mealkit").prefetch_related(
+            "cartrecipe_set__cartingredient_set__ingredient",  # Prefetching Ingredient through CartRecipe
+            "cartrecipe_set__cartingredient_set__preparation_type"  # Prefetching PreparationType through CartRecipe
+        )
             
 
         product_serializer = CartProductSerializer(products_data, many=True)
@@ -77,21 +82,22 @@ class CheckoutService:
 
             # Handle ingredients for standalone recipe
             for cart_ingredient in cart_recipe.cartingredient_set.all():
-                recipe_ingredient = cart_ingredient.recipe_ingredient
+                ingredient = cart_ingredient.ingredient
 
                 preparation_price = (
-                recipe_ingredient.preparation_type.additional_price
-                if recipe_ingredient.preparation_type
-                else 0
+                    cart_ingredient.preparation_type.additional_price
+                    if cart_ingredient.preparation_type
+                    else 0
                 )
 
-                ingredient_total = (recipe_ingredient.ingredient.price_per_unit + preparation_price) * cart_ingredient.quantity
+                ingredient_total = (ingredient.price_per_unit + preparation_price) * cart_ingredient.quantity
                 recipe_total += ingredient_total
 
                 # Create OrderIngredients entry for standalone recipe using RecipeIngredient
                 OrderIngredients.objects.create(
                     order_recipe=order_recipe,
-                    ingredient=recipe_ingredient,
+                    ingredient=ingredient,
+                    preparation_type=cart_ingredient.preparation_type,
                     quantity=cart_ingredient.quantity,
                     total=ingredient_total
                 )
@@ -128,21 +134,22 @@ class CheckoutService:
 
                 # Handle ingredients for each recipe inside the meal kit
                 for cart_ingredient in cart_recipe.cartingredient_set.all():
-                    recipe_ingredient = cart_ingredient.recipe_ingredient
+                    ingredient = cart_ingredient.ingredient
 
                     preparation_price = (
-                    recipe_ingredient.preparation_type.additional_price
-                    if recipe_ingredient.preparation_type
-                    else 0
+                        cart_ingredient.preparation_type.additional_price
+                        if cart_ingredient.preparation_type
+                        else 0
                     )
 
-                    ingredient_total = (recipe_ingredient.ingredient.price_per_unit + preparation_price) * cart_ingredient.quantity
+                    ingredient_total = (ingredient.price_per_unit + preparation_price) * cart_ingredient.quantity
                     recipe_total += ingredient_total
 
                     # Create OrderIngredients entry for each recipe in the meal kit using RecipeIngredient
                     OrderIngredients.objects.create(
                         order_recipe=order_recipe,
-                        ingredient=recipe_ingredient,
+                        ingredient=ingredient,
+                        preparation_type=cart_ingredient.preparation_type,
                         quantity=cart_ingredient.quantity,
                         total=ingredient_total
                     )
