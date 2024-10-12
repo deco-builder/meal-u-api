@@ -2860,6 +2860,786 @@
     }
   },
   {
+    "model": "admin.logentry",
+    "pk": 221,
+    "fields": {
+      "action_time": "2024-10-12T03:00:01.630Z",
+      "user": 1,
+      "content_type": 23,
+      "object_id": "11",
+      "object_repr": "200.00g Salmon Salmon Teriyaki with Rice",
+      "action_flag": 2,
+      "change_message": "[{\"changed\": {\"fields\": [\"Preparation type\"]}}]"
+    }
+  },
+  {
+    "model": "admin.logentry",
+    "pk": 222,
+    "fields": {
+      "action_time": "2024-10-12T03:00:06.641Z",
+      "user": 1,
+      "content_type": 23,
+      "object_id": "7",
+      "object_repr": "5.00g Ginger Chicken and Vegetable Stir-Fry with Rice",
+      "action_flag": 2,
+      "change_message": "[{\"changed\": {\"fields\": [\"Preparation type\"]}}]"
+    }
+  },
+  {
+    "model": "admin.logentry",
+    "pk": 223,
+    "fields": {
+      "action_time": "2024-10-12T03:00:11.578Z",
+      "user": 1,
+      "content_type": 23,
+      "object_id": "6",
+      "object_repr": "1.00Clove Garlic Chicken and Vegetable Stir-Fry with Rice",
+      "action_flag": 2,
+      "change_message": "[{\"changed\": {\"fields\": [\"Preparation type\"]}}]"
+    }
+  },
+  {
+    "model": "admin.logentry",
+    "pk": 224,
+    "fields": {
+      "action_time": "2024-10-12T03:00:17.091Z",
+      "user": 1,
+      "content_type": 23,
+      "object_id": "1",
+      "object_repr": "150.00g Chicken Breast Chicken and Vegetable Stir-Fry with Rice",
+      "action_flag": 2,
+      "change_message": "[{\"changed\": {\"fields\": [\"Preparation type\"]}}]"
+    }
+  },
+  {
+    "model": "admin.logentry",
+    "pk": 225,
+    "fields": {
+      "action_time": "2024-10-12T03:00:31.886Z",
+      "user": 1,
+      "content_type": 19,
+      "object_id": "17",
+      "object_repr": "Sliced 200.00g Salmon",
+      "action_flag": 3,
+      "change_message": ""
+    }
+  },
+  {
+    "model": "admin.logentry",
+    "pk": 226,
+    "fields": {
+      "action_time": "2024-10-12T03:00:31.886Z",
+      "user": 1,
+      "content_type": 19,
+      "object_id": "16",
+      "object_repr": "Sliced 200.00g Salmon",
+      "action_flag": 3,
+      "change_message": ""
+    }
+  },
+  {
+    "model": "admin.logentry",
+    "pk": 227,
+    "fields": {
+      "action_time": "2024-10-12T03:00:31.886Z",
+      "user": 1,
+      "content_type": 19,
+      "object_id": "13",
+      "object_repr": "Cubed 200.00g Salmon",
+      "action_flag": 3,
+      "change_message": ""
+    }
+  },
+  {
+    "model": "admin.logentry",
+    "pk": 228,
+    "fields": {
+      "action_time": "2024-10-12T03:00:31.886Z",
+      "user": 1,
+      "content_type": 19,
+      "object_id": "12",
+      "object_repr": "Diced 200.00g Salmon",
+      "action_flag": 3,
+      "change_message": ""
+    }
+  },
+  {
+    "model": "admin.logentry",
+    "pk": 229,
+    "fields": {
+      "action_time": "2024-10-12T03:00:31.886Z",
+      "user": 1,
+      "content_type": 19,
+      "object_id": "11",
+      "object_repr": "Fillet 200.00g Salmon",
+      "action_flag": 3,
+      "change_message": ""
+    }
+  },
+  {
+    "model": "admin.logentry",
+    "pk": 230,
+    "fields": {
+      "action_time": "2024-10-12T03:00:31.886Z",
+      "user": 1,
+      "content_type": 19,
+      "object_id": "10",
+      "object_repr": "Whole 1.00Clove Garlic",
+      "action_flag": 3,
+      "change_message": ""
+    }
+  },
+  {
+    "model": "admin.logentry",
+    "pk": 231,
+    "fields": {
+      "action_time": "2024-10-12T03:00:31.886Z",
+      "user": 1,
+      "content_type": 19,
+      "object_id": "9",
+      "object_repr": "Sliced 1.00Clove Garlic",
+      "action_flag": 3,
+      "change_message": ""
+    }
+  },
+  {
+    "model": "admin.logentry",
+    "pk": 232,
+    "fields": {
+      "action_time": "2024-10-12T03:00:31.886Z",
+      "user": 1,
+      "content_type": 19,
+      "object_id": "8",
+      "object_repr": "Crushed 1.00Clove Garlic",
+      "action_flag": 3,
+      "change_message": ""
+    }
+  },
+  {
+    "model": "admin.logentry",
+    "pk": 233,
+    "fields": {
+      "action_time": "2024-10-12T03:00:31.886Z",
+      "user": 1,
+      "content_type": 19,
+      "object_id": "7",
+      "object_repr": "Chopped 1.00Clove Garlic",
+      "action_flag": 3,
+      "change_message": ""
+    }
+  },
+  {
+    "model": "admin.logentry",
+    "pk": 234,
+    "fields": {
+      "action_time": "2024-10-12T03:00:31.887Z",
+      "user": 1,
+      "content_type": 19,
+      "object_id": "6",
+      "object_repr": "Minced 1.00Clove Garlic",
+      "action_flag": 3,
+      "change_message": ""
+    }
+  },
+  {
+    "model": "admin.logentry",
+    "pk": 235,
+    "fields": {
+      "action_time": "2024-10-12T03:00:31.887Z",
+      "user": 1,
+      "content_type": 19,
+      "object_id": "5",
+      "object_repr": "Sliced 150.00g Chicken Breast",
+      "action_flag": 3,
+      "change_message": ""
+    }
+  },
+  {
+    "model": "admin.logentry",
+    "pk": 236,
+    "fields": {
+      "action_time": "2024-10-12T03:00:31.887Z",
+      "user": 1,
+      "content_type": 19,
+      "object_id": "4",
+      "object_repr": "Cubed 150.00g Chicken Breast",
+      "action_flag": 3,
+      "change_message": ""
+    }
+  },
+  {
+    "model": "admin.logentry",
+    "pk": 237,
+    "fields": {
+      "action_time": "2024-10-12T03:00:31.887Z",
+      "user": 1,
+      "content_type": 19,
+      "object_id": "3",
+      "object_repr": "Cutlets 150.00g Chicken Breast",
+      "action_flag": 3,
+      "change_message": ""
+    }
+  },
+  {
+    "model": "admin.logentry",
+    "pk": 238,
+    "fields": {
+      "action_time": "2024-10-12T03:00:31.887Z",
+      "user": 1,
+      "content_type": 19,
+      "object_id": "2",
+      "object_repr": "Fillet 150.00g Chicken Breast",
+      "action_flag": 3,
+      "change_message": ""
+    }
+  },
+  {
+    "model": "admin.logentry",
+    "pk": 239,
+    "fields": {
+      "action_time": "2024-10-12T03:00:31.887Z",
+      "user": 1,
+      "content_type": 19,
+      "object_id": "1",
+      "object_repr": "Diced 150.00g Chicken Breast",
+      "action_flag": 3,
+      "change_message": ""
+    }
+  },
+  {
+    "model": "admin.logentry",
+    "pk": 240,
+    "fields": {
+      "action_time": "2024-10-12T03:11:06.504Z",
+      "user": 1,
+      "content_type": 33,
+      "object_id": "1",
+      "object_repr": "Whole Poultry",
+      "action_flag": 1,
+      "change_message": "[{\"added\": {}}]"
+    }
+  },
+  {
+    "model": "admin.logentry",
+    "pk": 241,
+    "fields": {
+      "action_time": "2024-10-12T03:11:14.306Z",
+      "user": 1,
+      "content_type": 33,
+      "object_id": "2",
+      "object_repr": "Fillet Poultry",
+      "action_flag": 1,
+      "change_message": "[{\"added\": {}}]"
+    }
+  },
+  {
+    "model": "admin.logentry",
+    "pk": 242,
+    "fields": {
+      "action_time": "2024-10-12T03:11:25.774Z",
+      "user": 1,
+      "content_type": 33,
+      "object_id": "3",
+      "object_repr": "Diced Poultry",
+      "action_flag": 1,
+      "change_message": "[{\"added\": {}}]"
+    }
+  },
+  {
+    "model": "admin.logentry",
+    "pk": 243,
+    "fields": {
+      "action_time": "2024-10-12T03:11:32.656Z",
+      "user": 1,
+      "content_type": 33,
+      "object_id": "4",
+      "object_repr": "Sliced Poultry",
+      "action_flag": 1,
+      "change_message": "[{\"added\": {}}]"
+    }
+  },
+  {
+    "model": "admin.logentry",
+    "pk": 244,
+    "fields": {
+      "action_time": "2024-10-12T03:11:41.959Z",
+      "user": 1,
+      "content_type": 33,
+      "object_id": "5",
+      "object_repr": "Minced Poultry",
+      "action_flag": 1,
+      "change_message": "[{\"added\": {}}]"
+    }
+  },
+  {
+    "model": "admin.logentry",
+    "pk": 245,
+    "fields": {
+      "action_time": "2024-10-12T03:11:54.568Z",
+      "user": 1,
+      "content_type": 33,
+      "object_id": "6",
+      "object_repr": "Cutlets Poultry",
+      "action_flag": 1,
+      "change_message": "[{\"added\": {}}]"
+    }
+  },
+  {
+    "model": "admin.logentry",
+    "pk": 246,
+    "fields": {
+      "action_time": "2024-10-12T03:12:06.523Z",
+      "user": 1,
+      "content_type": 33,
+      "object_id": "7",
+      "object_repr": "Butterflied Poultry",
+      "action_flag": 1,
+      "change_message": "[{\"added\": {}}]"
+    }
+  },
+  {
+    "model": "admin.logentry",
+    "pk": 247,
+    "fields": {
+      "action_time": "2024-10-12T03:12:15.059Z",
+      "user": 1,
+      "content_type": 33,
+      "object_id": "8",
+      "object_repr": "Skinless Poultry",
+      "action_flag": 1,
+      "change_message": "[{\"added\": {}}]"
+    }
+  },
+  {
+    "model": "admin.logentry",
+    "pk": 248,
+    "fields": {
+      "action_time": "2024-10-12T03:13:05.499Z",
+      "user": 1,
+      "content_type": 33,
+      "object_id": "9",
+      "object_repr": "Whole Meat",
+      "action_flag": 1,
+      "change_message": "[{\"added\": {}}]"
+    }
+  },
+  {
+    "model": "admin.logentry",
+    "pk": 249,
+    "fields": {
+      "action_time": "2024-10-12T03:13:13.907Z",
+      "user": 1,
+      "content_type": 33,
+      "object_id": "10",
+      "object_repr": "Fillet Meat",
+      "action_flag": 1,
+      "change_message": "[{\"added\": {}}]"
+    }
+  },
+  {
+    "model": "admin.logentry",
+    "pk": 250,
+    "fields": {
+      "action_time": "2024-10-12T03:13:20.437Z",
+      "user": 1,
+      "content_type": 33,
+      "object_id": "11",
+      "object_repr": "Diced Meat",
+      "action_flag": 1,
+      "change_message": "[{\"added\": {}}]"
+    }
+  },
+  {
+    "model": "admin.logentry",
+    "pk": 251,
+    "fields": {
+      "action_time": "2024-10-12T03:13:26.837Z",
+      "user": 1,
+      "content_type": 33,
+      "object_id": "12",
+      "object_repr": "Sliced Meat",
+      "action_flag": 1,
+      "change_message": "[{\"added\": {}}]"
+    }
+  },
+  {
+    "model": "admin.logentry",
+    "pk": 252,
+    "fields": {
+      "action_time": "2024-10-12T03:13:34.688Z",
+      "user": 1,
+      "content_type": 33,
+      "object_id": "13",
+      "object_repr": "Minced Meat",
+      "action_flag": 1,
+      "change_message": "[{\"added\": {}}]"
+    }
+  },
+  {
+    "model": "admin.logentry",
+    "pk": 253,
+    "fields": {
+      "action_time": "2024-10-12T03:13:41.920Z",
+      "user": 1,
+      "content_type": 33,
+      "object_id": "14",
+      "object_repr": "Cutlets Meat",
+      "action_flag": 1,
+      "change_message": "[{\"added\": {}}]"
+    }
+  },
+  {
+    "model": "admin.logentry",
+    "pk": 254,
+    "fields": {
+      "action_time": "2024-10-12T03:13:49.987Z",
+      "user": 1,
+      "content_type": 33,
+      "object_id": "15",
+      "object_repr": "Butterflied Meat",
+      "action_flag": 1,
+      "change_message": "[{\"added\": {}}]"
+    }
+  },
+  {
+    "model": "admin.logentry",
+    "pk": 255,
+    "fields": {
+      "action_time": "2024-10-12T03:13:59.086Z",
+      "user": 1,
+      "content_type": 33,
+      "object_id": "16",
+      "object_repr": "Skinless Meat",
+      "action_flag": 1,
+      "change_message": "[{\"added\": {}}]"
+    }
+  },
+  {
+    "model": "admin.logentry",
+    "pk": 256,
+    "fields": {
+      "action_time": "2024-10-12T03:14:16.120Z",
+      "user": 1,
+      "content_type": 33,
+      "object_id": "17",
+      "object_repr": "Whole Vegetables",
+      "action_flag": 1,
+      "change_message": "[{\"added\": {}}]"
+    }
+  },
+  {
+    "model": "admin.logentry",
+    "pk": 257,
+    "fields": {
+      "action_time": "2024-10-12T03:14:36.645Z",
+      "user": 1,
+      "content_type": 33,
+      "object_id": "18",
+      "object_repr": "Peeled Vegetables",
+      "action_flag": 1,
+      "change_message": "[{\"added\": {}}]"
+    }
+  },
+  {
+    "model": "admin.logentry",
+    "pk": 258,
+    "fields": {
+      "action_time": "2024-10-12T03:14:49.186Z",
+      "user": 1,
+      "content_type": 33,
+      "object_id": "19",
+      "object_repr": "Diced Vegetables",
+      "action_flag": 1,
+      "change_message": "[{\"added\": {}}]"
+    }
+  },
+  {
+    "model": "admin.logentry",
+    "pk": 259,
+    "fields": {
+      "action_time": "2024-10-12T03:14:58.904Z",
+      "user": 1,
+      "content_type": 33,
+      "object_id": "20",
+      "object_repr": "Julienned Vegetables",
+      "action_flag": 1,
+      "change_message": "[{\"added\": {}}]"
+    }
+  },
+  {
+    "model": "admin.logentry",
+    "pk": 260,
+    "fields": {
+      "action_time": "2024-10-12T03:15:05.654Z",
+      "user": 1,
+      "content_type": 33,
+      "object_id": "21",
+      "object_repr": "Grated Vegetables",
+      "action_flag": 1,
+      "change_message": "[{\"added\": {}}]"
+    }
+  },
+  {
+    "model": "admin.logentry",
+    "pk": 261,
+    "fields": {
+      "action_time": "2024-10-12T03:15:13.637Z",
+      "user": 1,
+      "content_type": 33,
+      "object_id": "22",
+      "object_repr": "Sliced Vegetables",
+      "action_flag": 1,
+      "change_message": "[{\"added\": {}}]"
+    }
+  },
+  {
+    "model": "admin.logentry",
+    "pk": 262,
+    "fields": {
+      "action_time": "2024-10-12T03:15:20.810Z",
+      "user": 1,
+      "content_type": 33,
+      "object_id": "23",
+      "object_repr": "Chopped Vegetables",
+      "action_flag": 1,
+      "change_message": "[{\"added\": {}}]"
+    }
+  },
+  {
+    "model": "admin.logentry",
+    "pk": 263,
+    "fields": {
+      "action_time": "2024-10-12T03:15:28.538Z",
+      "user": 1,
+      "content_type": 33,
+      "object_id": "24",
+      "object_repr": "Trimmed Vegetables",
+      "action_flag": 1,
+      "change_message": "[{\"added\": {}}]"
+    }
+  },
+  {
+    "model": "admin.logentry",
+    "pk": 264,
+    "fields": {
+      "action_time": "2024-10-12T03:15:55.534Z",
+      "user": 1,
+      "content_type": 33,
+      "object_id": "25",
+      "object_repr": "Whole Fruit",
+      "action_flag": 1,
+      "change_message": "[{\"added\": {}}]"
+    }
+  },
+  {
+    "model": "admin.logentry",
+    "pk": 265,
+    "fields": {
+      "action_time": "2024-10-12T03:16:06.101Z",
+      "user": 1,
+      "content_type": 33,
+      "object_id": "26",
+      "object_repr": "Peeled Fruit",
+      "action_flag": 1,
+      "change_message": "[{\"added\": {}}]"
+    }
+  },
+  {
+    "model": "admin.logentry",
+    "pk": 266,
+    "fields": {
+      "action_time": "2024-10-12T03:16:15.869Z",
+      "user": 1,
+      "content_type": 33,
+      "object_id": "27",
+      "object_repr": "Sliced Fruit",
+      "action_flag": 1,
+      "change_message": "[{\"added\": {}}]"
+    }
+  },
+  {
+    "model": "admin.logentry",
+    "pk": 267,
+    "fields": {
+      "action_time": "2024-10-12T03:16:36.125Z",
+      "user": 1,
+      "content_type": 33,
+      "object_id": "28",
+      "object_repr": "Diced Fruit",
+      "action_flag": 1,
+      "change_message": "[{\"added\": {}}]"
+    }
+  },
+  {
+    "model": "admin.logentry",
+    "pk": 268,
+    "fields": {
+      "action_time": "2024-10-12T03:16:46.930Z",
+      "user": 1,
+      "content_type": 33,
+      "object_id": "29",
+      "object_repr": "Whole Seafood",
+      "action_flag": 1,
+      "change_message": "[{\"added\": {}}]"
+    }
+  },
+  {
+    "model": "admin.logentry",
+    "pk": 269,
+    "fields": {
+      "action_time": "2024-10-12T03:16:57.589Z",
+      "user": 1,
+      "content_type": 33,
+      "object_id": "30",
+      "object_repr": "Fillet Seafood",
+      "action_flag": 1,
+      "change_message": "[{\"added\": {}}]"
+    }
+  },
+  {
+    "model": "admin.logentry",
+    "pk": 270,
+    "fields": {
+      "action_time": "2024-10-12T03:17:11.244Z",
+      "user": 1,
+      "content_type": 33,
+      "object_id": "31",
+      "object_repr": "Cleaned Seafood",
+      "action_flag": 1,
+      "change_message": "[{\"added\": {}}]"
+    }
+  },
+  {
+    "model": "admin.logentry",
+    "pk": 271,
+    "fields": {
+      "action_time": "2024-10-12T03:17:21.243Z",
+      "user": 1,
+      "content_type": 33,
+      "object_id": "32",
+      "object_repr": "Diced Seafood",
+      "action_flag": 1,
+      "change_message": "[{\"added\": {}}]"
+    }
+  },
+  {
+    "model": "admin.logentry",
+    "pk": 272,
+    "fields": {
+      "action_time": "2024-10-12T03:17:32.335Z",
+      "user": 1,
+      "content_type": 33,
+      "object_id": "33",
+      "object_repr": "Butterflied Seafood",
+      "action_flag": 1,
+      "change_message": "[{\"added\": {}}]"
+    }
+  },
+  {
+    "model": "admin.logentry",
+    "pk": 273,
+    "fields": {
+      "action_time": "2024-10-12T03:17:39.904Z",
+      "user": 1,
+      "content_type": 33,
+      "object_id": "34",
+      "object_repr": "Whole Herbs",
+      "action_flag": 1,
+      "change_message": "[{\"added\": {}}]"
+    }
+  },
+  {
+    "model": "admin.logentry",
+    "pk": 274,
+    "fields": {
+      "action_time": "2024-10-12T03:17:47.875Z",
+      "user": 1,
+      "content_type": 33,
+      "object_id": "35",
+      "object_repr": "Chopped Herbs",
+      "action_flag": 1,
+      "change_message": "[{\"added\": {}}]"
+    }
+  },
+  {
+    "model": "admin.logentry",
+    "pk": 275,
+    "fields": {
+      "action_time": "2024-10-12T03:18:16.762Z",
+      "user": 1,
+      "content_type": 22,
+      "object_id": "11",
+      "object_repr": "Fillet Seafood Salmon Teriyaki with Rice",
+      "action_flag": 2,
+      "change_message": "[{\"changed\": {\"fields\": [\"Preparation type\"]}}]"
+    }
+  },
+  {
+    "model": "admin.logentry",
+    "pk": 276,
+    "fields": {
+      "action_time": "2024-10-12T03:18:22.731Z",
+      "user": 1,
+      "content_type": 22,
+      "object_id": "11",
+      "object_repr": "Diced Fruit Salmon Teriyaki with Rice",
+      "action_flag": 2,
+      "change_message": "[{\"changed\": {\"fields\": [\"Preparation type\"]}}]"
+    }
+  },
+  {
+    "model": "admin.logentry",
+    "pk": 277,
+    "fields": {
+      "action_time": "2024-10-12T03:20:08.346Z",
+      "user": 1,
+      "content_type": 22,
+      "object_id": "11",
+      "object_repr": "Whole Seafood Salmon Teriyaki with Rice",
+      "action_flag": 2,
+      "change_message": "[{\"changed\": {\"fields\": [\"Preparation type\"]}}]"
+    }
+  },
+  {
+    "model": "admin.logentry",
+    "pk": 278,
+    "fields": {
+      "action_time": "2024-10-12T03:21:29.436Z",
+      "user": 1,
+      "content_type": 22,
+      "object_id": "11",
+      "object_repr": "Fillet Seafood Salmon Teriyaki with Rice",
+      "action_flag": 2,
+      "change_message": "[{\"changed\": {\"fields\": [\"Preparation type\"]}}]"
+    }
+  },
+  {
+    "model": "admin.logentry",
+    "pk": 279,
+    "fields": {
+      "action_time": "2024-10-12T03:21:48.532Z",
+      "user": 1,
+      "content_type": 22,
+      "object_id": "1",
+      "object_repr": "Diced Poultry Chicken and Vegetable Stir-Fry with Rice",
+      "action_flag": 2,
+      "change_message": "[{\"changed\": {\"fields\": [\"Preparation type\"]}}]"
+    }
+  },
+  {
+    "model": "admin.logentry",
+    "pk": 280,
+    "fields": {
+      "action_time": "2024-10-12T03:22:21.517Z",
+      "user": 1,
+      "content_type": 22,
+      "object_id": "6",
+      "object_repr": "Whole Vegetables Chicken and Vegetable Stir-Fry with Rice",
+      "action_flag": 2,
+      "change_message": "[{\"changed\": {\"fields\": [\"Preparation type\"]}}]"
+    }
+  },
+  {
     "model": "sessions.session",
     "pk": "8iv0tpmv0cs9au1zl40j9mmxlbwk6wmk",
     "fields": {
@@ -2873,6 +3653,14 @@
     "fields": {
       "session_data": ".eJxVjDsOwjAQBe_iGlnr-Aslfc5g7a5tHECOFCcV4u4QKQW0b2beS0Tc1hq3npc4JXERSpx-N0J-5LaDdMd2myXPbV0mkrsiD9rlOKf8vB7u30HFXr_1kNGdVQlWM0AI6LVNjKyMLcEZsgGYqBQLmj1gYkUEbAavEaxywYj3B-KtN7g:1sxJM9:9uiZsm9pzniWt14JKq0h6ZdqsC4IytfSEB4eoVUjCS4",
       "expire_date": "2024-10-20T04:58:57.891Z"
+    }
+  },
+  {
+    "model": "sessions.session",
+    "pk": "hxtf17lq1ift94o63yfza6los67t2n8r",
+    "fields": {
+      "session_data": ".eJxVjDsOwjAQBe_iGlnr-Aslfc5g7a5tHECOFCcV4u4QKQW0b2beS0Tc1hq3npc4JXERSpx-N0J-5LaDdMd2myXPbV0mkrsiD9rlOKf8vB7u30HFXr_1kNGdVQlWM0AI6LVNjKyMLcEZsgGYqBQLmj1gYkUEbAavEaxywYj3B-KtN7g:1szSLg:qatYpMrT6crLlvm517Q8YDqxwyehE3kAdE3-MAESrUY",
+      "expire_date": "2024-10-26T02:59:20.872Z"
     }
   },
   {
@@ -2896,7 +3684,7 @@
     "pk": 1,
     "fields": {
       "password": "pbkdf2_sha256$870000$qM7fMvL9uFZAoqnDG81BcH$+QYhIJ/0Ov8tuouezk4Ai/4n4tesWmZQph+C7ddf0Ys=",
-      "last_login": "2024-10-06T04:58:57.887Z",
+      "last_login": "2024-10-12T02:59:20.871Z",
       "is_superuser": true,
       "email": "admin@gmail.com",
       "first_name": "admin",
@@ -2905,6 +3693,7 @@
       "is_staff": true,
       "role": "client",
       "image": "",
+      "voucher_credits": "0.00",
       "groups": [],
       "user_permissions": []
     }
@@ -2923,6 +3712,7 @@
       "is_staff": true,
       "role": "warehouse",
       "image": "images/mealu-logo.png",
+      "voucher_credits": "0.00",
       "groups": [],
       "user_permissions": []
     }
@@ -2941,6 +3731,7 @@
       "is_staff": false,
       "role": "client",
       "image": "",
+      "voucher_credits": "0.00",
       "groups": [],
       "user_permissions": []
     }
@@ -2959,6 +3750,7 @@
       "is_staff": false,
       "role": "client",
       "image": "",
+      "voucher_credits": "0.00",
       "groups": [],
       "user_permissions": []
     }
@@ -3314,81 +4106,6 @@
       "stock": 100
     }
   },
-  {
-    "model": "community.preparationtype",
-    "pk": 1,
-    "fields": { "name": "Diced", "ingredient": 1, "additional_price": "0.00" }
-  },
-  {
-    "model": "community.preparationtype",
-    "pk": 2,
-    "fields": { "name": "Fillet", "ingredient": 1, "additional_price": "0.00" }
-  },
-  {
-    "model": "community.preparationtype",
-    "pk": 3,
-    "fields": { "name": "Cutlets", "ingredient": 1, "additional_price": "0.00" }
-  },
-  {
-    "model": "community.preparationtype",
-    "pk": 4,
-    "fields": { "name": "Cubed", "ingredient": 1, "additional_price": "0.00" }
-  },
-  {
-    "model": "community.preparationtype",
-    "pk": 5,
-    "fields": { "name": "Sliced", "ingredient": 1, "additional_price": "0.00" }
-  },
-  {
-    "model": "community.preparationtype",
-    "pk": 6,
-    "fields": { "name": "Minced", "ingredient": 6, "additional_price": "0.00" }
-  },
-  {
-    "model": "community.preparationtype",
-    "pk": 7,
-    "fields": { "name": "Chopped", "ingredient": 6, "additional_price": "0.00" }
-  },
-  {
-    "model": "community.preparationtype",
-    "pk": 8,
-    "fields": { "name": "Crushed", "ingredient": 6, "additional_price": "0.00" }
-  },
-  {
-    "model": "community.preparationtype",
-    "pk": 9,
-    "fields": { "name": "Sliced", "ingredient": 6, "additional_price": "0.00" }
-  },
-  {
-    "model": "community.preparationtype",
-    "pk": 10,
-    "fields": { "name": "Whole", "ingredient": 6, "additional_price": "0.00" }
-  },
-  {
-    "model": "community.preparationtype",
-    "pk": 11,
-    "fields": { "name": "Fillet", "ingredient": 11, "additional_price": "0.00" }
-  },
-  {
-    "model": "community.preparationtype",
-    "pk": 12,
-    "fields": { "name": "Diced", "ingredient": 11, "additional_price": "0.00" }
-  },
-  {
-    "model": "community.preparationtype",
-    "pk": 13,
-    "fields": { "name": "Cubed", "ingredient": 11, "additional_price": "0.00" }
-  },
-  {
-    "model": "community.preparationtype",
-    "pk": 16,
-    "fields": { "name": "Sliced", "ingredient": 25, "additional_price": "0.00" }
-  },
-  {
-    "model": "community.preparationtype",
-    "pk": 17,
-    "fields": { "name": "Sliced", "ingredient": 26, "additional_price": "0.00" }
-  },
   { "model": "community.mealtype", "pk": 1, "fields": { "name": "Lunch" } },
   { "model": "community.mealtype", "pk": 2, "fields": { "name": "Breakfast" } },
   { "model": "community.mealtype", "pk": 3, "fields": { "name": "Dinner" } },
@@ -3415,7 +4132,8 @@
       "created_at": "2024-09-11T13:28:53.885Z",
       "updated_at": "2024-10-06",
       "image": "recipes/chicken_stir_fry.png",
-      "is_customized": false
+      "is_customized": false,
+      "monetize": false
     }
   },
   {
@@ -3441,7 +4159,8 @@
       "created_at": "2024-09-14T02:32:47.160Z",
       "updated_at": "2024-10-06",
       "image": "recipes/salmon_teriyaki.png",
-      "is_customized": false
+      "is_customized": false,
+      "monetize": false
     }
   },
   {
@@ -3470,13 +4189,14 @@
       "created_at": "2024-09-28T13:09:56.242Z",
       "updated_at": "2024-09-28",
       "image": "recipes/27eaa8c1-d345-4a19-acb1-89e8b83e9c86.JPG",
-      "is_customized": false
+      "is_customized": false,
+      "monetize": false
     }
   },
   {
     "model": "community.recipeingredient",
     "pk": 1,
-    "fields": { "recipe": 1, "ingredient": 1, "preparation_type": 1 }
+    "fields": { "recipe": 1, "ingredient": 1, "preparation_type": 3 }
   },
   {
     "model": "community.recipeingredient",
@@ -3501,12 +4221,12 @@
   {
     "model": "community.recipeingredient",
     "pk": 6,
-    "fields": { "recipe": 1, "ingredient": 6, "preparation_type": 6 }
+    "fields": { "recipe": 1, "ingredient": 6, "preparation_type": 17 }
   },
   {
     "model": "community.recipeingredient",
     "pk": 7,
-    "fields": { "recipe": 1, "ingredient": 7, "preparation_type": 6 }
+    "fields": { "recipe": 1, "ingredient": 7, "preparation_type": null }
   },
   {
     "model": "community.recipeingredient",
@@ -3526,7 +4246,7 @@
   {
     "model": "community.recipeingredient",
     "pk": 11,
-    "fields": { "recipe": 2, "ingredient": 11, "preparation_type": 11 }
+    "fields": { "recipe": 2, "ingredient": 11, "preparation_type": 30 }
   },
   {
     "model": "community.recipeingredient",
@@ -3613,7 +4333,8 @@
       "description": "The Bulk-Up Power Meal Kit is designed for individuals aiming to increase muscle mass while enjoying delicious, nutrient-dense meals. This meal kit includes two high-protein recipes: Chicken and Vegetable Stir-Fry with Rice and Salmon Teriyaki with Rice. Both dishes feature a balanced combination of lean protein, wholesome vegetables, and satisfying rice, ensuring you're fueled with the right nutrients to support muscle growth and recovery. Each meal is simple to prepare, making it perfect for those with busy lifestyles but still looking to meet their fitness goals.",
       "created_at": "2024-09-14T02:56:16.152Z",
       "updated_at": "2024-09-15",
-      "is_customized": false
+      "is_customized": false,
+      "monetize": false
     }
   },
   {
@@ -4128,6 +4849,193 @@
     "fields": { "product": 3, "dietary_details": 1 }
   },
   {
+    "model": "groceries.preparationtype",
+    "pk": 1,
+    "fields": { "name": "Whole", "category": 1, "additional_price": "0.00" }
+  },
+  {
+    "model": "groceries.preparationtype",
+    "pk": 2,
+    "fields": { "name": "Fillet", "category": 1, "additional_price": "1.50" }
+  },
+  {
+    "model": "groceries.preparationtype",
+    "pk": 3,
+    "fields": { "name": "Diced", "category": 1, "additional_price": "1.00" }
+  },
+  {
+    "model": "groceries.preparationtype",
+    "pk": 4,
+    "fields": { "name": "Sliced", "category": 1, "additional_price": "0.80" }
+  },
+  {
+    "model": "groceries.preparationtype",
+    "pk": 5,
+    "fields": { "name": "Minced", "category": 1, "additional_price": "1.50" }
+  },
+  {
+    "model": "groceries.preparationtype",
+    "pk": 6,
+    "fields": { "name": "Cutlets", "category": 1, "additional_price": "1.20" }
+  },
+  {
+    "model": "groceries.preparationtype",
+    "pk": 7,
+    "fields": {
+      "name": "Butterflied",
+      "category": 1,
+      "additional_price": "1.20"
+    }
+  },
+  {
+    "model": "groceries.preparationtype",
+    "pk": 8,
+    "fields": { "name": "Skinless", "category": 1, "additional_price": "0.60" }
+  },
+  {
+    "model": "groceries.preparationtype",
+    "pk": 9,
+    "fields": { "name": "Whole", "category": 2, "additional_price": "0.00" }
+  },
+  {
+    "model": "groceries.preparationtype",
+    "pk": 10,
+    "fields": { "name": "Fillet", "category": 2, "additional_price": "1.50" }
+  },
+  {
+    "model": "groceries.preparationtype",
+    "pk": 11,
+    "fields": { "name": "Diced", "category": 2, "additional_price": "1.00" }
+  },
+  {
+    "model": "groceries.preparationtype",
+    "pk": 12,
+    "fields": { "name": "Sliced", "category": 2, "additional_price": "0.80" }
+  },
+  {
+    "model": "groceries.preparationtype",
+    "pk": 13,
+    "fields": { "name": "Minced", "category": 2, "additional_price": "1.50" }
+  },
+  {
+    "model": "groceries.preparationtype",
+    "pk": 14,
+    "fields": { "name": "Cutlets", "category": 2, "additional_price": "1.20" }
+  },
+  {
+    "model": "groceries.preparationtype",
+    "pk": 15,
+    "fields": {
+      "name": "Butterflied",
+      "category": 2,
+      "additional_price": "1.20"
+    }
+  },
+  {
+    "model": "groceries.preparationtype",
+    "pk": 16,
+    "fields": { "name": "Skinless", "category": 2, "additional_price": "0.60" }
+  },
+  {
+    "model": "groceries.preparationtype",
+    "pk": 17,
+    "fields": { "name": "Whole", "category": 5, "additional_price": "0.00" }
+  },
+  {
+    "model": "groceries.preparationtype",
+    "pk": 18,
+    "fields": { "name": "Peeled", "category": 5, "additional_price": "0.20" }
+  },
+  {
+    "model": "groceries.preparationtype",
+    "pk": 19,
+    "fields": { "name": "Diced", "category": 5, "additional_price": "0.40" }
+  },
+  {
+    "model": "groceries.preparationtype",
+    "pk": 20,
+    "fields": { "name": "Julienned", "category": 5, "additional_price": "0.60" }
+  },
+  {
+    "model": "groceries.preparationtype",
+    "pk": 21,
+    "fields": { "name": "Grated", "category": 5, "additional_price": "0.50" }
+  },
+  {
+    "model": "groceries.preparationtype",
+    "pk": 22,
+    "fields": { "name": "Sliced", "category": 5, "additional_price": "0.30" }
+  },
+  {
+    "model": "groceries.preparationtype",
+    "pk": 23,
+    "fields": { "name": "Chopped", "category": 5, "additional_price": "0.30" }
+  },
+  {
+    "model": "groceries.preparationtype",
+    "pk": 24,
+    "fields": { "name": "Trimmed", "category": 5, "additional_price": "0.10" }
+  },
+  {
+    "model": "groceries.preparationtype",
+    "pk": 25,
+    "fields": { "name": "Whole", "category": 4, "additional_price": "0.00" }
+  },
+  {
+    "model": "groceries.preparationtype",
+    "pk": 26,
+    "fields": { "name": "Peeled", "category": 4, "additional_price": "0.30" }
+  },
+  {
+    "model": "groceries.preparationtype",
+    "pk": 27,
+    "fields": { "name": "Sliced", "category": 4, "additional_price": "0.40" }
+  },
+  {
+    "model": "groceries.preparationtype",
+    "pk": 28,
+    "fields": { "name": "Diced", "category": 4, "additional_price": "0.50" }
+  },
+  {
+    "model": "groceries.preparationtype",
+    "pk": 29,
+    "fields": { "name": "Whole", "category": 3, "additional_price": "0.00" }
+  },
+  {
+    "model": "groceries.preparationtype",
+    "pk": 30,
+    "fields": { "name": "Fillet", "category": 3, "additional_price": "1.50" }
+  },
+  {
+    "model": "groceries.preparationtype",
+    "pk": 31,
+    "fields": { "name": "Cleaned", "category": 3, "additional_price": "0.70" }
+  },
+  {
+    "model": "groceries.preparationtype",
+    "pk": 32,
+    "fields": { "name": "Diced", "category": 3, "additional_price": "0.80" }
+  },
+  {
+    "model": "groceries.preparationtype",
+    "pk": 33,
+    "fields": {
+      "name": "Butterflied",
+      "category": 3,
+      "additional_price": "1.00"
+    }
+  },
+  {
+    "model": "groceries.preparationtype",
+    "pk": 34,
+    "fields": { "name": "Whole", "category": 10, "additional_price": "0.00" }
+  },
+  {
+    "model": "groceries.preparationtype",
+    "pk": 35,
+    "fields": { "name": "Chopped", "category": 10, "additional_price": "0.20" }
+  },
+  {
     "model": "groceries.productnutrition",
     "pk": 3,
     "fields": {
@@ -4202,19 +5110,31 @@
     "fields": { "order": 4, "product": 4, "quantity": 1, "total": "6.80" }
   },
   {
+    "model": "orders.ordermealkits",
+    "pk": 3,
+    "fields": { "order": 4, "mealkit": 2, "quantity": 2, "total": "25.96" }
+  },
+  {
     "model": "orders.orderrecipes",
     "pk": 3,
-    "fields": { "order": 4, "recipe": 1, "quantity": 2, "total": "6.98" }
+    "fields": {
+      "order": 4,
+      "recipe": 1,
+      "mealkit": null,
+      "quantity": 2,
+      "total": "6.98"
+    }
   },
   {
     "model": "orders.orderrecipes",
     "pk": 4,
-    "fields": { "order": 4, "recipe": 2, "quantity": 1, "total": "9.49" }
-  },
-  {
-    "model": "orders.ordermealkits",
-    "pk": 3,
-    "fields": { "order": 4, "mealkit": 2, "quantity": 2, "total": "25.96" }
+    "fields": {
+      "order": 4,
+      "recipe": 2,
+      "mealkit": null,
+      "quantity": 1,
+      "total": "9.49"
+    }
   },
   {
     "model": "orders.deliverylocation",
