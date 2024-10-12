@@ -234,3 +234,31 @@ class CartService:
             raise ValueError(f"{item_type.capitalize()} not found in the cart.")
         except Exception as e:
             raise e
+
+    def update_ingredient_preparation_type(self, user, item_id, new_preparation_type):
+        try:
+            user_cart = UserCart.objects.get(user=user)
+            item = CartIngredient.objects.get(user_cart=user_cart, id=item_id)
+            if new_preparation_type != None:
+                preparation_type = PreparationType.objects.get(id=new_preparation_type)
+            else:
+                preparation_type = None
+            item.preparation_type = preparation_type
+            item.save()
+            return self.get_cart(user)
+        except UserCart.DoesNotExist:
+            raise ValueError("Cart does not exist for this user.")
+        except (CartIngredient.DoesNotExist,):
+            raise ValueError(f"{item_id.capitalize()} not found in the cart.")
+        except Exception as e:
+            raise e
+
+    def put(self, user, item_type, item_id, new_quantity, request):
+        try:
+            if item_type == "ingredient":
+                new_preparation_type = request.data.get("preparation_type", None)
+                self.update_ingredient_preparation_type(user, item_id, new_preparation_type)
+            self.update_item_quantity(request.user, item_type, item_id, new_quantity)
+            return self.get_cart(user)
+        except Exception as e:
+            raise e

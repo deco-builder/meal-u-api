@@ -86,7 +86,7 @@ class CartView(APIView):
             if item_type not in ['ingredient', 'product', 'recipe', 'mealkit']:
                 return Response(prepare_error_response("Invalid item type"), status=status.HTTP_400_BAD_REQUEST)
 
-            response = self.cart_service.update_item_quantity(request.user, item_type, item_id, new_quantity)
+            response = self.cart_service.put(request.user, item_type, item_id, new_quantity, request)
             return Response(prepare_success_response(response), status=status.HTTP_200_OK)
         except ValueError as e:
             return Response(prepare_error_response(str(e)), status=status.HTTP_400_BAD_REQUEST)
