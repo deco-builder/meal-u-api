@@ -1,12 +1,12 @@
 from rest_framework import serializers
-from ..models import CategoryPreparationType
+from ..models import PreparationType
 
 
 class CategoryPreparationTypeSerializer(serializers.ModelSerializer):
     category = serializers.SerializerMethodField()
 
     class Meta:
-        model = CategoryPreparationType
+        model = PreparationType
         fields = ["name", "category", "additional_price"]
 
     def get_category(self, obj):

@@ -1,5 +1,6 @@
 from rest_framework import serializers
-from ..models import Recipe, RecipeIngredient, Ingredient, PreparationType
+from ..models import Recipe, RecipeIngredient, Ingredient
+from groceries.models import PreparationType
 from user_auth.models import User
 
 
@@ -21,7 +22,7 @@ class IngredientSerializer(serializers.ModelSerializer):
 class PreparationTypeSerializer(serializers.ModelSerializer):
     class Meta:
         model = PreparationType
-        fields = ["id", "name", "additional_price"]
+        fields = "__all__"
 
 
 class RecipeIngredientSerializer(serializers.ModelSerializer):

@@ -1,13 +1,13 @@
 import json
-from ..models import Recipe, PreparationType
+from ..models import Recipe
 from ..serializers.recipe_details import RecipeDetailsSerializer
 from ..serializers.create_recipe import (
     RecipeSerializer,
     IngredientSerializer,
-    PreparationTypeSerializer,
     RecipeIngredientSerializer,
     RecipeDietaryDetailSerializer,
 )
+from groceries.models import PreparationType
 
 
 class RecipeDetailsService:
@@ -51,9 +51,9 @@ class RecipeDetailsService:
                 ingredient_serializer.is_valid(raise_exception=True)
                 ingredient = ingredient_serializer.save()
 
-                preparation_type = ingredient_data.get("preparation_type", {})
+                preparation_type = ingredient_data.get("preparation_type", 0)
                 if preparation_type != None:
-                    preparation_type_object = PreparationType.objects.get(ingredient=ingredient, name=preparation_type)
+                    preparation_type_object = PreparationType.objects.get(id=preparation_type)
 
                 recipe_ingredient_data = {
                     "recipe": recipe.id,

@@ -1,6 +1,6 @@
 from django.db import models
 from user_auth.models import User
-from groceries.models import Unit, Product, DietaryDetail, CategoryPreparationType
+from groceries.models import Unit, Product, DietaryDetail, PreparationType
 
 
 class Ingredient(models.Model):
@@ -16,34 +16,6 @@ class Ingredient(models.Model):
 
     def __str__(self):
         return str(self.unit_size) + str(self.unit_id) + " " + self.name
-
-    def save(self, *args, **kwargs):
-        is_new = self.pk is None
-        super().save(*args, **kwargs)
-
-        if is_new:
-            self.create_default_preparation_types()
-
-    def create_default_preparation_types(self):
-        default_preparation_types = (
-            CategoryPreparationType.objects.get(filter=self.product_id.category_id).all().distinct()
-        )
-
-        for prep_type in default_preparation_types:
-            PreparationType.objects.create(
-                name=prep_type.name,
-                ingredient=self,
-                additional_price=prep_type.additional_price,
-            )
-
-
-class PreparationType(models.Model):
-    name = models.CharField(max_length=255, null=False, blank=False)
-    ingredient = models.ForeignKey(Ingredient, on_delete=models.CASCADE)
-    additional_price = models.DecimalField(max_digits=6, decimal_places=2, default=0)
-
-    def __str__(self):
-        return self.name + " " + str(self.ingredient)
 
 
 class MealType(models.Model):
@@ -83,6 +55,15 @@ class RecipeIngredient(models.Model):
         if self.preparation_type:
             return str(self.preparation_type) + " " + str(self.recipe)
         return str(self.ingredient) + " " + str(self.recipe)
+
+    def save(self, *args, **kwargs):
+        if self.preparation_type:
+            if self.preparation_type.category != self.ingredient.product_id.category_id:
+                raise ValueError(
+                    f"The preparation type '{self.preparation_type}' is for product category {self.preparation_type.category}, does not match the product category '{self.ingredient.product_id.category_id}'."
+                )
+
+        super().save(*args, **kwargs)
 
 
 class RecipeDietaryDetail(models.Model):

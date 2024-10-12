@@ -63,7 +63,7 @@ class ProductDietaryDetail(models.Model):
         unique_together = ("product", "dietary_details")
 
 
-class CategoryPreparationType(models.Model):
+class PreparationType(models.Model):
     name = models.CharField(max_length=255, null=False, blank=False)
     category = models.ForeignKey(Category, on_delete=models.CASCADE)
     additional_price = models.DecimalField(max_digits=6, decimal_places=2, default=0)
