@@ -7,11 +7,12 @@ class UserProfileSerializer(serializers.ModelSerializer):
         fields = ['role', 'status', 'profile_pic', 'phone_number', 'created_at', 'updated_at']
 
 class UserSerializer(serializers.ModelSerializer):
-    profile = UserProfileSerializer(source='userprofile', read_only=True) 
+    profile = UserProfileSerializer(source='userprofile')
 
     class Meta:
         model = User
         fields = [
-            'email', 'first_name', 'last_name', 'is_active', 'is_staff', 'role',
-            'image', 'voucher_credits', 'profile'  
+            'id', 'email', 'first_name', 'last_name', 'is_active', 'is_staff', 'role',
+            'image', 'voucher_credits', 'profile'
         ]
+        # read_only_fields = ['id', 'is_active', 'is_staff', 'role', 'voucher_credits']
