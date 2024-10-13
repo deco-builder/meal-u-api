@@ -2,7 +2,7 @@ from rest_framework.views import APIView
 from rest_framework.response import Response
 from rest_framework import status
 from rest_framework.permissions import IsAuthenticated
-from ..services.like_and_comment import RecipeLikeAndCommentService, MealKitLikeAndCommentService
+from ..services.like_and_comment import RecipeLikeAndCommentService, MealKitLikeAndCommentService, LikeService
 from ..models import Recipe, MealKit
 from applibs.response import prepare_success_response, prepare_error_response
 from rest_framework_simplejwt.authentication import JWTAuthentication
@@ -137,3 +137,20 @@ class MealKitCommentListView(APIView):
 
         except Exception as e:
             return Response(prepare_error_response(str(e)), status=status.HTTP_400_BAD_REQUEST)    
+
+
+class UserLikeView(APIView):
+    authentication_classes = [JWTAuthentication]
+    permission_classes = [IsAuthenticated]
+
+    def get(self, request):
+        try:
+            user = request.user
+            liked_recipes, liked_mealkits = LikeService.get_user_likes(user)
+            return Response(prepare_success_response({
+            "liked_recipes": liked_recipes.data,
+            "liked_mealkits": liked_mealkits.data
+        }), status=status.HTTP_200_OK)
+
+        except Exception as e:
+            return Response(prepare_error_response(str(e)), status=status.HTTP_400_BAD_REQUEST) 

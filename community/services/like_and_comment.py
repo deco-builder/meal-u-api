@@ -1,5 +1,5 @@
 from ..models import RecipeLike, RecipeComment, MealKitLike, MealKitComment, MealKitSave
-from ..serializers.like_and_comment import RecipeLikeSerializer, RecipeCommentSerializer, MealKitLikeSerializer, MealKitCommentSerializer
+from ..serializers.like_and_comment import RecipeLikeSerializer, RecipeCommentSerializer, MealKitLikeSerializer, MealKitCommentSerializer, UserRecipeLikeSerializer, UserMealKitLikeSerializer
 from rest_framework.exceptions import ValidationError
 
 LIKE_THRESHOLD = 5
@@ -112,3 +112,14 @@ class MealKitLikeAndCommentService:
     @staticmethod
     def get_all_mealkit_comments(mealkit_id):
         return MealKitComment.objects.filter(mealkit_id=mealkit_id).order_by('-commented_at')
+
+
+class LikeService:
+    @staticmethod
+    def get_user_likes(user):
+        liked_recipes = RecipeLike.objects.filter(user=user).select_related('recipe')
+        liked_mealkits = MealKitLike.objects.filter(user=user).select_related('mealkit')
+        liked_recipes_serializer = UserRecipeLikeSerializer(liked_recipes, many=True)
+        liked_mealkits_serializer = UserMealKitLikeSerializer(liked_mealkits, many=True)
+
+        return liked_recipes_serializer, liked_mealkits_serializer

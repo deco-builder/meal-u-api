@@ -1,5 +1,7 @@
 from rest_framework import serializers
 from ..models import RecipeLike, RecipeComment, MealKitLike, MealKitComment, MealKitSave
+from .recipes import RecipesSerializer
+from .mealkits import MealKitsSerializer
 
 # Recipe serializers
 class RecipeLikeSerializer(serializers.ModelSerializer):
@@ -32,3 +34,17 @@ class MealKitCommentSerializer(serializers.ModelSerializer):
     
     def get_is_creator(self, obj):
         return obj.user == obj.mealkit.creator
+
+class UserRecipeLikeSerializer(serializers.ModelSerializer):
+    recipe = RecipesSerializer(read_only=True)
+
+    class Meta:
+        model = RecipeLike
+        fields = ['recipe', 'liked_at']
+
+class UserMealKitLikeSerializer(serializers.ModelSerializer):
+    mealkit = MealKitsSerializer(read_only=True)
+
+    class Meta:
+        model = MealKitLike
+        fields = ['mealkit', 'liked_at']
