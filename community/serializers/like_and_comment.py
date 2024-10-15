@@ -4,6 +4,7 @@ from .recipes import RecipesSerializer
 from .mealkits import MealKitsSerializer
 from user_auth.models import User
 
+
 class RecipeLikeSerializer(serializers.ModelSerializer):
     class Meta:
         model = RecipeLike
@@ -56,14 +57,30 @@ class MealKitCommentSerializer(serializers.ModelSerializer):
 
 class UserRecipeLikeSerializer(serializers.ModelSerializer):
     recipe = RecipesSerializer(read_only=True)
+    likes_count = serializers.SerializerMethodField()
+    comments_count = serializers.SerializerMethodField()
 
     class Meta:
         model = RecipeLike
-        fields = ['recipe', 'liked_at']
+        fields = ['recipe', 'liked_at', 'likes_count', 'comments_count']
+
+    def get_likes_count(self, obj):
+        return RecipeLike.objects.filter(recipe_id=obj.recipe_id).count()
+
+    def get_comments_count(self, obj):
+        return RecipeComment.objects.filter(recipe_id=obj.recipe_id).count()
 
 class UserMealKitLikeSerializer(serializers.ModelSerializer):
     mealkit = MealKitsSerializer(read_only=True)
+    likes_count = serializers.SerializerMethodField()
+    comments_count = serializers.SerializerMethodField()
 
     class Meta:
         model = MealKitLike
-        fields = ['mealkit', 'liked_at']
+        fields = ['mealkit', 'liked_at', 'likes_count', 'comments_count']
+
+    def get_likes_count(self, obj):
+        return MealKitLike.objects.filter(mealkit_id=obj.mealkit_id).count()
+
+    def get_comments_count(self, obj):
+        return MealKitComment.objects.filter(mealkit_id=obj.mealkit_id).count()
