@@ -54,6 +54,8 @@ class RecipeDetailsService:
                 preparation_type = ingredient_data.get("preparation_type", 0)
                 if preparation_type != None:
                     preparation_type_object = PreparationType.objects.get(id=preparation_type)
+                else:
+                    preparation_type_object = None
 
                 recipe_ingredient_data = {
                     "recipe": recipe.id,
