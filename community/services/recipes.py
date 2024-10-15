@@ -121,7 +121,7 @@ class RecipesService:
 
         top_creators = (
             filtered_recipes.values(
-                "creator__id", "creator__email", "creator__first_name", "creator__last_name", "creator__image"
+                "creator__id", "creator__email", "creator__first_name", "creator__last_name"
             )
             .annotate(recipe_count=Count("id"))
             .order_by("-recipe_count")
