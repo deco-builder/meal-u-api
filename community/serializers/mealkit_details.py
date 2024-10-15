@@ -18,7 +18,8 @@ class MealKitDetailsSerializer(serializers.ModelSerializer):
     def get_creator(self, obj):
         return {
             "name": f"{obj.creator.first_name} {obj.creator.last_name}",
-            "profile_picture": obj.creator.image.url if obj.creator.image else None
+            "profile_picture": obj.creator.image.url if obj.creator.image else None,
+            "id": obj.creator.id
         }
 
     def get_dietary_details(self, obj):

@@ -83,6 +83,7 @@ class RecipesService:
                     "creator": {
                         "name": f"{recipe.creator.first_name} {recipe.creator.last_name}",
                         "profile_picture": recipe.creator.image.url if recipe.creator.image else None,
+                        "id": recipe.creator.id
                     },
                     "name": recipe.name,
                     "description": recipe.description,
