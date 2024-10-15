@@ -1,0 +1,1793 @@
+[
+  {
+    "model": "admin.logentry",
+    "pk": 1,
+    "fields": {
+      "action_time": "2024-10-12T05:01:11.291Z",
+      "user": 1,
+      "content_type": 56,
+      "object_id": "3",
+      "object_repr": "Cart for john.doe@gmail.com",
+      "action_flag": 3,
+      "change_message": ""
+    }
+  },
+  {
+    "model": "admin.logentry",
+    "pk": 2,
+    "fields": {
+      "action_time": "2024-10-12T05:03:47.250Z",
+      "user": 1,
+      "content_type": 56,
+      "object_id": "3",
+      "object_repr": "Cart for john.doe@gmail.com",
+      "action_flag": 3,
+      "change_message": ""
+    }
+  },
+  {
+    "model": "admin.logentry",
+    "pk": 3,
+    "fields": {
+      "action_time": "2024-10-12T05:04:42.862Z",
+      "user": 1,
+      "content_type": 56,
+      "object_id": "3",
+      "object_repr": "Cart for john.doe@gmail.com",
+      "action_flag": 3,
+      "change_message": ""
+    }
+  },
+  {
+    "model": "admin.logentry",
+    "pk": 4,
+    "fields": {
+      "action_time": "2024-10-12T05:21:17.708Z",
+      "user": 1,
+      "content_type": 56,
+      "object_id": "3",
+      "object_repr": "Cart for john.doe@gmail.com",
+      "action_flag": 3,
+      "change_message": ""
+    }
+  },
+  {
+    "model": "admin.logentry",
+    "pk": 5,
+    "fields": {
+      "action_time": "2024-10-12T05:29:03.736Z",
+      "user": 1,
+      "content_type": 7,
+      "object_id": "3",
+      "object_repr": "john.doe@gmail.com",
+      "action_flag": 2,
+      "change_message": "[]"
+    }
+  },
+  {
+    "model": "admin.logentry",
+    "pk": 6,
+    "fields": {
+      "action_time": "2024-10-12T05:29:23.711Z",
+      "user": 1,
+      "content_type": 7,
+      "object_id": "5",
+      "object_repr": "courier@gmail.com",
+      "action_flag": 1,
+      "change_message": "[{\"added\": {}}]"
+    }
+  },
+  {
+    "model": "admin.logentry",
+    "pk": 7,
+    "fields": {
+      "action_time": "2024-10-12T05:42:03.222Z",
+      "user": 1,
+      "content_type": 56,
+      "object_id": "3",
+      "object_repr": "Cart for john.doe@gmail.com",
+      "action_flag": 3,
+      "change_message": ""
+    }
+  },
+  {
+    "model": "admin.logentry",
+    "pk": 8,
+    "fields": {
+      "action_time": "2024-10-12T05:44:18.796Z",
+      "user": 1,
+      "content_type": 48,
+      "object_id": "8",
+      "object_repr": "cancelled",
+      "action_flag": 1,
+      "change_message": "[{\"added\": {}}]"
+    }
+  },
+  {
+    "model": "sessions.session",
+    "pk": "8iv0tpmv0cs9au1zl40j9mmxlbwk6wmk",
+    "fields": {
+      "session_data": ".eJxVjDsOwjAQBe_iGlnr-Aslfc5g7a5tHECOFCcV4u4QKQW0b2beS0Tc1hq3npc4JXERSpx-N0J-5LaDdMd2myXPbV0mkrsiD9rlOKf8vB7u30HFXr_1kNGdVQlWM0AI6LVNjKyMLcEZsgGYqBQLmj1gYkUEbAavEaxywYj3B-KtN7g:1soLxb:tpqES0F64ehEibYng9wr9olsaRUplz1KiU33KrbFrjc",
+      "expire_date": "2024-09-25T11:56:35.011Z"
+    }
+  },
+  {
+    "model": "sessions.session",
+    "pk": "e3jd0huf7qsvtivku9b2y11oknq2p41w",
+    "fields": {
+      "session_data": ".eJxVjDsOwjAQBe_iGlnr-Aslfc5g7a5tHECOFCcV4u4QKQW0b2beS0Tc1hq3npc4JXERSpx-N0J-5LaDdMd2myXPbV0mkrsiD9rlOKf8vB7u30HFXr_1kNGdVQlWM0AI6LVNjKyMLcEZsgGYqBQLmj1gYkUEbAavEaxywYj3B-KtN7g:1sxJM9:9uiZsm9pzniWt14JKq0h6ZdqsC4IytfSEB4eoVUjCS4",
+      "expire_date": "2024-10-20T04:58:57.891Z"
+    }
+  },
+  {
+    "model": "sessions.session",
+    "pk": "hxtf17lq1ift94o63yfza6los67t2n8r",
+    "fields": {
+      "session_data": ".eJxVjDsOwjAQBe_iGlnr-Aslfc5g7a5tHECOFCcV4u4QKQW0b2beS0Tc1hq3npc4JXERSpx-N0J-5LaDdMd2myXPbV0mkrsiD9rlOKf8vB7u30HFXr_1kNGdVQlWM0AI6LVNjKyMLcEZsgGYqBQLmj1gYkUEbAavEaxywYj3B-KtN7g:1szSLg:qatYpMrT6crLlvm517Q8YDqxwyehE3kAdE3-MAESrUY",
+      "expire_date": "2024-10-26T02:59:20.872Z"
+    }
+  },
+  {
+    "model": "sessions.session",
+    "pk": "kizw2f1t21vvxcm2zwcz18rq6xyali3w",
+    "fields": {
+      "session_data": ".eJxVjDsOwjAQBe_iGlnr-Aslfc5g7a5tHECOFCcV4u4QKQW0b2beS0Tc1hq3npc4JXERSpx-N0J-5LaDdMd2myXPbV0mkrsiD9rlOKf8vB7u30HFXr_1kNGdVQlWM0AI6LVNjKyMLcEZsgGYqBQLmj1gYkUEbAavEaxywYj3B-KtN7g:1sqqwb:IRZ6rxC5ltwY_fLeD-YNlCZuWssJTQE0gIEGuyNxJeA",
+      "expire_date": "2024-10-02T09:25:53.857Z"
+    }
+  },
+  {
+    "model": "sessions.session",
+    "pk": "ukn1yihyerwwr5cp2d3gthu4dp6coyga",
+    "fields": {
+      "session_data": ".eJxVjDsOwjAQBe_iGlnr-Aslfc5g7a5tHECOFCcV4u4QKQW0b2beS0Tc1hq3npc4JXERSpx-N0J-5LaDdMd2myXPbV0mkrsiD9rlOKf8vB7u30HFXr_1kNGdVQlWM0AI6LVNjKyMLcEZsgGYqBQLmj1gYkUEbAavEaxywYj3B-KtN7g:1st5XC:uVuBDgvH3L6TsrpNFm4qC_mUp5ya_DT_n-ZskGIvTJU",
+      "expire_date": "2024-10-08T13:24:54.532Z"
+    }
+  },
+  {
+    "model": "user_auth.user",
+    "pk": 1,
+    "fields": {
+      "password": "pbkdf2_sha256$870000$qM7fMvL9uFZAoqnDG81BcH$+QYhIJ/0Ov8tuouezk4Ai/4n4tesWmZQph+C7ddf0Ys=",
+      "last_login": "2024-10-12T02:59:20.871Z",
+      "is_superuser": true,
+      "email": "admin@gmail.com",
+      "first_name": "admin",
+      "last_name": "admin",
+      "is_active": true,
+      "is_staff": true,
+      "role": "client",
+      "image": "",
+      "voucher_credits": "0.00",
+      "groups": [],
+      "user_permissions": []
+    }
+  },
+  {
+    "model": "user_auth.user",
+    "pk": 2,
+    "fields": {
+      "password": "pbkdf2_sha256$870000$SjOYVjgE6aBaEFc27GvCQM$ffyhx2fhdWz1KBUcf8NtCydkQe2u3lodFELK/cYt2jA=",
+      "last_login": null,
+      "is_superuser": false,
+      "email": "mealu@gmail.com",
+      "first_name": "MealU",
+      "last_name": "Official",
+      "is_active": true,
+      "is_staff": true,
+      "role": "warehouse",
+      "image": "images/mealu-logo.png",
+      "voucher_credits": "0.00",
+      "groups": [],
+      "user_permissions": []
+    }
+  },
+  {
+    "model": "user_auth.user",
+    "pk": 3,
+    "fields": {
+      "password": "pbkdf2_sha256$870000$SjOYVjgE6aBaEFc27GvCQM$ffyhx2fhdWz1KBUcf8NtCydkQe2u3lodFELK/cYt2jA=",
+      "last_login": null,
+      "is_superuser": false,
+      "email": "john.doe@gmail.com",
+      "first_name": "John",
+      "last_name": "Doe",
+      "is_active": true,
+      "is_staff": false,
+      "role": "client",
+      "image": "",
+      "voucher_credits": "0.00",
+      "groups": [],
+      "user_permissions": []
+    }
+  },
+  {
+    "model": "user_auth.user",
+    "pk": 4,
+    "fields": {
+      "password": "pbkdf2_sha256$870000$abGuMtrEM6bz2RcRTTKRdk$GuHRCDX91gQEIAWWbwJuwZmX/jE9lAYD2+3lKTCdN7s=",
+      "last_login": null,
+      "is_superuser": false,
+      "email": "client1@gmail.com",
+      "first_name": "Client1",
+      "last_name": "hehe",
+      "is_active": true,
+      "is_staff": false,
+      "role": "client",
+      "image": "",
+      "voucher_credits": "0.00",
+      "groups": [],
+      "user_permissions": []
+    }
+  },
+  {
+    "model": "user_auth.user",
+    "pk": 5,
+    "fields": {
+      "password": "pbkdf2_sha256$870000$SjOYVjgE6aBaEFc27GvCQM$ffyhx2fhdWz1KBUcf8NtCydkQe2u3lodFELK/cYt2jA=",
+      "last_login": null,
+      "is_superuser": false,
+      "email": "courier@gmail.com",
+      "first_name": "Courier",
+      "last_name": "MealU",
+      "is_active": true,
+      "is_staff": false,
+      "role": "courier",
+      "image": "",
+      "voucher_credits": "0.00",
+      "groups": [],
+      "user_permissions": []
+    }
+  },
+  {
+    "model": "community.ingredient",
+    "pk": 1,
+    "fields": {
+      "name": "Chicken Breast",
+      "product_id": 1,
+      "unit_id": 2,
+      "unit_size": "150.00",
+      "price_per_unit": "1.80",
+      "description": "",
+      "stock": 100
+    }
+  },
+  {
+    "model": "community.ingredient",
+    "pk": 2,
+    "fields": {
+      "name": "Mixed vegetables (e.g., bell peppers, broccoli, carrots)",
+      "product_id": 4,
+      "unit_id": 2,
+      "unit_size": "100.00",
+      "price_per_unit": "0.68",
+      "description": "",
+      "stock": 100
+    }
+  },
+  {
+    "model": "community.ingredient",
+    "pk": 3,
+    "fields": {
+      "name": "Soy sauce",
+      "product_id": 5,
+      "unit_id": 3,
+      "unit_size": "15.00",
+      "price_per_unit": "0.07",
+      "description": "",
+      "stock": 100
+    }
+  },
+  {
+    "model": "community.ingredient",
+    "pk": 4,
+    "fields": {
+      "name": "Hoisin Sauce",
+      "product_id": 6,
+      "unit_id": 3,
+      "unit_size": "7.50",
+      "price_per_unit": "0.14",
+      "description": "",
+      "stock": 100
+    }
+  },
+  {
+    "model": "community.ingredient",
+    "pk": 5,
+    "fields": {
+      "name": "Olive oil",
+      "product_id": 7,
+      "unit_id": 3,
+      "unit_size": "15.00",
+      "price_per_unit": "0.14",
+      "description": "",
+      "stock": 100
+    }
+  },
+  {
+    "model": "community.ingredient",
+    "pk": 6,
+    "fields": {
+      "name": "Garlic",
+      "product_id": 8,
+      "unit_id": 5,
+      "unit_size": "1.00",
+      "price_per_unit": "0.16",
+      "description": "",
+      "stock": 100
+    }
+  },
+  {
+    "model": "community.ingredient",
+    "pk": 7,
+    "fields": {
+      "name": "Ginger",
+      "product_id": 9,
+      "unit_id": 2,
+      "unit_size": "5.00",
+      "price_per_unit": "0.13",
+      "description": "",
+      "stock": 100
+    }
+  },
+  {
+    "model": "community.ingredient",
+    "pk": 8,
+    "fields": {
+      "name": "Jasmine Rice",
+      "product_id": 10,
+      "unit_id": 2,
+      "unit_size": "100.00",
+      "price_per_unit": "0.35",
+      "description": "",
+      "stock": 100
+    }
+  },
+  {
+    "model": "community.ingredient",
+    "pk": 9,
+    "fields": {
+      "name": "Salt",
+      "product_id": 11,
+      "unit_id": 2,
+      "unit_size": "5.00",
+      "price_per_unit": "0.01",
+      "description": "",
+      "stock": 100
+    }
+  },
+  {
+    "model": "community.ingredient",
+    "pk": 10,
+    "fields": {
+      "name": "Pepper",
+      "product_id": 12,
+      "unit_id": 2,
+      "unit_size": "5.00",
+      "price_per_unit": "0.01",
+      "description": "",
+      "stock": 100
+    }
+  },
+  {
+    "model": "community.ingredient",
+    "pk": 11,
+    "fields": {
+      "name": "Salmon",
+      "product_id": 13,
+      "unit_id": 2,
+      "unit_size": "200.00",
+      "price_per_unit": "7.20",
+      "description": "",
+      "stock": 100
+    }
+  },
+  {
+    "model": "community.ingredient",
+    "pk": 12,
+    "fields": {
+      "name": "Teriyaki sauce",
+      "product_id": 14,
+      "unit_id": 3,
+      "unit_size": "30.00",
+      "price_per_unit": "0.57",
+      "description": "",
+      "stock": 100
+    }
+  },
+  {
+    "model": "community.ingredient",
+    "pk": 13,
+    "fields": {
+      "name": "Honey",
+      "product_id": 15,
+      "unit_id": 3,
+      "unit_size": "10.00",
+      "price_per_unit": "0.12",
+      "description": "",
+      "stock": 100
+    }
+  },
+  {
+    "model": "community.ingredient",
+    "pk": 14,
+    "fields": {
+      "name": "Green beans",
+      "product_id": 16,
+      "unit_id": 2,
+      "unit_size": "100.00",
+      "price_per_unit": "0.99",
+      "description": "",
+      "stock": 100
+    }
+  },
+  {
+    "model": "community.ingredient",
+    "pk": 15,
+    "fields": {
+      "name": "Sesame seed",
+      "product_id": 17,
+      "unit_id": 2,
+      "unit_size": "10.00",
+      "price_per_unit": "0.12",
+      "description": "",
+      "stock": 100
+    }
+  },
+  {
+    "model": "community.ingredient",
+    "pk": 25,
+    "fields": {
+      "name": "Salmon",
+      "product_id": 13,
+      "unit_id": 2,
+      "unit_size": "200.00",
+      "price_per_unit": "36.00",
+      "description": null,
+      "stock": 100
+    }
+  },
+  {
+    "model": "community.ingredient",
+    "pk": 26,
+    "fields": {
+      "name": "Salmon",
+      "product_id": 13,
+      "unit_id": 2,
+      "unit_size": "200.00",
+      "price_per_unit": "36.00",
+      "description": null,
+      "stock": 100
+    }
+  },
+  {
+    "model": "community.ingredient",
+    "pk": 27,
+    "fields": {
+      "name": "2 Egg",
+      "product_id": 18,
+      "unit_id": 2,
+      "unit_size": "120.00",
+      "price_per_unit": "1.28",
+      "description": "Use 2-3 eggs, depend on your preferences",
+      "stock": 100
+    }
+  },
+  {
+    "model": "community.ingredient",
+    "pk": 28,
+    "fields": {
+      "name": "Jasmine Rice",
+      "product_id": 10,
+      "unit_id": 2,
+      "unit_size": "100.00",
+      "price_per_unit": "3.50",
+      "description": null,
+      "stock": 100
+    }
+  },
+  {
+    "model": "community.ingredient",
+    "pk": 29,
+    "fields": {
+      "name": "2 Egg",
+      "product_id": 18,
+      "unit_id": 2,
+      "unit_size": "120.00",
+      "price_per_unit": "1.28",
+      "description": "Use 2-3 eggs, depend on your preferences",
+      "stock": 100
+    }
+  },
+  {
+    "model": "community.ingredient",
+    "pk": 30,
+    "fields": {
+      "name": "Jasmine Rice",
+      "product_id": 10,
+      "unit_id": 2,
+      "unit_size": "100.00",
+      "price_per_unit": "3.50",
+      "description": null,
+      "stock": 100
+    }
+  },
+  {
+    "model": "community.ingredient",
+    "pk": 31,
+    "fields": {
+      "name": "2 Egg",
+      "product_id": 18,
+      "unit_id": 2,
+      "unit_size": "120.00",
+      "price_per_unit": "1.28",
+      "description": "Use 2-3 eggs, depend on your preferences",
+      "stock": 100
+    }
+  },
+  {
+    "model": "community.ingredient",
+    "pk": 32,
+    "fields": {
+      "name": "Jasmine Rice",
+      "product_id": 10,
+      "unit_id": 2,
+      "unit_size": "100.00",
+      "price_per_unit": "3.50",
+      "description": null,
+      "stock": 100
+    }
+  },
+  {
+    "model": "community.ingredient",
+    "pk": 33,
+    "fields": {
+      "name": "2 Egg",
+      "product_id": 18,
+      "unit_id": 2,
+      "unit_size": "120.00",
+      "price_per_unit": "1.28",
+      "description": "Use 2-3 eggs, depend on your preferences",
+      "stock": 100
+    }
+  },
+  {
+    "model": "community.ingredient",
+    "pk": 34,
+    "fields": {
+      "name": "Jasmine Rice",
+      "product_id": 10,
+      "unit_id": 2,
+      "unit_size": "100.00",
+      "price_per_unit": "3.50",
+      "description": null,
+      "stock": 100
+    }
+  },
+  {
+    "model": "community.ingredient",
+    "pk": 35,
+    "fields": {
+      "name": "2 Egg",
+      "product_id": 18,
+      "unit_id": 2,
+      "unit_size": "120.00",
+      "price_per_unit": "1.28",
+      "description": "Use 2-3 eggs, depend on your preferences",
+      "stock": 100
+    }
+  },
+  {
+    "model": "community.ingredient",
+    "pk": 36,
+    "fields": {
+      "name": "Jasmine Rice",
+      "product_id": 10,
+      "unit_id": 2,
+      "unit_size": "100.00",
+      "price_per_unit": "3.50",
+      "description": null,
+      "stock": 100
+    }
+  },
+  { "model": "community.mealtype", "pk": 1, "fields": { "name": "Lunch" } },
+  { "model": "community.mealtype", "pk": 2, "fields": { "name": "Breakfast" } },
+  { "model": "community.mealtype", "pk": 3, "fields": { "name": "Dinner" } },
+  { "model": "community.mealtype", "pk": 4, "fields": { "name": "Snack" } },
+  {
+    "model": "community.recipe",
+    "pk": 1,
+    "fields": {
+      "creator": 2,
+      "name": "Chicken and Vegetable Stir-Fry with Rice",
+      "description": "This Chicken and Vegetable Stir-Fry is a quick and nutritious meal perfect for bulking. Tender chicken breast is stir-fried with a colorful mix of vegetables and coated in a savory blend of soy and hoisin sauces. Served over a bed of fluffy rice, this dish provides a balanced combination of protein, fiber, and carbohydrates, making it ideal for a satisfying and energy-boosting lunch.",
+      "serving_size": 1,
+      "meal_type": 1,
+      "cooking_time": 25,
+      "instructions": [
+        "Heat 15 milliliters of olive oil in a large skillet or wok over medium-high heat.",
+        "Add the minced garlic and ginger to the skillet. Cook for about 1 minute, or until fragrant, stirring frequently to prevent burning.",
+        "Add the chicken pieces to the skillet. Cook for 5-7 minutes, stirring occasionally, until the chicken is browned and cooked through (internal temperature should reach 75C or 165F).",
+        "Add the mixed vegetables to the skillet with the chicken. Continue to stir-fry for an additional 3-5 minutes, or until the vegetables are tender-crisp.",
+        "Stir in 15 milliliters of soy sauce and 7.5 milliliters of hoisin sauce. Cook for another 2-3 minutes, ensuring that the chicken and vegetables are evenly coated with the sauce.",
+        "Taste and adjust seasoning with salt and pepper if needed.",
+        "Serve the chicken and vegetable stir-fry over 150 grams of cooked rice."
+      ],
+      "created_at": "2024-09-11T13:28:53.885Z",
+      "updated_at": "2024-10-06",
+      "image": "recipes/chicken_stir_fry.png",
+      "is_customized": false,
+      "monetize": false
+    }
+  },
+  {
+    "model": "community.recipe",
+    "pk": 2,
+    "fields": {
+      "creator": 2,
+      "name": "Salmon Teriyaki with Rice",
+      "description": "This Salmon Teriyaki with Rice is a simple yet delicious high-protein meal perfect for bulking. The salmon is coated in a sweet and savory teriyaki glaze and baked to perfection. Served alongside rice and optionally paired with steamed asparagus or green beans, this dish is both nutritious and satisfying, making it a great choice for lunch.",
+      "serving_size": 1,
+      "meal_type": 1,
+      "cooking_time": 25,
+      "instructions": [
+        "Preheat the oven to 190C (375F). Line a baking sheet with parchment paper for easy cleanup.",
+        "In a small bowl, mix 30 milliliters of teriyaki sauce with 10 milliliters of honey until well combined.",
+        "Place the salmon fillet on the lined baking sheet. Brush the top of the salmon evenly with the teriyaki and honey mixture, making sure it's well coated.",
+        "Place the baking sheet in the preheated oven and bake the salmon for 15-20 minutes, or until the salmon is cooked through and flakes easily with a fork (internal temperature should reach 63C or 145F).",
+        "While the salmon is baking, steam 100 grams of asparagus or green beans until tender. This step is optional but adds extra nutrients to the meal.",
+        "Once the salmon is done, serve it over 150 grams of cooked white or brown rice.",
+        "Optionally, place the steamed vegetables on the side.",
+        "Garnish with sesame seeds for extra flavor and presentation."
+      ],
+      "created_at": "2024-09-14T02:32:47.160Z",
+      "updated_at": "2024-10-06",
+      "image": "recipes/salmon_teriyaki.png",
+      "is_customized": false,
+      "monetize": false
+    }
+  },
+  {
+    "model": "community.recipe",
+    "pk": 12,
+    "fields": {
+      "creator": 2,
+      "name": "Special Cancer Egg",
+      "description": "This dish is special edition established from seasoned 1103's chef. The texture of the crispy egg blend with the hot sensation of sambal is a perfect combination to fulfill your feast.",
+      "serving_size": 1,
+      "meal_type": 1,
+      "cooking_time": 15,
+      "instructions": [
+        "In a medium bowl, crack the eggs and add seasoning with salt and pepper.",
+        "Whisk the mixture until the yolks and whites are fully combined and slightly frothy.",
+        "Place a frying pot over high heat.",
+        "Add the oil to the pot until approximately the egg can be covered perfectly with the oil.",
+        "Once the oil is hot (it should shimmer), pour the egg mixture into the pot slowly.",
+        "As you pour, create a gentle swirl in the oil to help the omelette get crispy.",
+        "Cook the omelette until the bottom is golden brown and crispy, about 2-3 minutes.",
+        "Carefully flip the omelette using a spatula and cook the other side until it�s also golden brown.",
+        "Once both sides are cooked, take the omelette out of the oil and let it drain on a paper towel to remove excess oil.",
+        "Serve the omelette over a bed of cooked rice.",
+        "Top with sambal for added flavor and spice."
+      ],
+      "created_at": "2024-09-28T13:09:56.242Z",
+      "updated_at": "2024-09-28",
+      "image": "recipes/27eaa8c1-d345-4a19-acb1-89e8b83e9c86.JPG",
+      "is_customized": false,
+      "monetize": false
+    }
+  },
+  {
+    "model": "community.recipeingredient",
+    "pk": 1,
+    "fields": { "recipe": 1, "ingredient": 1, "preparation_type": 3 }
+  },
+  {
+    "model": "community.recipeingredient",
+    "pk": 2,
+    "fields": { "recipe": 1, "ingredient": 2, "preparation_type": null }
+  },
+  {
+    "model": "community.recipeingredient",
+    "pk": 3,
+    "fields": { "recipe": 1, "ingredient": 3, "preparation_type": null }
+  },
+  {
+    "model": "community.recipeingredient",
+    "pk": 4,
+    "fields": { "recipe": 1, "ingredient": 4, "preparation_type": null }
+  },
+  {
+    "model": "community.recipeingredient",
+    "pk": 5,
+    "fields": { "recipe": 1, "ingredient": 5, "preparation_type": null }
+  },
+  {
+    "model": "community.recipeingredient",
+    "pk": 6,
+    "fields": { "recipe": 1, "ingredient": 6, "preparation_type": 17 }
+  },
+  {
+    "model": "community.recipeingredient",
+    "pk": 7,
+    "fields": { "recipe": 1, "ingredient": 7, "preparation_type": null }
+  },
+  {
+    "model": "community.recipeingredient",
+    "pk": 8,
+    "fields": { "recipe": 1, "ingredient": 8, "preparation_type": null }
+  },
+  {
+    "model": "community.recipeingredient",
+    "pk": 9,
+    "fields": { "recipe": 1, "ingredient": 9, "preparation_type": null }
+  },
+  {
+    "model": "community.recipeingredient",
+    "pk": 10,
+    "fields": { "recipe": 1, "ingredient": 10, "preparation_type": null }
+  },
+  {
+    "model": "community.recipeingredient",
+    "pk": 11,
+    "fields": { "recipe": 2, "ingredient": 11, "preparation_type": 30 }
+  },
+  {
+    "model": "community.recipeingredient",
+    "pk": 12,
+    "fields": { "recipe": 2, "ingredient": 12, "preparation_type": null }
+  },
+  {
+    "model": "community.recipeingredient",
+    "pk": 13,
+    "fields": { "recipe": 2, "ingredient": 13, "preparation_type": null }
+  },
+  {
+    "model": "community.recipeingredient",
+    "pk": 14,
+    "fields": { "recipe": 2, "ingredient": 5, "preparation_type": null }
+  },
+  {
+    "model": "community.recipeingredient",
+    "pk": 15,
+    "fields": { "recipe": 2, "ingredient": 8, "preparation_type": null }
+  },
+  {
+    "model": "community.recipeingredient",
+    "pk": 16,
+    "fields": { "recipe": 2, "ingredient": 14, "preparation_type": null }
+  },
+  {
+    "model": "community.recipeingredient",
+    "pk": 17,
+    "fields": { "recipe": 2, "ingredient": 15, "preparation_type": null }
+  },
+  {
+    "model": "community.recipeingredient",
+    "pk": 27,
+    "fields": { "recipe": 12, "ingredient": 35, "preparation_type": null }
+  },
+  {
+    "model": "community.recipeingredient",
+    "pk": 28,
+    "fields": { "recipe": 12, "ingredient": 36, "preparation_type": null }
+  },
+  {
+    "model": "community.recipedietarydetail",
+    "pk": 1,
+    "fields": { "recipe": 1, "dietary_details": 3 }
+  },
+  {
+    "model": "community.recipedietarydetail",
+    "pk": 2,
+    "fields": { "recipe": 2, "dietary_details": 3 }
+  },
+  {
+    "model": "community.recipedietarydetail",
+    "pk": 7,
+    "fields": { "recipe": 12, "dietary_details": 1 }
+  },
+  {
+    "model": "community.recipenutrition",
+    "pk": 1,
+    "fields": {
+      "energy_per_serving": "639.00",
+      "protein_per_serving": "55.00",
+      "fat_total_per_serving": "19.60",
+      "carbohydrate_per_serving": "57.00"
+    }
+  },
+  {
+    "model": "community.recipenutrition",
+    "pk": 2,
+    "fields": {
+      "energy_per_serving": "891.00",
+      "protein_per_serving": "49.30",
+      "fat_total_per_serving": "47.10",
+      "carbohydrate_per_serving": "70.70"
+    }
+  },
+  {
+    "model": "community.mealkit",
+    "pk": 2,
+    "fields": {
+      "creator": 2,
+      "name": "Bulk-Up Power Meal Kit",
+      "image": "mealkits/salmon_teriyaki.png",
+      "description": "The Bulk-Up Power Meal Kit is designed for individuals aiming to increase muscle mass while enjoying delicious, nutrient-dense meals. This meal kit includes two high-protein recipes: Chicken and Vegetable Stir-Fry with Rice and Salmon Teriyaki with Rice. Both dishes feature a balanced combination of lean protein, wholesome vegetables, and satisfying rice, ensuring you're fueled with the right nutrients to support muscle growth and recovery. Each meal is simple to prepare, making it perfect for those with busy lifestyles but still looking to meet their fitness goals.",
+      "created_at": "2024-09-14T02:56:16.152Z",
+      "updated_at": "2024-09-15",
+      "is_customized": false,
+      "monetize": false
+    }
+  },
+  {
+    "model": "community.mealkitrecipe",
+    "pk": 1,
+    "fields": { "mealkit": 2, "recipe": 1, "quantity": 1 }
+  },
+  {
+    "model": "community.mealkitrecipe",
+    "pk": 2,
+    "fields": { "mealkit": 2, "recipe": 2, "quantity": 1 }
+  },
+  {
+    "model": "community.mealkitdietarydetail",
+    "pk": 1,
+    "fields": { "mealkit": 2, "dietary_details": 3 }
+  },
+  {
+    "model": "community.recipelike",
+    "pk": 1,
+    "fields": { "recipe": 2, "user": 4, "liked_at": "2024-10-06T04:46:41.390Z" }
+  },
+  {
+    "model": "community.recipelike",
+    "pk": 2,
+    "fields": {
+      "recipe": 12,
+      "user": 4,
+      "liked_at": "2024-10-06T05:08:43.749Z"
+    }
+  },
+  {
+    "model": "community.recipelike",
+    "pk": 3,
+    "fields": { "recipe": 2, "user": 3, "liked_at": "2024-10-06T05:10:10.711Z" }
+  },
+  {
+    "model": "community.recipecomment",
+    "pk": 1,
+    "fields": {
+      "recipe": 2,
+      "user": 4,
+      "commented_at": "2024-10-06T04:46:46.100Z",
+      "comment": "recipe is very helpful for weight loss"
+    }
+  },
+  {
+    "model": "community.mealkitlike",
+    "pk": 1,
+    "fields": {
+      "mealkit": 2,
+      "user": 4,
+      "liked_at": "2024-10-06T04:46:24.114Z"
+    }
+  },
+  {
+    "model": "community.mealkitcomment",
+    "pk": 1,
+    "fields": {
+      "mealkit": 2,
+      "user": 4,
+      "commented_at": "2024-10-06T04:46:29.244Z",
+      "comment": "mealkit is very helpful for bulking and adding power"
+    }
+  },
+  {
+    "model": "groceries.category",
+    "pk": 1,
+    "fields": { "name": "Poultry", "image": "category/poultry.png" }
+  },
+  {
+    "model": "groceries.category",
+    "pk": 2,
+    "fields": { "name": "Meat", "image": "category/meat.png" }
+  },
+  {
+    "model": "groceries.category",
+    "pk": 3,
+    "fields": { "name": "Seafood", "image": "category/seafood.png" }
+  },
+  {
+    "model": "groceries.category",
+    "pk": 4,
+    "fields": { "name": "Fruit", "image": "category/fruits.png" }
+  },
+  {
+    "model": "groceries.category",
+    "pk": 5,
+    "fields": { "name": "Vegetables", "image": "category/vegetables.png" }
+  },
+  {
+    "model": "groceries.category",
+    "pk": 6,
+    "fields": { "name": "Salad", "image": "category/salad.png" }
+  },
+  {
+    "model": "groceries.category",
+    "pk": 7,
+    "fields": { "name": "Bakery", "image": "category/bakery.png" }
+  },
+  {
+    "model": "groceries.category",
+    "pk": 8,
+    "fields": { "name": "Dairy", "image": "category/dairy.png" }
+  },
+  {
+    "model": "groceries.category",
+    "pk": 9,
+    "fields": { "name": "Eggs", "image": "category/eggs.png" }
+  },
+  {
+    "model": "groceries.category",
+    "pk": 10,
+    "fields": { "name": "Herbs", "image": "category/herbs.png" }
+  },
+  {
+    "model": "groceries.category",
+    "pk": 11,
+    "fields": { "name": "Spices", "image": "category/spices.png" }
+  },
+  {
+    "model": "groceries.category",
+    "pk": 12,
+    "fields": { "name": "Sauces", "image": "category/sauces.png" }
+  },
+  {
+    "model": "groceries.category",
+    "pk": 13,
+    "fields": { "name": "Pantry", "image": "category/pantry.png" }
+  },
+  {
+    "model": "groceries.category",
+    "pk": 14,
+    "fields": { "name": "Grains", "image": "category/grains.png" }
+  },
+  {
+    "model": "groceries.dietarydetail",
+    "pk": 1,
+    "fields": { "name": "Vegetarian" }
+  },
+  {
+    "model": "groceries.dietarydetail",
+    "pk": 2,
+    "fields": { "name": "Paleo" }
+  },
+  {
+    "model": "groceries.dietarydetail",
+    "pk": 3,
+    "fields": { "name": "High-Protein" }
+  },
+  {
+    "model": "groceries.dietarydetail",
+    "pk": 4,
+    "fields": { "name": "Dairy-Free" }
+  },
+  {
+    "model": "groceries.dietarydetail",
+    "pk": 5,
+    "fields": { "name": "Gluten-Free" }
+  },
+  {
+    "model": "groceries.dietarydetail",
+    "pk": 6,
+    "fields": { "name": "Halal" }
+  },
+  {
+    "model": "groceries.dietarydetail",
+    "pk": 8,
+    "fields": { "name": "Low-Carb" }
+  },
+  {
+    "model": "groceries.dietarydetail",
+    "pk": 9,
+    "fields": { "name": "Low-Sodium" }
+  },
+  {
+    "model": "groceries.dietarydetail",
+    "pk": 10,
+    "fields": { "name": "Nut-Free" }
+  },
+  {
+    "model": "groceries.dietarydetail",
+    "pk": 12,
+    "fields": { "name": "Pescatarian" }
+  },
+  {
+    "model": "groceries.dietarydetail",
+    "pk": 13,
+    "fields": { "name": "Sugar-Free" }
+  },
+  {
+    "model": "groceries.dietarydetail",
+    "pk": 14,
+    "fields": { "name": "Vegan" }
+  },
+  { "model": "groceries.unit", "pk": 1, "fields": { "name": "Kg" } },
+  { "model": "groceries.unit", "pk": 2, "fields": { "name": "g" } },
+  { "model": "groceries.unit", "pk": 3, "fields": { "name": "ml" } },
+  { "model": "groceries.unit", "pk": 4, "fields": { "name": "EA" } },
+  { "model": "groceries.unit", "pk": 5, "fields": { "name": "Clove" } },
+  {
+    "model": "groceries.product",
+    "pk": 1,
+    "fields": {
+      "name": "Chicken Breast Fillet Min. 1Kg",
+      "category_id": 1,
+      "unit_id": 1,
+      "unit_size": "1.00",
+      "price_per_unit": "12.00",
+      "measurement_size": "1.00",
+      "price_per_measurement": "12.00",
+      "description": "Rspca Approved Chicken Breast Fillet Min. 1Kg",
+      "stock": 100,
+      "image": "products/chicken_breast_KsbTnpG.png"
+    }
+  },
+  {
+    "model": "groceries.product",
+    "pk": 2,
+    "fields": {
+      "name": "Chicken Thigh Fillet Min. 1Kg",
+      "category_id": 1,
+      "unit_id": 1,
+      "unit_size": "1.00",
+      "price_per_unit": "14.50",
+      "measurement_size": "1.00",
+      "price_per_measurement": "14.50",
+      "description": "RSPCA Approved Chicken",
+      "stock": 100,
+      "image": "products/chicken_thigh_iEihTvc.png"
+    }
+  },
+  {
+    "model": "groceries.product",
+    "pk": 3,
+    "fields": {
+      "name": "Soft White Loaf 680g",
+      "category_id": 7,
+      "unit_id": 2,
+      "unit_size": "680.00",
+      "price_per_unit": "2.90",
+      "measurement_size": "100.00",
+      "price_per_measurement": "0.43",
+      "description": "Made in Australia from at least 92% Australian ingredients.\r\n\r\nIngredients\r\nWheat Flour (Vitamins (Thiamin, Folic Acid)), Water, Yeast, Vegetable Oils (Palm, Canola), Iodised Salt, Yellow Pea Flour, Wheat Gluten, Fermented Wheat Flour, Processing Aid (Wheat).\r\n\r\nAllergen\r\nContains:Gluten,Wheat\r\nMay contain:Egg,Lupin,Milk,Sesame,Soy,Peanuts,Tree Nuts",
+      "stock": 100,
+      "image": ""
+    }
+  },
+  {
+    "model": "groceries.product",
+    "pk": 4,
+    "fields": {
+      "name": "Mixed Vegetable Seasonal Mix Frozen 1kg",
+      "category_id": 5,
+      "unit_id": 1,
+      "unit_size": "1.00",
+      "price_per_unit": "6.80",
+      "measurement_size": "1.00",
+      "price_per_measurement": "6.80",
+      "description": "Carrots, broccoli, beans, cauliflower, capsicum.",
+      "stock": 97,
+      "image": ""
+    }
+  },
+  {
+    "model": "groceries.product",
+    "pk": 5,
+    "fields": {
+      "name": "Lee Kum Kee Soy Sauce Premium 500ml",
+      "category_id": 12,
+      "unit_id": 3,
+      "unit_size": "500.00",
+      "price_per_unit": "2.35",
+      "measurement_size": "100.00",
+      "price_per_measurement": "0.47",
+      "description": "Lee Kum Kee Premium Soy Sauce is made from soybeans and wheat flour. It is brewed according to the traditional method. Lee Kum Kee Premium Soy Sauce has a rich soy flavour, colour and aroma which will delicately enhance the taste of any dish. Use it as a meat marinade, a dipping sauce, and seasoning. Made with NON - GM soybeans.",
+      "stock": 100,
+      "image": ""
+    }
+  },
+  {
+    "model": "groceries.product",
+    "pk": 6,
+    "fields": {
+      "name": "Ayam Hoisin Sauce 210ml",
+      "category_id": 12,
+      "unit_id": 3,
+      "unit_size": "210.00",
+      "price_per_unit": "4.00",
+      "measurement_size": "100.00",
+      "price_per_measurement": "1.90",
+      "description": "Sweet and tangy, ideal as a marinade for meat, as a dipping sauce for spring rolls or dumplings, or use in stir fries.",
+      "stock": 0,
+      "image": ""
+    }
+  },
+  {
+    "model": "groceries.product",
+    "pk": 7,
+    "fields": {
+      "name": "Ohlio Canola Oil & Moro Extra Virgin Olive Oil Blend 1l",
+      "category_id": 13,
+      "unit_id": 3,
+      "unit_size": "1000.00",
+      "price_per_unit": "9.50",
+      "measurement_size": "100.00",
+      "price_per_measurement": "0.95",
+      "description": "Product of Spain",
+      "stock": 100,
+      "image": ""
+    }
+  },
+  {
+    "model": "groceries.product",
+    "pk": 8,
+    "fields": {
+      "name": "Garlic Head Each",
+      "category_id": 5,
+      "unit_id": 4,
+      "unit_size": "1.00",
+      "price_per_unit": "1.65",
+      "measurement_size": "1.00",
+      "price_per_measurement": "1.65",
+      "description": "Bulb made up of segments called cloves, covered by a papery shell. The most common varieties of garlic contain 10 cloves (or segments) with white skin. Other varieties have pink or purple skin and larger cloves. As a rule, the smaller the clove, the stronger the taste. \r\nIt is a member of the allium family that also includes onions, chives, shallots, spring onions and leeks.\r\n\r\nWhat to look for\r\nLook for firm well-shaped cloves. Buy in small amounts and break off the cloves only when needed. Garlic dries out once detached. bulb of garlic has had its roots trimmed, one at a time. Garlic is never labelled since it sheds its skin if a label is applied to it.\r\n\r\nAvailability\r\nAll year.\r\n\r\nStore\r\nKeep in a cool dry place away from the sunlight. Avoid placing in plastic bags, or storing in the refrigerator or everything in the refrigerator will end up tasting of garlic. Avoid storing next to ginger as ginger dehydrates garlic.\r\n\r\nHow to prepare\r\nSeparate cloves from bulbs, remove papery skin unless roasting when skin can be left on. Cut bulbs in half crosswise and brush with oil to roast. To remove skin, press the clove under the flat side of a knife and the skin will come off easily. Chop the garlic very finely or crush it with the side of a knife. Alternatively, use a garlic crusher.\r\n\r\nWays to eat\r\nGarlic can be eaten raw or cooked. Raw garlic produces a strong, pungent flavour while cooking gives a more mellow flavour. The longer garlic is cooked, the milder and sweeter the flavour. It's usually used in small amounts, 2-3 cloves to a dish. Garlic burns easily, so take care when frying or sauteing. It can be used in vegetable dishes, meats, soups, dips, stir fries, braises and stews. Add whole unpeeled cloves into a roasting pan with meat or vegetables. Cut a whole head in half horizontally and roast in a little olive oil. When cooked, serve as it is, or squeeze the roasted flesh out and serve on crostini or fresh bread.\r\n\r\nCooking Methods\r\nRoast, braise, stew, stir fry.",
+      "stock": 100,
+      "image": ""
+    }
+  },
+  {
+    "model": "groceries.product",
+    "pk": 9,
+    "fields": {
+      "name": "Ginger Fresh Per Kg",
+      "category_id": 11,
+      "unit_id": 1,
+      "unit_size": "1.00",
+      "price_per_unit": "27.00",
+      "measurement_size": "1.00",
+      "price_per_measurement": "27.00",
+      "description": "Ginger Fresh Per Kg",
+      "stock": 100,
+      "image": ""
+    }
+  },
+  {
+    "model": "groceries.product",
+    "pk": 10,
+    "fields": {
+      "name": "Jasmine Rice 1kg",
+      "category_id": 14,
+      "unit_id": 1,
+      "unit_size": "1.00",
+      "price_per_unit": "3.50",
+      "measurement_size": "1.00",
+      "price_per_measurement": "3.50",
+      "description": "Product of Thailand",
+      "stock": 100,
+      "image": ""
+    }
+  },
+  {
+    "model": "groceries.product",
+    "pk": 11,
+    "fields": {
+      "name": "Iodised Table Salt Drum 500g",
+      "category_id": 11,
+      "unit_id": 2,
+      "unit_size": "500.00",
+      "price_per_unit": "1.50",
+      "measurement_size": "10.00",
+      "price_per_measurement": "0.03",
+      "description": "Homebrand Iodised Table Salt",
+      "stock": 100,
+      "image": ""
+    }
+  },
+  {
+    "model": "groceries.product",
+    "pk": 12,
+    "fields": {
+      "name": "Pepper Grinder Black Peppercorn 50g",
+      "category_id": 11,
+      "unit_id": 2,
+      "unit_size": "50.00",
+      "price_per_unit": "3.40",
+      "measurement_size": "10.00",
+      "price_per_measurement": "0.68",
+      "description": "Black Peppercorn Grinder",
+      "stock": 100,
+      "image": ""
+    }
+  },
+  {
+    "model": "groceries.product",
+    "pk": 13,
+    "fields": {
+      "name": "Salmon Tasmanian Atlantic Fillets Skin On Per Kg",
+      "category_id": 3,
+      "unit_id": 1,
+      "unit_size": "1.00",
+      "price_per_unit": "36.00",
+      "measurement_size": "1.00",
+      "price_per_measurement": "36.00",
+      "description": "Salmon Tasmanian Atlantic Fillets Skin On Per Kg",
+      "stock": 100,
+      "image": ""
+    }
+  },
+  {
+    "model": "groceries.product",
+    "pk": 14,
+    "fields": {
+      "name": "Ayam Teriyaki Sauce 210ml",
+      "category_id": 12,
+      "unit_id": 3,
+      "unit_size": "210.00",
+      "price_per_unit": "4.00",
+      "measurement_size": "100.00",
+      "price_per_measurement": "1.90",
+      "description": "Mild and sweet with a slight hint of ginger, use as a marinade for meat or fish for grills, roasts, and barbecues.",
+      "stock": 100,
+      "image": ""
+    }
+  },
+  {
+    "model": "groceries.product",
+    "pk": 15,
+    "fields": {
+      "name": "Pure Honey Squeeze 400g",
+      "category_id": 13,
+      "unit_id": 2,
+      "unit_size": "400.00",
+      "price_per_unit": "4.70",
+      "measurement_size": "100.00",
+      "price_per_measurement": "1.18",
+      "description": "This richly flavoured honey has been sourced from select international honeys and then expertly blended with delicious, delicate Australian honey. Enjoy it as a sweetener on cereals, in your favourite drinks or spread on toast. This pure honey will naturally crystallise over time. This has no effect on the honey other than to change its colour and texture. If crystallisation does occur, simply stand the bottle in hot water to clear.",
+      "stock": 100,
+      "image": "products/honey.jpg"
+    }
+  },
+  {
+    "model": "groceries.product",
+    "pk": 16,
+    "fields": {
+      "name": "Beans Round Per Kg",
+      "category_id": 5,
+      "unit_id": 2,
+      "unit_size": "100.00",
+      "price_per_unit": "9.90",
+      "measurement_size": "1.00",
+      "price_per_measurement": "0.10",
+      "description": "Beans Round Per Kg",
+      "stock": 100,
+      "image": "products/beans_round.jpg"
+    }
+  },
+  {
+    "model": "groceries.product",
+    "pk": 17,
+    "fields": {
+      "name": "Hoyt's Sesame Seeds 100g",
+      "category_id": 11,
+      "unit_id": 2,
+      "unit_size": "100.00",
+      "price_per_unit": "3.00",
+      "measurement_size": "100.00",
+      "price_per_measurement": "3.00",
+      "description": "Hoyt's 100% Australian family owned company.\r\n\r\nTastes similar to roasted almonds.\r\n\r\nPacked in Australia from Imported Product",
+      "stock": 100,
+      "image": "products/sesame_seed.jpg"
+    }
+  },
+  {
+    "model": "groceries.product",
+    "pk": 18,
+    "fields": {
+      "name": "Sunny Queen 12 Extra Large Free Range Eggs 700g",
+      "category_id": 9,
+      "unit_id": 2,
+      "unit_size": "700.00",
+      "price_per_unit": "7.50",
+      "measurement_size": "100.00",
+      "price_per_measurement": "1.07",
+      "description": "Our smiley Free Range eggs are laid by happy country hens on farms with a maximum outdoor density of 1500 hens per hectare. That�s over 6 times more space than the Australian National Free Range Standard Limit and lots of room to roam, peck and play with their friends during the day! At night they sleep inside where they are safe from other animals and harsh weather. Our farms are independently audited, so you can feel confident that the hens laying your eggs are well cared for, and only the best quality golden-yolked Free Range eggs make it to your table to Make Every Day Sunny! All our eggs come in 100% biodegradable and compostable egg cartons. We�re proudly farmed by Aussie families with over 50 years of eggs-perience delivering nutritious food from our farms to your table.",
+      "stock": 100,
+      "image": ""
+    }
+  },
+  {
+    "model": "groceries.productdietarydetail",
+    "pk": 1,
+    "fields": { "product": 1, "dietary_details": 2 }
+  },
+  {
+    "model": "groceries.productdietarydetail",
+    "pk": 2,
+    "fields": { "product": 1, "dietary_details": 3 }
+  },
+  {
+    "model": "groceries.productdietarydetail",
+    "pk": 3,
+    "fields": { "product": 2, "dietary_details": 2 }
+  },
+  {
+    "model": "groceries.productdietarydetail",
+    "pk": 4,
+    "fields": { "product": 2, "dietary_details": 3 }
+  },
+  {
+    "model": "groceries.productdietarydetail",
+    "pk": 5,
+    "fields": { "product": 3, "dietary_details": 1 }
+  },
+  {
+    "model": "groceries.preparationtype",
+    "pk": 1,
+    "fields": { "name": "Whole", "category": 1, "additional_price": "0.00" }
+  },
+  {
+    "model": "groceries.preparationtype",
+    "pk": 2,
+    "fields": { "name": "Fillet", "category": 1, "additional_price": "1.50" }
+  },
+  {
+    "model": "groceries.preparationtype",
+    "pk": 3,
+    "fields": { "name": "Diced", "category": 1, "additional_price": "1.00" }
+  },
+  {
+    "model": "groceries.preparationtype",
+    "pk": 4,
+    "fields": { "name": "Sliced", "category": 1, "additional_price": "0.80" }
+  },
+  {
+    "model": "groceries.preparationtype",
+    "pk": 5,
+    "fields": { "name": "Minced", "category": 1, "additional_price": "1.50" }
+  },
+  {
+    "model": "groceries.preparationtype",
+    "pk": 6,
+    "fields": { "name": "Cutlets", "category": 1, "additional_price": "1.20" }
+  },
+  {
+    "model": "groceries.preparationtype",
+    "pk": 7,
+    "fields": {
+      "name": "Butterflied",
+      "category": 1,
+      "additional_price": "1.20"
+    }
+  },
+  {
+    "model": "groceries.preparationtype",
+    "pk": 8,
+    "fields": { "name": "Skinless", "category": 1, "additional_price": "0.60" }
+  },
+  {
+    "model": "groceries.preparationtype",
+    "pk": 9,
+    "fields": { "name": "Whole", "category": 2, "additional_price": "0.00" }
+  },
+  {
+    "model": "groceries.preparationtype",
+    "pk": 10,
+    "fields": { "name": "Fillet", "category": 2, "additional_price": "1.50" }
+  },
+  {
+    "model": "groceries.preparationtype",
+    "pk": 11,
+    "fields": { "name": "Diced", "category": 2, "additional_price": "1.00" }
+  },
+  {
+    "model": "groceries.preparationtype",
+    "pk": 12,
+    "fields": { "name": "Sliced", "category": 2, "additional_price": "0.80" }
+  },
+  {
+    "model": "groceries.preparationtype",
+    "pk": 13,
+    "fields": { "name": "Minced", "category": 2, "additional_price": "1.50" }
+  },
+  {
+    "model": "groceries.preparationtype",
+    "pk": 14,
+    "fields": { "name": "Cutlets", "category": 2, "additional_price": "1.20" }
+  },
+  {
+    "model": "groceries.preparationtype",
+    "pk": 15,
+    "fields": {
+      "name": "Butterflied",
+      "category": 2,
+      "additional_price": "1.20"
+    }
+  },
+  {
+    "model": "groceries.preparationtype",
+    "pk": 16,
+    "fields": { "name": "Skinless", "category": 2, "additional_price": "0.60" }
+  },
+  {
+    "model": "groceries.preparationtype",
+    "pk": 17,
+    "fields": { "name": "Whole", "category": 5, "additional_price": "0.00" }
+  },
+  {
+    "model": "groceries.preparationtype",
+    "pk": 18,
+    "fields": { "name": "Peeled", "category": 5, "additional_price": "0.20" }
+  },
+  {
+    "model": "groceries.preparationtype",
+    "pk": 19,
+    "fields": { "name": "Diced", "category": 5, "additional_price": "0.40" }
+  },
+  {
+    "model": "groceries.preparationtype",
+    "pk": 20,
+    "fields": { "name": "Julienned", "category": 5, "additional_price": "0.60" }
+  },
+  {
+    "model": "groceries.preparationtype",
+    "pk": 21,
+    "fields": { "name": "Grated", "category": 5, "additional_price": "0.50" }
+  },
+  {
+    "model": "groceries.preparationtype",
+    "pk": 22,
+    "fields": { "name": "Sliced", "category": 5, "additional_price": "0.30" }
+  },
+  {
+    "model": "groceries.preparationtype",
+    "pk": 23,
+    "fields": { "name": "Chopped", "category": 5, "additional_price": "0.30" }
+  },
+  {
+    "model": "groceries.preparationtype",
+    "pk": 24,
+    "fields": { "name": "Trimmed", "category": 5, "additional_price": "0.10" }
+  },
+  {
+    "model": "groceries.preparationtype",
+    "pk": 25,
+    "fields": { "name": "Whole", "category": 4, "additional_price": "0.00" }
+  },
+  {
+    "model": "groceries.preparationtype",
+    "pk": 26,
+    "fields": { "name": "Peeled", "category": 4, "additional_price": "0.30" }
+  },
+  {
+    "model": "groceries.preparationtype",
+    "pk": 27,
+    "fields": { "name": "Sliced", "category": 4, "additional_price": "0.40" }
+  },
+  {
+    "model": "groceries.preparationtype",
+    "pk": 28,
+    "fields": { "name": "Diced", "category": 4, "additional_price": "0.50" }
+  },
+  {
+    "model": "groceries.preparationtype",
+    "pk": 29,
+    "fields": { "name": "Whole", "category": 3, "additional_price": "0.00" }
+  },
+  {
+    "model": "groceries.preparationtype",
+    "pk": 30,
+    "fields": { "name": "Fillet", "category": 3, "additional_price": "1.50" }
+  },
+  {
+    "model": "groceries.preparationtype",
+    "pk": 31,
+    "fields": { "name": "Cleaned", "category": 3, "additional_price": "0.70" }
+  },
+  {
+    "model": "groceries.preparationtype",
+    "pk": 32,
+    "fields": { "name": "Diced", "category": 3, "additional_price": "0.80" }
+  },
+  {
+    "model": "groceries.preparationtype",
+    "pk": 33,
+    "fields": {
+      "name": "Butterflied",
+      "category": 3,
+      "additional_price": "1.00"
+    }
+  },
+  {
+    "model": "groceries.preparationtype",
+    "pk": 34,
+    "fields": { "name": "Whole", "category": 10, "additional_price": "0.00" }
+  },
+  {
+    "model": "groceries.preparationtype",
+    "pk": 35,
+    "fields": { "name": "Chopped", "category": 10, "additional_price": "0.20" }
+  },
+  {
+    "model": "groceries.productnutrition",
+    "pk": 3,
+    "fields": {
+      "servings_per_package": 9,
+      "serving_size": "75.00",
+      "energy_per_serving": "765.00",
+      "protein_per_serving": "5.70",
+      "fat_total_per_serving": "1.50",
+      "saturated_fat_per_serving": "0.50",
+      "carbohydrate_per_serving": "35.20",
+      "sugars_per_serving": "0.79",
+      "dietary_fibre_per_serving": "1.40",
+      "sodium_per_serving": "250.00",
+      "energy_per_100g": "1020.00",
+      "protein_per_100g": "7.60",
+      "fat_total_per_100g": "2.00",
+      "saturated_fat_per_100g": "0.70",
+      "carbohydrate_per_100g": "47.00",
+      "sugars_per_100g": "1.07",
+      "dietary_fibre_per_100g": "1.90",
+      "sodium_per_100g": "333.00"
+    }
+  },
+  { "model": "orders.orderstatuses", "pk": 1, "fields": { "name": "pending" } },
+  { "model": "orders.orderstatuses", "pk": 2, "fields": { "name": "paid" } },
+  {
+    "model": "orders.orderstatuses",
+    "pk": 3,
+    "fields": { "name": "preparing" }
+  },
+  {
+    "model": "orders.orderstatuses",
+    "pk": 4,
+    "fields": { "name": "ready to deliver" }
+  },
+  {
+    "model": "orders.orderstatuses",
+    "pk": 5,
+    "fields": { "name": "delivering" }
+  },
+  {
+    "model": "orders.orderstatuses",
+    "pk": 6,
+    "fields": { "name": "delivered" }
+  },
+  {
+    "model": "orders.orderstatuses",
+    "pk": 7,
+    "fields": { "name": "completed" }
+  },
+  {
+    "model": "orders.orderstatuses",
+    "pk": 8,
+    "fields": { "name": "cancelled" }
+  },
+  {
+    "model": "orders.orders",
+    "pk": 4,
+    "fields": {
+      "user_id": 4,
+      "order_status": 4,
+      "created_at": "2024-09-18T09:46:10.770Z",
+      "updated_at": "2024-09-26",
+      "passcode": "3333",
+      "total": "85.21",
+      "delivery_proof_photo": ""
+    }
+  },
+  {
+    "model": "orders.orderproducts",
+    "pk": 5,
+    "fields": { "order": 4, "product": 2, "quantity": 2, "total": "29.00" }
+  },
+  {
+    "model": "orders.orderproducts",
+    "pk": 6,
+    "fields": { "order": 4, "product": 4, "quantity": 1, "total": "6.80" }
+  },
+  {
+    "model": "orders.ordermealkits",
+    "pk": 3,
+    "fields": { "order": 4, "mealkit": 2, "quantity": 2, "total": "25.96" }
+  },
+  {
+    "model": "orders.orderrecipes",
+    "pk": 3,
+    "fields": {
+      "order": 4,
+      "recipe": 1,
+      "mealkit": null,
+      "quantity": 2,
+      "total": "6.98"
+    }
+  },
+  {
+    "model": "orders.orderrecipes",
+    "pk": 4,
+    "fields": {
+      "order": 4,
+      "recipe": 2,
+      "mealkit": null,
+      "quantity": 1,
+      "total": "9.49"
+    }
+  },
+  {
+    "model": "orders.deliverylocation",
+    "pk": 1,
+    "fields": {
+      "name": "UQ",
+      "branch": "Union Complex",
+      "address_line1": "St Lucia QLD 4072",
+      "address_line2": "St Lucia QLD 4072",
+      "city": "Brisbane",
+      "postal_code": "4072",
+      "country": "Australia",
+      "details": "Union Complex, St Lucia QLD 4067",
+      "delivery_fee": "10.00",
+      "longitude": "153.0153",
+      "latitude": "-27.4971"
+    }
+  },
+  {
+    "model": "orders.deliverylocation",
+    "pk": 2,
+    "fields": {
+      "name": "UQ",
+      "branch": "Biological Sciences Library",
+      "address_line1": "The University of Queensland",
+      "address_line2": "Building 94 Slip Rd",
+      "city": "Brisbane",
+      "postal_code": "4067",
+      "country": "Australia",
+      "details": "The University of Queensland, Building 94 Slip Rd, St Lucia QLD 4067",
+      "delivery_fee": "10.00",
+      "longitude": "153.0115",
+      "latitude": "-27.4967"
+    }
+  },
+  {
+    "model": "orders.deliverytimeslot",
+    "pk": 1,
+    "fields": {
+      "name": "Morning",
+      "start_time": "09:30:00",
+      "end_time": "10:00:00",
+      "cut_off": "07:00:00"
+    }
+  },
+  {
+    "model": "orders.deliverytimeslot",
+    "pk": 2,
+    "fields": {
+      "name": "Noon",
+      "start_time": "12:30:00",
+      "end_time": "13:00:00",
+      "cut_off": "10:30:00"
+    }
+  },
+  {
+    "model": "orders.deliverytimeslot",
+    "pk": 3,
+    "fields": {
+      "name": "Afternoon",
+      "start_time": "14:30:00",
+      "end_time": "15:00:00",
+      "cut_off": "12:30:00"
+    }
+  },
+  {
+    "model": "orders.lockers",
+    "pk": 1,
+    "fields": {
+      "location": 1,
+      "locker_number": "1",
+      "is_occupied": false,
+      "updated_at": "2024-09-26T09:44:51.647Z"
+    }
+  },
+  {
+    "model": "orders.lockers",
+    "pk": 2,
+    "fields": {
+      "location": 1,
+      "locker_number": "2",
+      "is_occupied": false,
+      "updated_at": "2024-09-26T09:44:55.187Z"
+    }
+  },
+  {
+    "model": "orders.lockers",
+    "pk": 3,
+    "fields": {
+      "location": 1,
+      "locker_number": "3",
+      "is_occupied": false,
+      "updated_at": "2024-09-26T09:44:58.544Z"
+    }
+  },
+  {
+    "model": "orders.lockers",
+    "pk": 4,
+    "fields": {
+      "location": 1,
+      "locker_number": "4",
+      "is_occupied": false,
+      "updated_at": "2024-09-26T09:45:01.330Z"
+    }
+  },
+  {
+    "model": "orders.lockers",
+    "pk": 5,
+    "fields": {
+      "location": 1,
+      "locker_number": "5",
+      "is_occupied": false,
+      "updated_at": "2024-09-26T09:45:04.103Z"
+    }
+  },
+  {
+    "model": "orders.lockers",
+    "pk": 6,
+    "fields": {
+      "location": 1,
+      "locker_number": "6",
+      "is_occupied": false,
+      "updated_at": "2024-09-26T09:45:08.391Z"
+    }
+  },
+  {
+    "model": "orders.lockers",
+    "pk": 7,
+    "fields": {
+      "location": 1,
+      "locker_number": "7",
+      "is_occupied": false,
+      "updated_at": "2024-09-26T09:45:11.580Z"
+    }
+  },
+  {
+    "model": "orders.lockers",
+    "pk": 8,
+    "fields": {
+      "location": 1,
+      "locker_number": "8",
+      "is_occupied": false,
+      "updated_at": "2024-09-26T09:45:15.635Z"
+    }
+  },
+  {
+    "model": "orders.lockers",
+    "pk": 9,
+    "fields": {
+      "location": 1,
+      "locker_number": "9",
+      "is_occupied": false,
+      "updated_at": "2024-09-26T09:45:20.338Z"
+    }
+  },
+  {
+    "model": "orders.deliverydetails",
+    "pk": 3,
+    "fields": {
+      "order": 4,
+      "delivery_location": 1,
+      "delivery_time": 1,
+      "delivery_date": "2024-10-01",
+      "locker": 1,
+      "qr_code": "uq union_afternoon_2024-10-01_4_1"
+    }
+  }
+]
