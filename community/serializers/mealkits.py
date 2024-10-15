@@ -36,11 +36,12 @@ class CommunityMealKitsSerializer(serializers.ModelSerializer):
     dietary_details = serializers.SerializerMethodField()
     price = serializers.SerializerMethodField()
     likes_count = serializers.IntegerField( read_only=True)  
-    comments_count = serializers.IntegerField( read_only=True)  
+    comments_count = serializers.IntegerField( read_only=True)
+    meal_types = serializers.SerializerMethodField()  
 
     class Meta:
         model = MealKit
-        fields = ["id", "name", "image", "creator", "created_at", "description", "dietary_details", "price", "likes_count", "comments_count"]
+        fields = ["id", "name", "image", "creator", "created_at", "description", "dietary_details", "meal_types", "price", "likes_count", "comments_count"]
 
     def get_creator(self, obj):
         return {
@@ -59,3 +60,11 @@ class CommunityMealKitsSerializer(serializers.ModelSerializer):
             recipe_serializer = RecipesSerializer(recipe)
             total_price += recipe_serializer.data.get("total_price", 0) * meal_kit_recipe.quantity
         return total_price
+    
+    def get_meal_types(self, obj):
+        meal_kit_recipes = MealKitRecipe.objects.filter(mealkit=obj)
+        meal_types = set()  
+        for meal_kit_recipe in meal_kit_recipes:
+            meal_type = meal_kit_recipe.recipe.meal_type.name  # Assuming meal_type is a ForeignKey field in the Recipe model
+            meal_types.add(meal_type)
+        return list(meal_types)
