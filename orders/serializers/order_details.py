@@ -75,7 +75,7 @@ class DeliveryDetailsSerializer(serializers.ModelSerializer):
 
     class Meta:
         model = DeliveryDetails
-        fields = ['delivery_location', 'delivery_time', 'delivery_date', 'locker_number', 'qr_code', 'passcode']
+        fields = ['delivery_location', 'delivery_time', 'delivery_date', 'locker_number']
 
 class OrderDetailSerializer(serializers.ModelSerializer):
     products = OrderProductSerializer(source='orderproducts_set', many=True)
@@ -86,7 +86,7 @@ class OrderDetailSerializer(serializers.ModelSerializer):
 
     class Meta:
         model = Orders
-        fields = ['id', 'user_id', 'order_status', 'created_at', 'updated_at', 'total', 'products', 'recipes', 'meal_kits', 'delivery_details']
+        fields = ['id', 'user_id', 'order_status', 'created_at', 'updated_at', 'total', 'products', 'recipes', 'meal_kits', 'delivery_details', 'passcode']
 
     def get_recipes(self, obj):
         standalone_recipes = OrderRecipes.objects.filter(order=obj, mealkit__isnull=True)
