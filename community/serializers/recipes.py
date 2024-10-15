@@ -65,11 +65,7 @@ class RecipesSerializer(serializers.ModelSerializer):
         return {
             "name": f"{obj.creator.first_name} {obj.creator.last_name}",
             "profile_picture": obj.creator.image.url if obj.creator.image else None,
-<<<<<<< HEAD
             "id": obj.creator.id
-=======
-            "userID": obj.creator.id
->>>>>>> 1e114faeb09fe6b7b7bde7d14f60dcbeb8734e77
         }
 
     def get_dietary_details(self, obj):
