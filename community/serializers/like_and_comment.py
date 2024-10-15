@@ -4,20 +4,6 @@ from .recipes import RecipesSerializer
 from .mealkits import MealKitsSerializer
 from user_auth.models import User
 
-class UserSerializer(serializers.ModelSerializer):
-    name = serializers.SerializerMethodField()
-    profile_picture = serializers.SerializerMethodField()
-
-    class Meta:
-        model = User
-        fields = ['id', 'name', 'profile_picture']
-
-    def get_name(self, obj):
-        return f"{obj.first_name} {obj.last_name}"
-
-    def get_profile_picture(self, obj):
-        return obj.image.url if obj.image else None
-
 class RecipeLikeSerializer(serializers.ModelSerializer):
     class Meta:
         model = RecipeLike
@@ -25,14 +11,23 @@ class RecipeLikeSerializer(serializers.ModelSerializer):
 
 class RecipeCommentSerializer(serializers.ModelSerializer):
     is_creator = serializers.SerializerMethodField()
-    user = UserSerializer()
+    user = serializers.PrimaryKeyRelatedField(queryset=User.objects.all(), write_only=True)  
+    user_details = serializers.SerializerMethodField(read_only=True)  
 
     class Meta:
         model = RecipeComment
-        fields = ['id', 'recipe', 'user', 'comment', 'commented_at', 'is_creator']
-    
+        fields = ['id', 'recipe', 'user', 'user_details', 'comment', 'commented_at', 'is_creator']
+
     def get_is_creator(self, obj):
         return obj.user == obj.recipe.creator
+
+    def get_user_details(self, obj):
+        # Return user details for read operations
+        return {
+            "id": obj.user.id,
+            "name": f"{obj.user.first_name} {obj.user.last_name}",
+            "profile_picture": obj.user.image.url if obj.user.image else None
+        }
 
 class MealKitLikeSerializer(serializers.ModelSerializer):
     class Meta:
@@ -41,14 +36,23 @@ class MealKitLikeSerializer(serializers.ModelSerializer):
 
 class MealKitCommentSerializer(serializers.ModelSerializer):
     is_creator = serializers.SerializerMethodField()
-    user = UserSerializer()
+    user = serializers.PrimaryKeyRelatedField(queryset=User.objects.all(), write_only=True)  # Handle write operations
+    user_details = serializers.SerializerMethodField(read_only=True)  # Custom field for read operations
 
     class Meta:
         model = MealKitComment
-        fields = ['id', 'mealkit', 'user', 'comment', 'commented_at', 'is_creator']
-    
+        fields = ['id', 'mealkit', 'user', 'user_details', 'comment', 'commented_at', 'is_creator']
+
     def get_is_creator(self, obj):
         return obj.user == obj.mealkit.creator
+
+    def get_user_details(self, obj):
+        # Return user details for read operations
+        return {
+            "id": obj.user.id,
+            "name": f"{obj.user.first_name} {obj.user.last_name}",
+            "profile_picture": obj.user.image.url if obj.user.image else None
+        }
 
 class UserRecipeLikeSerializer(serializers.ModelSerializer):
     recipe = RecipesSerializer(read_only=True)
