@@ -4,7 +4,7 @@ from django.contrib.auth.models import (
     PermissionsMixin,
 )
 from django.db import models
-
+from groceries.models import DietaryDetail
 
 class CustomUserManager(BaseUserManager):
     def create_user(self, email, first_name, last_name, password=None, **extra_fields):
@@ -39,6 +39,14 @@ class User(AbstractBaseUser, PermissionsMixin):
     )
     image = models.ImageField(upload_to="images/", blank=True, null=True)
     voucher_credits = models.DecimalField(max_digits=10, decimal_places=2, default=0.00)
+
+    gender = models.CharField(
+        max_length=10,
+        choices=[('Male', 'Male'), ('Female', 'Female'), ('Non-Binary', 'Non-Binary')],
+        null=True,
+        blank=True
+    )
+    dietary_requirements = models.ManyToManyField(DietaryDetail, blank=True)
 
     objects = CustomUserManager()
 
