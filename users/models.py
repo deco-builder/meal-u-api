@@ -1,6 +1,7 @@
 from django.db import models
 from user_auth.models import User
 from orders.models import DeliveryLocation, PaymentMethod
+from groceries.models import DietaryDetail
 
 class AccountStatus(models.Model):
     name = models.CharField(max_length=255, null=False, blank=False)
@@ -22,6 +23,16 @@ class UserProfile(models.Model):
     updated_at = models.DateTimeField(auto_now=True)
     profile_pic = models.URLField()
     phone_number = models.CharField(max_length=20)
+    gender = models.CharField(
+        max_length=10,
+        choices=[('Male', 'Male'), ('Female', 'Female'), ('Non-Binary', 'Non-Binary')],
+        null=True,
+        blank=True
+    )
+    dietary_requirements = models.ManyToManyField(DietaryDetail, blank=True)
+
+    def __str__(self):
+        return f"{self.user.username} Profile"
 
 class UserPaymentMethod(models.Model):
     user = models.ForeignKey(User, on_delete=models.CASCADE)
