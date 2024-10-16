@@ -82,8 +82,8 @@ class CartMealKitSerializer(serializers.ModelSerializer):
         fields = ["id", "mealkit", "name", "image", "quantity", "recipes", "total_price"]
 
     def get_image(self, obj):
-        if obj.recipe.image and hasattr(obj.recipe.image, 'url'):
-            return obj.recipe.image.url
+        if obj.mealkit.image and hasattr(obj.mealkit.image, 'url'):
+            return obj.mealkit.image.url
         return None
 
     def get_recipes(self, obj):
