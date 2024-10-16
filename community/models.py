@@ -152,6 +152,9 @@ class RecipeLike(models.Model):
     user = models.ForeignKey(User, on_delete=models.CASCADE, null=False, blank=False)
     liked_at = models.DateTimeField(auto_now_add=True)
 
+    def __str__(self):
+        return str(self.recipe) + " " + str(self.user)
+
 
 class RecipeComment(models.Model):
     recipe = models.ForeignKey(Recipe, on_delete=models.CASCADE, null=False, blank=False)
@@ -176,6 +179,9 @@ class MealKitLike(models.Model):
     mealkit = models.ForeignKey(MealKit, on_delete=models.CASCADE, null=False, blank=False)
     user = models.ForeignKey(User, on_delete=models.CASCADE, null=False, blank=False)
     liked_at = models.DateTimeField(auto_now_add=True)
+
+    def __str__(self):
+        return str(self.mealkit) + " " + str(self.user)
 
 
 class MealKitComment(models.Model):

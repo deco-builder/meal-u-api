@@ -1,5 +1,5 @@
 from django.db.models import Q, Count
-from ..models import Recipe, RecipeIngredient, DietaryDetail
+from ..models import Recipe, RecipeIngredient, DietaryDetail, RecipeLike
 from ..serializers.recipes import RecipesSerializer, TrendingRecipesSerializer, TopCreatorSerializer
 from .like_and_comment import RecipeLikeAndCommentService
 
@@ -34,7 +34,7 @@ class RecipesService:
         except Exception as e:
             raise e
 
-    def get_with_stats(self, dietary_details=None, search=None):
+    def get_with_stats(self, user=None, dietary_details=None, search=None):
         """
         Fetch recipes with dietary details, likes, and comments stats for the community page.
         """
@@ -78,6 +78,12 @@ class RecipesService:
                         else 0
                     )
                     total_price += ingredient_price + preparation_price
+
+                try:
+                    is_like = RecipeLike.objects.get(recipe=recipe.id, user=user)
+                except RecipeLike.DoesNotExist:
+                    is_like = None
+
                 recipe_data = {
                     "id": recipe.id,
                     "creator": {
@@ -96,6 +102,7 @@ class RecipesService:
                     "total_price": total_price,
                     "likes_count": recipe.likes_count,
                     "comments_count": recipe.comments_count,
+                    "is_like": False if is_like == None else True
                 }
                 recipes_with_stats.append(recipe_data)
 

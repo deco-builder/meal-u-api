@@ -46,7 +46,7 @@ class CommunityRecipesView(APIView):
                 dietary_details = list(map(str, dietary_details))
 
             # Fetch recipes with likes and comments stats
-            response = self.recipes_service.get_with_stats(dietary_details=dietary_details, search=search)
+            response = self.recipes_service.get_with_stats(user=request.user, dietary_details=dietary_details, search=search)
             return Response(prepare_success_response(response), status=status.HTTP_200_OK)
         except Exception as e:
             return Response(prepare_error_response(str(e)), status=status.HTTP_400_BAD_REQUEST)
