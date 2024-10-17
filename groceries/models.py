@@ -61,6 +61,9 @@ class ProductDietaryDetail(models.Model):
 
     class Meta:
         unique_together = ("product", "dietary_details")
+    
+    def __str__(self):
+        return self.product.name + " " + self.dietary_details.name
 
 
 class PreparationType(models.Model):
@@ -94,3 +97,6 @@ class ProductNutrition(models.Model):
     sugars_per_100g = models.DecimalField(max_digits=6, decimal_places=2, null=True, help_text="in grams")
     dietary_fibre_per_100g = models.DecimalField(max_digits=6, decimal_places=2, null=True, help_text="in grams")
     sodium_per_100g = models.DecimalField(max_digits=6, decimal_places=2, null=True, help_text="in mg")
+
+    def __str__(self):
+        return self.product_id.name + " nutrition"

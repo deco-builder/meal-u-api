@@ -38,11 +38,12 @@ class CommunityMealKitsSerializer(serializers.ModelSerializer):
     price = serializers.SerializerMethodField()
     likes_count = serializers.IntegerField( read_only=True)  
     comments_count = serializers.IntegerField( read_only=True)
-    meal_types = serializers.SerializerMethodField()  
+    meal_types = serializers.SerializerMethodField() 
+    is_like = serializers.BooleanField()
 
     class Meta:
         model = MealKit
-        fields = ["id", "name", "image", "creator", "created_at", "description", "dietary_details", "meal_types", "price", "likes_count", "comments_count"]
+        fields = ["id", "name", "image", "creator", "created_at", "description", "dietary_details", "meal_types", "price", "likes_count", "comments_count", "is_like"]
 
     def get_creator(self, obj):
         return {

@@ -1,7 +1,7 @@
 from ..models import MealKit, Recipe
 from ..serializers.mealkits import MealKitsSerializer, CommunityMealKitsSerializer
 from ..serializers.recipes import RecipesSerializer
-from django.db.models import Q, Count
+from django.db.models import Q, Count, Case, When, Value, BooleanField
 
 
 class MealKitsServices:
@@ -45,11 +45,16 @@ class MealKitsServices:
         except Exception as e:
             raise e
     
-    def get_with_stats(self):
+    def get_with_stats(self, user=None):
         try:
             queryset = MealKit.objects.prefetch_related("mealkitdietarydetail_set__dietary_details").annotate(
                 likes_count=Count('mealkitlike'),
-                comments_count=Count('mealkitcomment') 
+                comments_count=Count('mealkitcomment'),
+                is_like=Case(
+                    When(mealkitlike__user=user, then=Value(True)),
+                    default=Value(False),
+                    output_field=BooleanField(),
+                )
             )
 
             mealkits = queryset.order_by("name").all().distinct()

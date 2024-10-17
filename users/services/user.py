@@ -1,8 +1,4 @@
-# services/user_service.py
-
-from ..models import User, UserProfile
-# services/user_service.py
-
+from groceries.models import DietaryDetail
 import logging
 
 logger = logging.getLogger(__name__)
@@ -23,22 +19,15 @@ class UserService:
         if 'image' in data:
             user.image = data['image']
             logger.info(f"Updated image to {user.image}")
+        if 'gender' in data:
+            user.gender = data['gender']
+            logger.info(f"Updated gender to {user.gender}")
+        if 'dietary_requirements' in data:
+            dietary_ids = data['dietary_requirements']
+            user.dietary_requirements.set(DietaryDetail.objects.filter(id__in=dietary_ids))
+            logger.info(f"Updated dietary_requirements to {user.dietary_requirements.all()}")
 
         user.save()
         logger.info("User data saved")
-
-        # Update UserProfile fields if profile exists and data is provided
-        profile_data = data.get('profile')
-        if profile_data and hasattr(user, 'userprofile'):
-            profile = user.userprofile
-            if 'profile_pic' in profile_data:
-                profile.profile_pic = profile_data['profile_pic']
-                logger.info(f"Updated profile_pic to {profile.profile_pic}")
-                profile.save()
-                logger.info("Profile data saved")
-            else:
-                logger.info("No profile_pic data provided, skipping profile update")
-        else:
-            logger.info("No profile data provided or user has no profile, skipping profile update")
 
         return user
