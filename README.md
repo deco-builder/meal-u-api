@@ -6,12 +6,24 @@ MealU addresses the difficulty of providing university students with easy access
 
 ## Features
 
-- User authentication (with JWT-based access and refresh tokens)
-- Role-based permissions for `Client`, `Warehouse`, and `Courier` users
-- Ingredient management with dynamic pricing based on preparation type
-- Recipe and mealkit management with the nutrition details
-- Order management including cart, checkout, processing and delivery
-- Integration with AWS S3 for image storage
+- **User authentication (with JWT-based access and refresh tokens)**: Secure login and registration system utilizing JSON Wen Tokens
+- **Role-based permissions**: Role-specific access for different user types, including `Client`, `Warehouse`, and `Courier`
+- **Ingredient Management**: Full CRUD (Create, Read, Update, Delete) operations for managing ingredients, with dynamic pricing based on freshness, preparation type, and supplier data.
+
+- **Recipe and Meal Kit Management**: Allows users to create, customize, and manage recipes and meal kits. Includes detailed nutritional information for each meal kit, such as calories, macronutrients, and dietary tags.
+
+- **Order Management**: Order management system with features including cart functionality, checkout process, order tracking, and delivery status updates.
+
+- **AWS S3 Integration for Image Storage**
+
+- **Customizable Nutrition and Dietary Preferences**: Users can set and update their dietary preferences and allergies.
+
+- **Community Engagement System**: Support for recipe sharing and social interactions, allowing users to like, and comment recipes. 
+
+- **Incentive and Reward System**: Logic for tracking recipe popularity and issuing rewards to users when their shared recipes reach a certain threshold of likes or orders.
+
+- **Secure Delivery and Pickup Management**: Manage secure pickups from designated campus locker locations. Uses QR codes or passcodes for locker access.
+
 
 ---
 
