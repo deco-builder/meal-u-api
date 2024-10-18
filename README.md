@@ -2,11 +2,9 @@
 
 MealU addresses the difficulty of providing university students with easy access to healthy, locally-sourced meals. Due to their hectic schedules, many students struggle to find time to prepare healthy meals and frequently rely on fast foods.
 
----
-
 ## Features
 
-- **User authentication (with JWT-based access and refresh tokens)**: Secure login and registration system utilizing JSON Wen Tokens
+- **User authentication (with JWT-based access and refresh tokens)**: Secure login and registration system utilizing JSON Web Tokens
 - **Role-based permissions**: Role-specific access for different user types, including `Client`, `Warehouse`, and `Courier`
 - **Ingredient Management**: Full CRUD (Create, Read, Update, Delete) operations for managing ingredients, with dynamic pricing based on freshness, preparation type, and supplier data.
 
@@ -24,9 +22,6 @@ MealU addresses the difficulty of providing university students with easy access
 
 - **Secure Delivery and Pickup Management**: Manage secure pickups from designated campus locker locations. Uses QR codes or passcodes for locker access.
 
-
----
-
 ## Tech Stack
 
 ### Backend
@@ -40,8 +35,6 @@ MealU addresses the difficulty of providing university students with easy access
 
 - Docker for containerization
 - AWS EC2 for hosting
-
----
 
 ## Installation
 
@@ -85,9 +78,6 @@ To install and set up the project locally, follow these steps:
     ```bash
     python manage.py runserver
     ```
-    
-
----
 
 ## Configuration
 
@@ -116,8 +106,6 @@ The project is set up to serve static files via S3:
 - `STATIC_URL`: Files like CSS, JS, and images are stored on S3.
 - `MEDIA_URL`: User-uploaded images are also stored in S3 buckets.
 
----
-
 ## Deployment
 
 To deploy the project on AWS EC2, follow these steps:
@@ -127,5 +115,3 @@ To deploy the project on AWS EC2, follow these steps:
 3. **Set up AWS S3** for media storage, and configure the app to use S3 for image uploads.
 4. **Set environment variables** for your application.
 5. **Run the Docker container** to serve the application.
-
----
