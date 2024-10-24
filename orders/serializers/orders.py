@@ -21,7 +21,7 @@ class DeliveryDetailsSerializer(serializers.ModelSerializer):
 
     class Meta:
         model = DeliveryDetails
-        fields = ['delivery_location', 'delivery_time', 'delivery_date']
+        fields = ['delivery_location', 'delivery_time', 'delivery_date', 'qr_code']
 
 class UserSerializer(serializers.ModelSerializer):
     class Meta:
