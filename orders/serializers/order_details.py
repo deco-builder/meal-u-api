@@ -75,7 +75,7 @@ class DeliveryDetailsSerializer(serializers.ModelSerializer):
 
     class Meta:
         model = DeliveryDetails
-        fields = ['delivery_location', 'delivery_time', 'delivery_date', 'locker_number']
+        fields = ['delivery_location', 'delivery_time', 'delivery_date', 'locker_number', 'qr_code']
 
 class OrderDetailSerializer(serializers.ModelSerializer):
     products = OrderProductSerializer(source='orderproducts_set', many=True)
